@@ -1,0 +1,45 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mobx/mobx.dart';
+
+part 'user.g.dart';
+
+@JsonSerializable()
+class User extends _User with _$User {
+  static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  static Map<String, dynamic> toJson(User user) => _$UserToJson(user);
+}
+
+abstract class _User with Store {
+  @observable
+  String uid;
+
+  @observable
+  String name;
+
+  @observable
+  String phoneNumber;
+
+  @observable
+  Role role;
+
+  @observable
+  String imgUrl;
+
+  @observable
+  String email;
+
+  @observable
+  String createdAt;
+
+  @observable
+  String lastLoggedIn;
+
+  @observable
+  String deviceToken;
+
+  @observable
+  String city;
+}
+
+enum Role { user, vendor }

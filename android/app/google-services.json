@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "679659662523",
+    "firebase_url": "https://bolsale-dcf99.firebaseio.com",
+    "project_id": "bolsale-dcf99",
+    "storage_bucket": "bolsale-dcf99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679659662523:android:e883b98a7d9e39d0d5cd9e",
+        "android_client_info": {
+          "package_name": "com.bolesale.main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679659662523-u71lm42am49hruedgv3iasuv1v03n9su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bolesale.main",
+            "certificate_hash": "26455d3cdbd5f33a36a238652b22859312aa4283"
+          }
+        },
+        {
+          "client_id": "679659662523-pg000ap1rjstq61nbnbtgdvhgjgs1ap9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bolesale.main",
+            "certificate_hash": "771a7c87cf1458863ad1c8894fe6ebd9ccab9291"
+          }
+        },
+        {
+          "client_id": "679659662523-gvi18goaglm2bdbiqjmagsqjpgpstv60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGOucbM1qULC7_j8Pe2qxpFpgq6JADpXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679659662523-gvi18goaglm2bdbiqjmagsqjpgpstv60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
