@@ -73,7 +73,6 @@ flutter:
     - assets/
     - assets/category_icons/
     - assets/bottom_navigation_bar_icons/
-    - assets/helping_hands_icon/
     - assets/more_options/
     
   # assets:

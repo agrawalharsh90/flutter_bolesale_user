@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 abstract class Styles {
   static const Color PRIMARY_COLOR = Color.fromRGBO(34, 96, 137, 1);
-  static const Color LIGHT_PRIMARY_COLOR = Color.fromRGBO(69, 146, 175, 1);
   static const Color SHADOW_COLOR = Color.fromRGBO(0, 0, 0, 0.16);
   static const Color WHITE_COLOR = Colors.white;
   static const Color BLACK_COLOR = Colors.black;

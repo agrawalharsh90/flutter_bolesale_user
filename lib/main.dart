@@ -14,17 +14,11 @@ import 'package:grocery/presentation/splash_page.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/construction_store.dart';
-import 'package:grocery/store/food_store.dart';
-import 'package:grocery/store/grocery_store.dart';
-import 'package:grocery/store/helping_hand_store.dart';
-import 'package:grocery/store/medical_store.dart';
 import 'package:grocery/store/offer_store.dart';
 import 'package:grocery/store/order_store.dart';
-import 'package:grocery/store/raw_non_veg_store.dart';
 import 'package:grocery/store/sweets_cakes_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/store/vegs_fruits_store.dart';
-import 'package:grocery/store/water_store.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
@@ -39,15 +33,9 @@ class Grocery extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<UserStore>.value(value: UserStore()),
-        Provider<MedicalStore>.value(value: MedicalStore()),
-        Provider<HelpingHandStore>.value(value: HelpingHandStore()),
-        Provider<GroceryStore>.value(value: GroceryStore()),
         Provider<ConstructionStore>.value(value: ConstructionStore()),
-        Provider<RawNonVegStore>.value(value: RawNonVegStore()),
         Provider<SweetsCakesStore>.value(value: SweetsCakesStore()),
         Provider<VegFuitsStore>.value(value: VegFuitsStore()),
-        Provider<WaterStore>.value(value: WaterStore()),
-        Provider<FoodStore>.value(value: FoodStore()),
         Provider<CartStore>.value(value: CartStore()),
         Provider<AddressStore>.value(value: AddressStore()),
         Provider<OrderStore>.value(value: OrderStore()),

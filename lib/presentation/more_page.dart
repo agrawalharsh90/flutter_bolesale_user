@@ -5,15 +5,9 @@ import 'package:grocery/presentation/splash_page.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/construction_store.dart';
-import 'package:grocery/store/food_store.dart';
-import 'package:grocery/store/grocery_store.dart';
-import 'package:grocery/store/helping_hand_store.dart';
-import 'package:grocery/store/medical_store.dart';
-import 'package:grocery/store/raw_non_veg_store.dart';
 import 'package:grocery/store/sweets_cakes_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/store/vegs_fruits_store.dart';
-import 'package:grocery/store/water_store.dart';
 import 'package:grocery/utils/string_value.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
@@ -68,14 +62,8 @@ class _MorePageState extends State<MorePage> {
     Provider.of<UserStore>(context).logout();
     Provider.of<CartStore>(context).clearStore();
     Provider.of<ConstructionStore>(context).clearStore();
-    Provider.of<FoodStore>(context).clearStore();
-    Provider.of<GroceryStore>(context).clearStore();
-    Provider.of<HelpingHandStore>(context).clearStore();
-    Provider.of<MedicalStore>(context).clearStore();
-    Provider.of<RawNonVegStore>(context).clearStore();
     Provider.of<SweetsCakesStore>(context).clearStore();
     Provider.of<VegFuitsStore>(context).clearStore();
-    Provider.of<WaterStore>(context).clearStore();
     Provider.of<AddressStore>(context).clearStore();
 
     Navigator.pushNamedAndRemoveUntil(

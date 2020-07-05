@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
               controller: scrollController,
               scrollDirection: Axis.vertical,
               gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               shrinkWrap: true,
               itemCount: StringValue.CATEGORY_LIST.length,
               itemBuilder: (BuildContext context, index) {
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                   imgUrl: StringValue.CATEGORY_LIST[index]['icon'],
                   horizontalMargin: 10,
                   verticalMargin: 0,
-                  width: 90,
+                  width: 140,
                   text: StringValue.CATEGORY_LIST[index]['title'],
                   boxFit: BoxFit.contain,
                   textAlign: TextAlign.center,

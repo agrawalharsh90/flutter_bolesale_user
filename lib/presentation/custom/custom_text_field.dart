@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
       this.inputFormatters,
       this.color = Styles.WHITE_COLOR,
       this.borderColor = Styles.PRIMARY_COLOR,
-      this.titleColor = Styles.WHITE_COLOR});
+      this.titleColor = Styles.BLACK_COLOR});
 
   final FocusNode focusNode;
   final FormFieldValidator<String> validators;

@@ -26,7 +26,7 @@ abstract class _ConstructionStore with Store {
       isLoading = true;
       try {
         Map<String, List<Product>> response = await getProductService
-            .getProductList(collectionName: 'construction_material');
+            .getProductList(collectionName: 'clothes');
         print("reponse in construction store");
         print(response);
         constructionMap.addAll(response);

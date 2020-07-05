@@ -35,7 +35,6 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       builder: (UserStore userStore, BuildContext context) {
         return CustomScaffold(
             context: context,
-            backgroundColor: Styles.LIGHT_PRIMARY_COLOR,
             bottomImage: userStore.isCodeSent || userStore.isLoggedIn
                 ? null
                 : Styles.PHONE_AUTH_BG,
@@ -122,7 +121,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
             alignment: Alignment.centerLeft,
             child: Text(
               'Enter OTP',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 20),
               textAlign: TextAlign.left,
             ),
           ),
@@ -156,7 +155,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                   alignment: MainAxisAlignment.end,
                   text: 'Resend OTP?',
                   isForwardArrow: false,
-                  textColor: Colors.white,
+                  textColor: Styles.PRIMARY_COLOR,
                   buttonColor: Styles.TRANSPARENT_COLOR,
                 ),
           SizedBox(
@@ -270,30 +269,30 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
   }
 
   Widget logoContainer() {
-    return Container(
-      height: ScreenUtil.instance.setHeight(210),
-      width: ScreenUtil.instance.setWidth(ScreenUtil.instance.width),
-      decoration: BoxDecoration(
-        color: Styles.PRIMARY_COLOR,
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(ScreenUtil.instance.setWidth(5)),
             bottomRight: Radius.circular(ScreenUtil.instance.setWidth(5))),
-        boxShadow: kElevationToShadow[4],
       ),
-      child: Center(
-        child: Container(
-          height: ScreenUtil.instance.setWidth(100),
-          width: ScreenUtil.instance.setWidth(100),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: kElevationToShadow[2],
-              shape: BoxShape.circle),
-          child: ClipRRect(
-            borderRadius:
-                BorderRadius.circular(ScreenUtil.instance.setWidth(100)),
-            child: Image.asset(
-              Styles.APP_LOGO,
-              fit: BoxFit.contain,
+      child: Container(
+        height: ScreenUtil.instance.setHeight(280),
+        child: Center(
+          child: Container(
+            height: ScreenUtil.instance.setWidth(120),
+            width: ScreenUtil.instance.setWidth(120),
+            decoration: BoxDecoration(
+                color: Styles.WHITE_COLOR,
+                boxShadow: kElevationToShadow[2],
+                shape: BoxShape.circle),
+            child: ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(ScreenUtil.instance.setWidth(100)),
+              child: Image.asset(
+                Styles.APP_LOGO,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),

@@ -6,8 +6,6 @@ import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/construction_store.dart';
-import 'package:grocery/store/grocery_store.dart';
-import 'package:grocery/store/medical_store.dart';
 import 'package:grocery/store/sweets_cakes_store.dart';
 import 'package:grocery/store/vegs_fruits_store.dart';
 import 'package:grocery/utils/globals.dart';
@@ -34,20 +32,16 @@ class _SearchPageState extends State<SearchPage> {
           setState(() {
             isSearching = false;
           });
-          Provider.of<GroceryStore>(context).clearSearchingStore();
           Provider.of<SweetsCakesStore>(context).clearSearchingStore();
           Provider.of<VegFuitsStore>(context).clearSearchingStore();
           Provider.of<ConstructionStore>(context).clearSearchingStore();
-          Provider.of<MedicalStore>(context).clearSearchingStore();
         } else {
           setState(() {
             isSearching = true;
           });
-          Provider.of<GroceryStore>(context).onSearch(searchString: value);
           Provider.of<SweetsCakesStore>(context).onSearch(searchString: value);
           Provider.of<VegFuitsStore>(context).onSearch(searchString: value);
           Provider.of<ConstructionStore>(context).onSearch(searchString: value);
-          Provider.of<MedicalStore>(context).onSearch(searchString: value);
         }
       },
       body: !isSearching
@@ -60,12 +54,6 @@ class _SearchPageState extends State<SearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  getTitleTex('Groceries'),
-                  StoreObserver<GroceryStore>(
-                    builder: (GroceryStore groceryStore, BuildContext context) {
-                      return getGrocerySearchingWidget(groceryStore);
-                    },
-                  ),
                   getTitleTex('Vegetable And Fruits'),
                   StoreObserver<VegFuitsStore>(
                     builder:
@@ -87,62 +75,10 @@ class _SearchPageState extends State<SearchPage> {
                       return getConstructionSearchingWidget(constructionStore);
                     },
                   ),
-                  getTitleTex('Medicines'),
-                  StoreObserver<MedicalStore>(
-                    builder: (MedicalStore medicalStore, BuildContext context) {
-                      return getMedicineSearchWidget(medicalStore);
-                    },
-                  ),
                 ],
               ),
             ),
     );
-  }
-
-  getGrocerySearchingWidget(GroceryStore groceryStore) {
-    if (groceryStore.isSearching)
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
-        ),
-      );
-    if (groceryStore.filterGroceryMap.isEmpty)
-      return Center(
-        child: getTitleTex('No items found', fontSize: 12),
-      );
-    return GridView.builder(
-        scrollDirection: Axis.vertical,
-        controller: scrollController,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        shrinkWrap: true,
-        itemCount: groceryStore.filterGroceryMap.length,
-        itemBuilder: (BuildContext context, index) {
-          return ImageCard(
-            onTap: () => customProductDialog(
-                context: context,
-                product: groceryStore.filterGroceryMap.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      groceryStore.filterGroceryMap.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    "Groceries": {product.name: product}
-                  });
-                }),
-            imgUrl:
-                groceryStore.filterGroceryMap.values.toList()[index].imageUrl,
-            height: 90,
-            width: 90,
-            imagePadding: 0,
-            verticalMargin: 0,
-            textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
-            text: groceryStore.filterGroceryMap.values.toList()[index].name,
-            boxFit: BoxFit.contain,
-          );
-        });
   }
 
   getVegFruitsSearchingWidget(VegFuitsStore vegFuitsStore) {
@@ -288,53 +224,6 @@ class _SearchPageState extends State<SearchPage> {
             text: constructionStore.filterConstructionMap.values
                 .toList()[index]
                 .name,
-            boxFit: BoxFit.contain,
-          );
-        });
-  }
-
-  getMedicineSearchWidget(MedicalStore medicalStore) {
-    if (medicalStore.isSearching)
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
-        ),
-      );
-    if (medicalStore.filtermedicinesData.isEmpty)
-      return Center(
-        child: getTitleTex('No items found', fontSize: 12),
-      );
-    return GridView.builder(
-        scrollDirection: Axis.vertical,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        shrinkWrap: true,
-        itemCount: medicalStore.filtermedicinesData.length,
-        itemBuilder: (BuildContext context, index) {
-          return ImageCard(
-            onTap: () => customProductDialog(
-                context: context,
-                product:
-                    medicalStore.filtermedicinesData.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      medicalStore.filtermedicinesData.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    "Medicines": {product.name: product}
-                  });
-                }),
-            imgUrl: medicalStore.filtermedicinesData.values
-                .toList()[index]
-                .imageUrl,
-            height: 90,
-            width: 90,
-            imagePadding: 0,
-            verticalMargin: 0,
-            textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
-            text: medicalStore.filtermedicinesData.values.toList()[index].name,
             boxFit: BoxFit.contain,
           );
         });
