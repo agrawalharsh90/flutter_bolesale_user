@@ -2,11 +2,11 @@ import 'package:grocery/model/product.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:mobx/mobx.dart';
 
-part 'vegs_fruits_store.g.dart';
+part 'clothes_store.g.dart';
 
-class VegFuitsStore = _VegFuitsStore with _$VegFuitsStore;
+class ClothesStore = _ClothesStore with _$ClothesStore;
 
-abstract class _VegFuitsStore with Store {
+abstract class _ClothesStore with Store {
   @observable
   bool isLoading = false;
 
@@ -14,27 +14,26 @@ abstract class _VegFuitsStore with Store {
   bool isSearching = false;
 
   @observable
-  ObservableMap<String, Product> filterVegFruitsList =
+  ObservableMap<String, List<Product>> productMap =
+      ObservableMap<String, List<Product>>();
+  @observable
+  ObservableMap<String, Product> filterProductMap =
       ObservableMap<String, Product>();
 
-  @observable
-  ObservableMap<String, List<Product>> vegFruitsList =
-      ObservableMap<String, List<Product>>();
-
   @action
-  getVegFruitsList() async {
-    if (vegFruitsList.isEmpty) {
+  fetchProductMap() async {
+    if (productMap.isEmpty) {
       isLoading = true;
       try {
         Map<String, List<Product>> response = await getProductService
-            .getProductList(collectionName: 'veg_fruits');
-        print("reponse in veg fruits store");
+            .getProductList(collectionName: 'clothes');
+        print("reponse in clothes store");
         print(response);
-        vegFruitsList.addAll(response);
+        productMap.addAll(response);
         isLoading = false;
       } catch (e) {
         isLoading = false;
-        print("error in veg fruits store");
+        print("error in clothes store");
         print(e);
         throw e;
       }
@@ -44,12 +43,12 @@ abstract class _VegFuitsStore with Store {
   @action
   onSearch({String searchString}) async {
     isSearching = true;
-    filterVegFruitsList = ObservableMap<String, Product>();
+    filterProductMap = ObservableMap<String, Product>();
     List<Product> dataList = List();
-    vegFruitsList.forEach((key, value) {
+    productMap.forEach((key, value) {
       if (key.toLowerCase().contains(searchString.toLowerCase())) {
         value.forEach((element) {
-          filterVegFruitsList.addAll({element.name: element});
+          filterProductMap.addAll({element.name: element});
         });
       } else
         dataList.addAll(value);
@@ -57,7 +56,7 @@ abstract class _VegFuitsStore with Store {
 
     dataList.forEach((element) {
       if (element.name.toLowerCase().contains(searchString.toLowerCase()))
-        filterVegFruitsList.addAll({element.name: element});
+        filterProductMap.addAll({element.name: element});
     });
     isSearching = false;
   }
@@ -65,14 +64,14 @@ abstract class _VegFuitsStore with Store {
   @action
   clearSearchingStore() {
     isSearching = false;
-    filterVegFruitsList = ObservableMap<String, Product>();
+    filterProductMap = ObservableMap<String, Product>();
   }
 
   @action
   clearStore() {
     isLoading = false;
-    vegFruitsList = ObservableMap<String, List<Product>>();
     isSearching = false;
-    filterVegFruitsList = ObservableMap<String, Product>();
+    productMap = ObservableMap<String, List<Product>>();
+    filterProductMap = ObservableMap<String, Product>();
   }
 }

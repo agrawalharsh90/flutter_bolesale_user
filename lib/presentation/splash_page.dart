@@ -5,7 +5,6 @@ import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/home_page.dart';
 import 'package:grocery/presentation/phone_auth_page.dart';
 import 'package:grocery/store/address_store.dart';
-import 'package:grocery/store/construction_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
@@ -39,7 +38,6 @@ class SplashPage extends StatelessWidget {
       print("logged in user");
       print(User.toJson(loggedInUser));
       await Provider.of<UserStore>(context).setLoggedIn(loggedInUser);
-      await Provider.of<ConstructionStore>(context).getConstructionList();
       bool locationPermission = await _locationPermission();
       if (locationPermission)
         await Provider.of<AddressStore>(context).getAddress();

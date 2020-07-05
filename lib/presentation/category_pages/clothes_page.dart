@@ -6,72 +6,74 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/construction_store.dart';
+import 'package:grocery/store/clothes_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
-class ConstructionPage extends StatefulWidget {
-  static const String routeNamed = 'ConstructionPage';
+class ClothesPage extends StatefulWidget {
+  static const String routeNamed = 'ClothesPage';
 
   @override
-  _ConstructionPageState createState() => _ConstructionPageState();
+  _ClothesPageState createState() => _ClothesPageState();
 }
 
-class _ConstructionPageState extends State<ConstructionPage> {
+class _ClothesPageState extends State<ClothesPage> {
   bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Construction Materials',
+      appBarTitle: 'Clothes',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
           setState(() {
             isSearching = false;
           });
-          Provider.of<ConstructionStore>(context).clearSearchingStore();
+          Provider.of<ClothesStore>(context).clearSearchingStore();
         } else {
           setState(() {
             isSearching = true;
           });
-          Provider.of<ConstructionStore>(context).onSearch(searchString: value);
+          Provider.of<ClothesStore>(context).onSearch(searchString: value);
         }
       },
       floatingActionButton: CustomFab(),
-      body: StoreObserver<ConstructionStore>(
-        builder: (ConstructionStore constructionStore, BuildContext context) {
+      body: StoreObserver<ClothesStore>(
+        builder: (ClothesStore clothesStore, BuildContext context) {
+          if(clothesStore.productMap==null||clothesStore.productMap.isEmpty)
+            clothesStore.fetchProductMap();
           if (isSearching)
-            return getConstructionSearchingWidget(constructionStore);
+            return getConstructionSearchingWidget(clothesStore);
           else
-            return dataWidget(constructionStore);
+            return dataWidget(clothesStore);
         },
       ),
     );
   }
 
-  dataWidget(ConstructionStore constructionStore) {
-    if (constructionStore.isLoading)
+  dataWidget(ClothesStore clothesStore) {
+    if (clothesStore.isLoading)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (constructionStore.constructionMap.isEmpty)
+    if (clothesStore.productMap.isEmpty)
       return Center(
-        child: getTitleTex('Items Added Soon'),
+        child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
-        itemCount: constructionStore.constructionMap.length,
+        itemCount: clothesStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
-              constructionStore.constructionMap.keys.toList()[index],
+              clothesStore.productMap.keys.toList()[index],
               130,
               90,
               1,
-              constructionStore.constructionMap[
-                  constructionStore.constructionMap.keys.toList()[index]]);
+              clothesStore.productMap[
+                  clothesStore.productMap.keys.toList()[index]]);
         });
   }
 
@@ -146,14 +148,14 @@ class _ConstructionPageState extends State<ConstructionPage> {
     );
   }
 
-  getConstructionSearchingWidget(ConstructionStore constructionStore) {
-    if (constructionStore.isSearching)
+  getConstructionSearchingWidget(ClothesStore clothesStore) {
+    if (clothesStore.isSearching)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (constructionStore.filterConstructionMap.isEmpty)
+    if (clothesStore.filterProductMap.isEmpty)
       return Center(
         child: getTitleTex('No items found'),
       );
@@ -162,24 +164,24 @@ class _ConstructionPageState extends State<ConstructionPage> {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
-        itemCount: constructionStore.filterConstructionMap.length,
+        itemCount: clothesStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => customProductDialog(
                 context: context,
-                product: constructionStore.filterConstructionMap.values
+                product: clothesStore.filterProductMap.values
                     .toList()[index],
                 onAdd: (value) {
                   print("on Add" + value.toString());
-                  Product product = constructionStore
-                      .filterConstructionMap.values
+                  Product product = clothesStore
+                      .filterProductMap.values
                       .toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
-                    "Construction Material": {product.name: product}
+                    "Clothes": {product.name: product}
                   });
                 }),
-            imgUrl: constructionStore.filterConstructionMap.values
+            imgUrl: clothesStore.filterProductMap.values
                 .toList()[index]
                 .imageUrl,
             height: 90,
@@ -188,7 +190,7 @@ class _ConstructionPageState extends State<ConstructionPage> {
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
             shownForwardArrow: false,
-            text: constructionStore.filterConstructionMap.values
+            text: clothesStore.filterProductMap.values
                 .toList()[index]
                 .name,
             boxFit: BoxFit.contain,

@@ -34,12 +34,10 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
     return StoreObserver<UserStore>(
       builder: (UserStore userStore, BuildContext context) {
         return CustomScaffold(
+            resizeToAvoidBottomInset: true,
+            resizeToAvoidBottomPadding: true,
             context: context,
-            bottomImage: userStore.isCodeSent || userStore.isLoggedIn
-                ? null
-                : Styles.PHONE_AUTH_BG,
             body: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 children: <Widget>[
                   logoContainer(),
@@ -159,7 +157,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                   buttonColor: Styles.TRANSPARENT_COLOR,
                 ),
           SizedBox(
-            height: ScreenUtil.instance.setHeight(200),
+            height: ScreenUtil.instance.setHeight(120),
           ),
           CustomButton(
             isLoading: userStore.isLoading,

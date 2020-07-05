@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/utils/styles.dart';
 
 class CustomScaffold extends StatelessWidget {
-  final String bottomImage;
   final Color backgroundColor;
   final Widget body;
-  final double imageWidth;
   final BuildContext context;
   final String appBarTitle;
   final Function onBackPress;
@@ -18,12 +16,10 @@ class CustomScaffold extends StatelessWidget {
   CustomScaffold({
     @required this.body,
     @required this.context,
-    this.bottomImage,
     this.appBarTitle,
     this.onBackPress,
     this.floatingActionButton,
     this.backgroundColor = Styles.WHITE_COLOR,
-    this.imageWidth = 300,
     this.resizeToAvoidBottomInset = false,
     this.resizeToAvoidBottomPadding = false,
     this.showbackArrow = true,
@@ -69,32 +65,7 @@ class CustomScaffold extends StatelessWidget {
                 ),
               )
             : null,
-        body: getBody(),
-      ),
-    );
-  }
-
-  getBody() {
-    return (bottomImage == null) ? body : getBodyWithImage();
-  }
-
-  getBodyWithImage() {
-    return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      child: Container(
-        height: ScreenUtil.instance.setHeight(ScreenUtil.instance.height),
-        child: Column(
-          children: <Widget>[
-            body,
-            Expanded(child: SizedBox()),
-            Container(
-              child: Image.asset(
-                bottomImage,
-                width: ScreenUtil.instance.setWidth(imageWidth),
-              ),
-            ),
-          ],
-        ),
+        body: body,
       ),
     );
   }
