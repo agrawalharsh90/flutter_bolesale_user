@@ -97,7 +97,6 @@ abstract class _UserStore with Store {
           folderName: 'user_profile', fileName: user.uid, file: imageFile);
       user.imgUrl = url;
     }
-    if (user.city == null) user.city = 'Patna';
     await userService.updateUser(user: user);
     await preferenceService.setAuthUser(user);
     loggedInUser = user;
@@ -108,7 +107,6 @@ abstract class _UserStore with Store {
   createUser(User user) async {
     isLoading = true;
     user = await userService.setUser(user: user);
-    if (user.city == null) user.city = 'Patna';
     setLoggedIn(user);
     isLoading = false;
   }

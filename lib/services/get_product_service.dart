@@ -17,7 +17,7 @@ class GetProductService {
     User user = await preferenceService.getAuthUser();
 
     QuerySnapshot querySnapshot = await _firestore
-        .collection('/${user.city}/categories/$collectionName')
+        .collection('/categories/$collectionName')
         .getDocuments();
     Map<String, List<Product>> productList = Map<String, List<Product>>();
     querySnapshot.documents.forEach((DocumentSnapshot documentSnapshot) {

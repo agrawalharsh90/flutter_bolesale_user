@@ -232,23 +232,6 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                     return "Enter Valid Email";
                   },
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: ScreenUtil.instance.setHeight(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil.instance.setWidth(25)),
-                        child: Text('Select City',
-                            style: TextStyle(
-                                fontSize: 16, color: Styles.WHITE_COLOR)),
-                      ),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: ScreenUtil.instance.setHeight(80),
                 ),

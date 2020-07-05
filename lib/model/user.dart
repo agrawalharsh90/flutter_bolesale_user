@@ -21,9 +21,6 @@ abstract class _User with Store {
   String phoneNumber;
 
   @observable
-  Role role;
-
-  @observable
   String imgUrl;
 
   @observable
@@ -37,9 +34,4 @@ abstract class _User with Store {
 
   @observable
   String deviceToken;
-
-  @observable
-  String city;
 }
-
-enum Role { user, vendor }

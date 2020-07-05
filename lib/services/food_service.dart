@@ -16,7 +16,7 @@ class FoodService {
     User user = await preferenceService.getAuthUser();
 
     QuerySnapshot querySnapshot = await _firestore
-        .collection('/${user.city}/categories/food')
+        .collection('/categories/food')
         .getDocuments();
     Map<String, FoodRestaurant> restaurantList = Map<String, FoodRestaurant>();
     querySnapshot.documents.forEach((DocumentSnapshot documentSnapshot) {

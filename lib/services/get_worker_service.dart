@@ -18,7 +18,7 @@ class GetWorkerService {
       String documentId}) async {
     User user = await preferenceService.getAuthUser();
     QuerySnapshot querySnapshot = await _firestore
-        .collection('/${user.city}/categories/$collectionName')
+        .collection(' /categories/$collectionName')
         .getDocuments();
     Map<String, List<Vendor>> helpingHands = Map<String, List<Vendor>>();
     querySnapshot.documents.forEach((DocumentSnapshot documentSnapshot) {
@@ -40,7 +40,7 @@ class GetWorkerService {
     User user = await preferenceService.getAuthUser();
 
     DocumentSnapshot documentSnapshot = await _firestore
-        .collection('/${user.city}/categories/$collectionName')
+        .collection('/categories/$collectionName')
         .document(documentId)
         .get();
     Map<String, Vendor> vendorsMap = Map<String, Vendor>();

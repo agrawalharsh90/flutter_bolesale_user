@@ -1,20 +1,8 @@
 import 'package:grocery/presentation/category_pages/construction_page.dart';
-import 'package:grocery/presentation/category_pages/food/food_page.dart';
-import 'package:grocery/presentation/category_pages/groceries_page.dart';
-import 'package:grocery/presentation/category_pages/helping_hand/helping_hands_page.dart';
-import 'package:grocery/presentation/category_pages/medical/medical_page.dart';
-import 'package:grocery/presentation/category_pages/raw_non_veg/raw_non_veg.dart';
-import 'package:grocery/presentation/category_pages/sweet_cake_page.dart';
-import 'package:grocery/presentation/category_pages/veg_fruits_page.dart';
-import 'package:grocery/presentation/category_pages/water/water.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/combo_history_page.dart';
-import 'package:grocery/presentation/history_pages/grocery_list.dart';
-import 'package:grocery/presentation/history_pages/helping_hand_history.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
-import 'package:grocery/presentation/history_pages/medical_history_page.dart';
-import 'package:grocery/presentation/history_pages/water_history.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/utils/styles.dart';
 
@@ -34,67 +22,46 @@ abstract class StringValue {
   //Home Page
   static const List CATEGORY_LIST = [
     {
-      'title': 'Groceries',
+      'title': 'Clothes',
       'icon': Styles.HOME_GROCERIES_ICON,
-      'route': GroceriesPage.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Food',
+      'title': 'Essentials',
       'icon': Styles.HOME_FOOD_ICON,
-      'route': FoodPage.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Sweets And Cakes',
+      'title': 'Fashion',
       'icon': Styles.HOME_SWEETS_AND_CAKES_ICON,
-      'route': SweetCakePage.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Vegetables And Fruits',
+      'title': 'Footwear',
       'icon': Styles.HOME_VEGITABLE_FRUITS_ICON,
-      'route': VegFruitsPage.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Water',
+      'title': 'Kitchenware',
       'icon': Styles.HOME_WATER_ICON,
-      'route': WaterPage.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Raw Non-Veg',
+      'title': 'Mobile',
       'icon': Styles.HOME_RAW_NON_VEG_ICON,
-      'route': RawNonVeg.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Helping Hands',
+      'title': 'Sports',
       'icon': Styles.HOME_HELPING_HANDS_ICON,
-      'route': HelpingHands.routeNamed
+      'route': ConstructionPage.routeNamed
     },
     {
-      'title': 'Medical',
+      'title': 'Stationary',
       'icon': Styles.HOME_MEDICAL_ICON,
-      'route': MedicalPage.routeNamed
-    },
-    {
-      'title': 'Construction Material',
-      'icon': Styles.HOME_CONSTRUCTION_MATERIAL_ICON,
       'route': ConstructionPage.routeNamed
     },
   ];
-
-  //Helping Hands
-  static const List HELPING_HAND_CATEGORY = [
-    {'title': 'Electrician', 'icon': Styles.HH_ELECTRICIANS_ICONS},
-    {'title': 'Plumber', 'icon': Styles.HH_PLUMBER_ICONS},
-    {'title': 'Water Filter Expert', 'icon': Styles.HH_WATER_FILTER_ICONS},
-    {'title': 'Carpenter', 'icon': Styles.HH_CARPENTER_ICONS},
-    {'title': 'Party Decorator', 'icon': Styles.HH_PARTY_DECORATOR_ICONS},
-    {'title': 'Trainers', 'icon': Styles.HH_TRAINER_ICONS},
-    {'title': 'Teachers', 'icon': Styles.HH_TEACHER_ICONS},
-    {'title': 'Car Repair', 'icon': Styles.HH_CAR_REPAIR_ICONS},
-    {'title': 'Beauticians', 'icon': Styles.HH_BEAUTICIANS_ICONS},
-    {'title': 'Mason', 'icon': Styles.HH_MASON_ICONS},
-    {'title': 'Salon', 'icon': Styles.HH_SALON_ICONS},
-  ];
-
   static const String MORE_OPTIONS_TITLE = "More Options";
   static const List<Map<String, dynamic>> MORE_OPTIONS_LIST = [
     {
@@ -143,26 +110,8 @@ abstract class StringValue {
   ];
   static const List<Map<String, dynamic>> HISTORY_OPTIONS_LIST = [
     {
-      'title': 'Medical History',
-      'route': MedicalHistoryPage.routeNamed,
-    },
-    {
-      'title': 'Helping Hands History',
-      'route': HelpingHandHistoryPage.routeNamed,
-    },
-    {
-      'title': 'Water History',
-      'route': WaterHistoryPage.routeNamed,
-    },
-    {
-      'title': 'Grocery List',
-      'route': GroceryListHistoryPage.routeNamed,
-    },
-    {
       'title': 'Other History',
       'route': ComboHistoryPage.routeNamed,
     },
   ];
-  static const String REGISTER_AS_HELPER = "Register as Helper";
-  static const String REGISTER_AS_VENDOR = "Register as Vendor";
 }

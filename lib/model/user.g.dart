@@ -11,64 +11,23 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..uid = json['uid'] as String
     ..name = json['name'] as String
     ..phoneNumber = json['phoneNumber'] as String
-    ..role = _$enumDecodeNullable(_$RoleEnumMap, json['role'])
     ..imgUrl = json['imgUrl'] as String
     ..email = json['email'] as String
     ..createdAt = json['createdAt'] as String
     ..lastLoggedIn = json['lastLoggedIn'] as String
-    ..deviceToken = json['deviceToken'] as String
-    ..city = json['city'] as String;
+    ..deviceToken = json['deviceToken'] as String;
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'uid': instance.uid,
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
-      'role': _$RoleEnumMap[instance.role],
       'imgUrl': instance.imgUrl,
       'email': instance.email,
       'createdAt': instance.createdAt,
       'lastLoggedIn': instance.lastLoggedIn,
       'deviceToken': instance.deviceToken,
-      'city': instance.city,
     };
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$RoleEnumMap = {
-  Role.user: 'user',
-  Role.vendor: 'vendor',
-};
 
 // **************************************************************************
 // StoreGenerator
@@ -126,23 +85,6 @@ mixin _$User on _User, Store {
       super.phoneNumber = value;
       _$phoneNumberAtom.reportChanged();
     }, _$phoneNumberAtom, name: '${_$phoneNumberAtom.name}_set');
-  }
-
-  final _$roleAtom = Atom(name: '_User.role');
-
-  @override
-  Role get role {
-    _$roleAtom.context.enforceReadPolicy(_$roleAtom);
-    _$roleAtom.reportObserved();
-    return super.role;
-  }
-
-  @override
-  set role(Role value) {
-    _$roleAtom.context.conditionallyRunInAction(() {
-      super.role = value;
-      _$roleAtom.reportChanged();
-    }, _$roleAtom, name: '${_$roleAtom.name}_set');
   }
 
   final _$imgUrlAtom = Atom(name: '_User.imgUrl');
@@ -228,22 +170,5 @@ mixin _$User on _User, Store {
       super.deviceToken = value;
       _$deviceTokenAtom.reportChanged();
     }, _$deviceTokenAtom, name: '${_$deviceTokenAtom.name}_set');
-  }
-
-  final _$cityAtom = Atom(name: '_User.city');
-
-  @override
-  String get city {
-    _$cityAtom.context.enforceReadPolicy(_$cityAtom);
-    _$cityAtom.reportObserved();
-    return super.city;
-  }
-
-  @override
-  set city(String value) {
-    _$cityAtom.context.conditionallyRunInAction(() {
-      super.city = value;
-      _$cityAtom.reportChanged();
-    }, _$cityAtom, name: '${_$cityAtom.name}_set');
   }
 }

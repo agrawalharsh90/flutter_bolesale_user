@@ -1,31 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery/presentation/add_list.dart';
 import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/basket_page.dart';
-import 'package:grocery/presentation/card_payment.dart';
 import 'package:grocery/presentation/category_pages/construction_page.dart';
-import 'package:grocery/presentation/category_pages/food/food_page.dart';
-import 'package:grocery/presentation/category_pages/food/order_starter.dart';
-import 'package:grocery/presentation/category_pages/groceries_page.dart';
-import 'package:grocery/presentation/category_pages/helping_hand/helping_hand_type_page.dart';
-import 'package:grocery/presentation/category_pages/helping_hand/helping_hands_page.dart';
-import 'package:grocery/presentation/category_pages/medical/medical_page.dart';
-import 'package:grocery/presentation/category_pages/medical/order_medicine.dart';
-import 'package:grocery/presentation/category_pages/medical/upload_prescription.dart';
-import 'package:grocery/presentation/category_pages/raw_non_veg/raw_non_veg.dart';
-import 'package:grocery/presentation/category_pages/sweet_cake_page.dart';
-import 'package:grocery/presentation/category_pages/veg_fruits_page.dart';
-import 'package:grocery/presentation/category_pages/water/water.dart';
-import 'package:grocery/presentation/category_pages/water/waterVendors.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/combo_history_page.dart';
-import 'package:grocery/presentation/history_pages/grocery_list.dart';
-import 'package:grocery/presentation/history_pages/helping_hand_history.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
-import 'package:grocery/presentation/history_pages/medical_history_page.dart';
-import 'package:grocery/presentation/history_pages/water_history.dart';
 import 'package:grocery/presentation/home_page.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/presentation/phone_auth_page.dart';
@@ -81,28 +62,10 @@ class Grocery extends StatelessWidget {
         routes: {
           SplashPage.routeNamed: (BuildContext context) => SplashPage(),
           HomePage.routeNamed: (BuildContext context) => HomePage(),
-          FoodPage.routeNamed: (BuildContext context) => FoodPage(),
-          HelpingHands.routeNamed: (BuildContext context) => HelpingHands(),
-          HelpingHandTypePage.routeNamed: (BuildContext context) =>
-              HelpingHandTypePage(),
-          UploadPrescription.routeNamed: (BuildContext context) =>
-              UploadPrescription(),
-          OrderMedicine.routeNamed: (BuildContext context) => OrderMedicine(),
-          OrderStarter.routeNamed: (BuildContext context) => OrderStarter(),
-          MedicalPage.routeNamed: (BuildContext context) => MedicalPage(),
-          Cardpayment.routeNamed: (BuildContext context) => Cardpayment(),
-          GroceriesPage.routeNamed: (BuildContext context) => GroceriesPage(),
-          WaterPage.routeNamed: (BuildContext context) => WaterPage(),
           MyAccount.routeNamed: (BuildContext context) => MyAccount(),
-          AddList.routeNamed: (BuildContext context) => AddList(),
           BasketPage.routeNamed: (BuildContext context) => BasketPage(),
-          RawNonVeg.routeNamed: (BuildContext context) => RawNonVeg(),
           ConstructionPage.routeNamed: (BuildContext context) =>
               ConstructionPage(),
-          SweetCakePage.routeNamed: (BuildContext context) => SweetCakePage(),
-          VegFruitsPage.routeNamed: (BuildContext context) => VegFruitsPage(),
-          WaterVendorsPage.routeNamed: (BuildContext context) =>
-              WaterVendorsPage(),
           PhoneAuthPage.routeNamed: (BuildContext context) =>
               Scaffold(body: PhoneAuthPage()),
           AddressEditPage.routeNamed: (BuildContext context) => Scaffold(
@@ -111,14 +74,6 @@ class Grocery extends StatelessWidget {
           HistoryPage.routeNamed: (BuildContext context) => HistoryPage(),
           WebviewScaffold.routeNamed: (BuildContext context) =>
               WebviewScaffold(),
-          MedicalHistoryPage.routeNamed: (BuildContext context) =>
-              MedicalHistoryPage(),
-          HelpingHandHistoryPage.routeNamed: (BuildContext context) =>
-              HelpingHandHistoryPage(),
-          WaterHistoryPage.routeNamed: (BuildContext context) =>
-              WaterHistoryPage(),
-          GroceryListHistoryPage.routeNamed: (BuildContext context) =>
-              GroceryListHistoryPage(),
           ComboHistoryPage.routeNamed: (BuildContext context) =>
               ComboHistoryPage(),
           ContactUs.routeNamed: (BuildContext context) => ContactUs(),

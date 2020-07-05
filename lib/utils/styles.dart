@@ -14,8 +14,6 @@ abstract class Styles {
 
   // Assets
   static const String APP_LOGO = 'assets/app_logo.png';
-  static const String USERS_ICON = 'assets/users_icon.png';
-  static const String VENDORS_ICON = 'assets/vendors_icon.png';
   static const String FORWARD_ARROW = 'assets/forward_arrow.png';
   static const String PHONE_AUTH_BG = 'assets/phone_auth_bg.png';
   static const String FAB_CART_ICON = 'assets/fab_cart_icon.png';
