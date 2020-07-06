@@ -267,32 +267,13 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
   }
 
   Widget logoContainer() {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(ScreenUtil.instance.setWidth(5)),
-            bottomRight: Radius.circular(ScreenUtil.instance.setWidth(5))),
-      ),
-      child: Container(
-        height: ScreenUtil.instance.setHeight(280),
-        child: Center(
-          child: Container(
-            height: ScreenUtil.instance.setWidth(120),
-            width: ScreenUtil.instance.setWidth(120),
-            decoration: BoxDecoration(
-                color: Styles.WHITE_COLOR,
-                boxShadow: kElevationToShadow[2],
-                shape: BoxShape.circle),
-            child: ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(ScreenUtil.instance.setWidth(100)),
-              child: Image.asset(
-                Styles.APP_LOGO,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
+    return Container(
+      height: ScreenUtil.instance.setHeight(280),
+      child: Center(
+        child: Image.asset(
+          Styles.APP_LOGO,
+          height: ScreenUtil.instance.setWidth(120),
+          fit: BoxFit.contain,
         ),
       ),
     );

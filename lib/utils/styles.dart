@@ -36,46 +36,17 @@ abstract class Styles {
       'assets/bottom_navigation_bar_icons/more_selected_icon.png';
 
   // Home Page Category Icons
-  static const String HOME_FOOD_ICON = 'assets/category_icons/food_icon.png';
-  static const String HOME_HELPING_HANDS_ICON =
-      'assets/category_icons/sport.png';
-  static const String HOME_MEDICAL_ICON =
-      'assets/category_icons/book.png';
-  static const String HOME_RAW_NON_VEG_ICON =
-      'assets/category_icons/mobile.png';
-  static const String HOME_SWEETS_AND_CAKES_ICON =
-      'assets/category_icons/fashion.png';
-  static const String HOME_VEGITABLE_FRUITS_ICON =
-      'assets/category_icons/shoes.png';
-  static const String HOME_WATER_ICON = 'assets/category_icons/water_icon.png';
-  static const String HOME_GROCERIES_ICON =
-      'assets/category_icons/clothes.png';
-  static const String HOME_CONSTRUCTION_MATERIAL_ICON =
-      'assets/category_icons/construction_material_icon.png';
-
-  // Helping Hands Icons
-  static const String HH_ELECTRICIANS_ICONS =
-      'assets/helping_hands_icon/electrician_icon.png';
-  static const String HH_CAR_REPAIR_ICONS =
-      'assets/helping_hands_icon/car_repair_icon.png';
-  static const String HH_BEAUTICIANS_ICONS =
-      'assets/helping_hands_icon/beauticians_icon.png';
-  static const String HH_CARPENTER_ICONS =
-      'assets/helping_hands_icon/carpenter_icon.png';
-  static const String HH_MASON_ICONS =
-      'assets/helping_hands_icon/mason_icon.png';
-  static const String HH_PARTY_DECORATOR_ICONS =
-      'assets/helping_hands_icon/party_decorator.png';
-  static const String HH_PLUMBER_ICONS =
-      'assets/helping_hands_icon/plumber_icon.png';
-  static const String HH_SALON_ICONS =
-      'assets/helping_hands_icon/salon_icon.png';
-  static const String HH_TEACHER_ICONS =
-      'assets/helping_hands_icon/teacher_icon.png';
-  static const String HH_TRAINER_ICONS =
-      'assets/helping_hands_icon/trainer_icon.png';
-  static const String HH_WATER_FILTER_ICONS =
-      'assets/helping_hands_icon/water_filter_icon.png';
+  static const String HOME_ESSENTIALS_ICON =
+      'assets/category_icons/essentails.png';
+  static const String HOME_SPORTS_ICON = 'assets/category_icons/sports.png';
+  static const String HOME_STATIONARY_ICON =
+      'assets/category_icons/stationary.png';
+  static const String HOME_MOBILE_ICON = 'assets/category_icons/mobile.png';
+  static const String HOME_FASHION_ICON = 'assets/category_icons/fashion.png';
+  static const String HOME_FOOTWEAR_ICON = 'assets/category_icons/footwear.png';
+  static const String HOME_KITCHENWARE_ICON =
+      'assets/category_icons/kitchenware.png';
+  static const String HOME_CLOTHES_ICON = 'assets/category_icons/clothes.png';
 
   // More Options Icons
   static const String MO_MY_ACCOUNT_ICON = 'assets/more_options/user.png';
@@ -86,9 +57,7 @@ abstract class Styles {
   static const String MO_LOGOUT = 'assets/more_options/logout.png';
 
   // Remaining assets
-  static const String MEDICAL = 'assets/medical.png';
   static const String PENDING_REPORT_ICON = 'assets/pending_report_icon.png';
-  static const String PENDING_REPORT = 'assets/pending_report.png';
   static const String PHONE_ICON = 'assets/phone_icon.png';
   static const String SEARCH_ICON = 'assets/search_icon.png';
   static const String UPLOAD_ICON = 'assets/upload_icon.png';

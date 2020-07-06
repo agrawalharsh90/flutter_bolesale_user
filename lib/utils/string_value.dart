@@ -8,7 +8,6 @@ import 'package:grocery/presentation/category_pages/sports_page.dart';
 import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
-import 'package:grocery/presentation/history_pages/combo_history_page.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/utils/styles.dart';
@@ -30,42 +29,42 @@ abstract class StringValue {
   static const List CATEGORY_LIST = [
     {
       'title': 'Clothes',
-      'icon': Styles.HOME_GROCERIES_ICON,
+      'icon': Styles.HOME_CLOTHES_ICON,
       'route': ClothesPage.routeNamed
     },
     {
       'title': 'Essentials',
-      'icon': Styles.HOME_FOOD_ICON,
+      'icon': Styles.HOME_ESSENTIALS_ICON,
       'route': EssentialsPage.routeNamed
     },
     {
       'title': 'Fashion',
-      'icon': Styles.HOME_SWEETS_AND_CAKES_ICON,
+      'icon': Styles.HOME_FASHION_ICON,
       'route': FashionPage.routeNamed
     },
     {
       'title': 'Footwear',
-      'icon': Styles.HOME_VEGITABLE_FRUITS_ICON,
+      'icon': Styles.HOME_FOOTWEAR_ICON,
       'route': FootwearPage.routeNamed
     },
     {
       'title': 'Kitchenware',
-      'icon': Styles.HOME_WATER_ICON,
+      'icon': Styles.HOME_KITCHENWARE_ICON,
       'route': KitchenwarePage.routeNamed
     },
     {
       'title': 'Mobile',
-      'icon': Styles.HOME_RAW_NON_VEG_ICON,
+      'icon': Styles.HOME_MOBILE_ICON,
       'route': MobilePage.routeNamed
     },
     {
       'title': 'Sports',
-      'icon': Styles.HOME_HELPING_HANDS_ICON,
+      'icon': Styles.HOME_SPORTS_ICON,
       'route': SportsPage.routeNamed
     },
     {
       'title': 'Stationary',
-      'icon': Styles.HOME_MEDICAL_ICON,
+      'icon': Styles.HOME_STATIONARY_ICON,
       'route': StationaryPage.routeNamed
     },
   ];
@@ -113,12 +112,6 @@ abstract class StringValue {
       'title': 'Log Out',
       'image': Styles.MO_LOGOUT,
       'route': MyAccount.routeNamed
-    },
-  ];
-  static const List<Map<String, dynamic>> HISTORY_OPTIONS_LIST = [
-    {
-      'title': 'Other History',
-      'route': ComboHistoryPage.routeNamed,
     },
   ];
 }

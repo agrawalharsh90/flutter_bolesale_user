@@ -6,6 +6,13 @@ import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/clothes_store.dart';
+import 'package:grocery/store/categories_store/essentials_store.dart';
+import 'package:grocery/store/categories_store/fashion_store.dart';
+import 'package:grocery/store/categories_store/footwear_store.dart';
+import 'package:grocery/store/categories_store/kitchenware_store.dart';
+import 'package:grocery/store/categories_store/mobile_store.dart';
+import 'package:grocery/store/categories_store/sports_store.dart';
+import 'package:grocery/store/categories_store/stationary_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +38,25 @@ class _SearchPageState extends State<SearchPage> {
             isSearching = false;
           });
           Provider.of<ClothesStore>(context).clearSearchingStore();
+          Provider.of<EssentialsStore>(context).clearSearchingStore();
+          Provider.of<FashionStore>(context).clearSearchingStore();
+          Provider.of<FootwearStore>(context).clearSearchingStore();
+          Provider.of<KitchenwareStore>(context).clearSearchingStore();
+          Provider.of<MobileStore>(context).clearSearchingStore();
+          Provider.of<SportsStore>(context).clearSearchingStore();
+          Provider.of<StationaryStore>(context).clearSearchingStore();
         } else {
           setState(() {
             isSearching = true;
           });
           Provider.of<ClothesStore>(context).onSearch(searchString: value);
+          Provider.of<EssentialsStore>(context).onSearch(searchString: value);
+          Provider.of<FashionStore>(context).onSearch(searchString: value);
+          Provider.of<FootwearStore>(context).onSearch(searchString: value);
+          Provider.of<KitchenwareStore>(context).onSearch(searchString: value);
+          Provider.of<MobileStore>(context).onSearch(searchString: value);
+          Provider.of<SportsStore>(context).onSearch(searchString: value);
+          Provider.of<StationaryStore>(context).onSearch(searchString: value);
         }
       },
       body: !isSearching
@@ -48,11 +69,52 @@ class _SearchPageState extends State<SearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  getTitleTex('Construction Materials'),
+                  getTitleTex('Clothes'),
                   StoreObserver<ClothesStore>(
-                    builder: (ClothesStore constructionStore,
-                        BuildContext context) {
-                      return getConstructionSearchingWidget(constructionStore);
+                    builder: (ClothesStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Clothes');
+                    },
+                  ),
+                  getTitleTex('Essentails'),
+                  StoreObserver<EssentialsStore>(
+                    builder: (EssentialsStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Essentails');
+                    },
+                  ),
+                  getTitleTex('Fashion'),
+                  StoreObserver<FashionStore>(
+                    builder: (FashionStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Fashion');
+                    },
+                  ),
+                  getTitleTex('Footwear'),
+                  StoreObserver<FootwearStore>(
+                    builder: (FootwearStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Footwear');
+                    },
+                  ),
+                  getTitleTex('Kitchenware'),
+                  StoreObserver<KitchenwareStore>(
+                    builder: (KitchenwareStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Kitchenware');
+                    },
+                  ),
+                  getTitleTex('Mobile'),
+                  StoreObserver<MobileStore>(
+                    builder: (MobileStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Mobile');
+                    },
+                  ),
+                  getTitleTex('Sports'),
+                  StoreObserver<SportsStore>(
+                    builder: (SportsStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Sports');
+                    },
+                  ),
+                  getTitleTex('Stationary'),
+                  StoreObserver<SportsStore>(
+                    builder: (SportsStore store, BuildContext context) {
+                      return getSearchingWidget(store, 'Stationary');
                     },
                   ),
                 ],
@@ -61,14 +123,14 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  getConstructionSearchingWidget(ClothesStore constructionStore) {
-    if (constructionStore.isSearching)
+  getSearchingWidget(store, String key) {
+    if (store.isSearching)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (constructionStore.filterProductMap.isEmpty)
+    if (store.filterProductMap.isEmpty)
       return Center(
         child: getTitleTex('No items found', fontSize: 12),
       );
@@ -78,35 +140,30 @@ class _SearchPageState extends State<SearchPage> {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
-        itemCount: constructionStore.filterProductMap.length,
+        itemCount: store.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => customProductDialog(
                 context: context,
-                product: constructionStore.filterProductMap.values
-                    .toList()[index],
+                product: store.filterProductMap.values.toList()[index],
                 onAdd: (value) {
                   print("on Add" + value.toString());
-                  Product product = constructionStore
-                      .filterProductMap.values
-                      .toList()[index];
+                  Product product =
+                      store.filterProductMap.values.toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
-                    "Construction Material": {product.sellerId: product}
+                    key: {product.sellerId: product}
                   });
                 }),
-            imgUrl: constructionStore.filterProductMap.values
-                .toList()[index]
-                .productImage[0],
+            imgUrl:
+                store.filterProductMap.values.toList()[index].productImage[0],
             height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
             shownForwardArrow: false,
-            text: constructionStore.filterProductMap.values
-                .toList()[index]
-                .product,
+            text: store.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );
         });

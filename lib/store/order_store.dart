@@ -20,8 +20,8 @@ abstract class _OrderStore with Store {
   postComboRequest(Map<String, dynamic> data) async {
     try {
       isLoading = true;
-      Map<String, dynamic> value = await orderService.postOrders(data, 'combo');
-      Order rawNonVegOrder = Order.fromJson(jsonDecode(jsonEncode(value)));
+      Map<String, dynamic> value = await orderService.postOrders(data);
+      Order order = Order.fromJson(jsonDecode(jsonEncode(value)));
       Map<String, dynamic> orders = jsonDecode(jsonEncode(value));
       orders.remove('address');
       orders.remove('id');
@@ -32,17 +32,17 @@ abstract class _OrderStore with Store {
         Map<String, dynamic> vc = jsonDecode(jsonEncode(v));
         vc.forEach((key, value) {
           Product product = Product.fromJson(jsonDecode(jsonEncode(value)));
-          if (rawNonVegOrder.ordersMap == null)
-            rawNonVegOrder.ordersMap = {product.sellerId: product};
+          if (order.ordersMap == null)
+            order.ordersMap = {product.sellerId: product};
           else
-            rawNonVegOrder.ordersMap.addAll({product.sellerId: product});
+            order.ordersMap.addAll({product.sellerId: product});
         });
       });
-      combo.addAll({rawNonVegOrder.id: rawNonVegOrder});
+      combo.addAll({order.id: order});
       isLoading = false;
     } catch (e) {
       isLoading = false;
-      print("error in post combo Request");
+      print("error in post order Request");
       print(e);
       throw e;
     }
@@ -53,12 +53,11 @@ abstract class _OrderStore with Store {
     if (combo.isEmpty) {
       isLoading = true;
       try {
-        Map<String, dynamic> response =
-            await orderService.getOrderDataMap('combo');
-        print("reponse in combo order store");
+        Map<String, dynamic> response = await orderService.getOrderDataMap();
+        print("reponse in order store");
         print(response);
         response.forEach((key, value) {
-          Order rawNonVegOrder = Order.fromJson(jsonDecode(jsonEncode(value)));
+          Order order = Order.fromJson(jsonDecode(jsonEncode(value)));
           Map<String, dynamic> orders = jsonDecode(jsonEncode(value));
           orders.remove('address');
           orders.remove('id');
@@ -69,17 +68,17 @@ abstract class _OrderStore with Store {
             Map<String, dynamic> vc = jsonDecode(jsonEncode(v));
             vc.forEach((key, value) {
               Product product = Product.fromJson(jsonDecode(jsonEncode(value)));
-              if (rawNonVegOrder.ordersMap == null)
-                rawNonVegOrder.ordersMap = {product.sellerId: product};
+              if (order.ordersMap == null)
+                order.ordersMap = {product.sellerId: product};
               else
-                rawNonVegOrder.ordersMap.addAll({product.sellerId: product});
+                order.ordersMap.addAll({product.sellerId: product});
             });
           });
-          combo.addAll({rawNonVegOrder.id: rawNonVegOrder});
+          combo.addAll({order.id: order});
         });
         isLoading = false;
       } catch (e) {
-        print("error in combo order store");
+        print("error in order store");
         print(e);
         isLoading = false;
         throw e;

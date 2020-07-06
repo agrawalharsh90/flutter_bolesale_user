@@ -12,15 +12,11 @@ class OrderService {
   static final OrderService _instance = OrderService._();
   Firestore _firestore = Firestore.instance;
 
-  Future<Map<String, dynamic>> postOrders(
-      Map<String, dynamic> body, String documentId,
+  Future<Map<String, dynamic>> postOrders(Map<String, dynamic> body,
       {String fileId}) async {
     String id = fileId ?? DateTime.now().millisecondsSinceEpoch.toString();
-    DocumentReference documentReference = await _firestore
-        .collection('orders')
-        .document(documentId)
-        .collection('data')
-        .document(id);
+    DocumentReference documentReference =
+        await _firestore.collection('orders').document(id);
     User user = await preferenceService.getAuthUser();
     body.addAll({'id': id, 'uid': user.uid});
     DocumentSnapshot data = await documentReference.get();
@@ -34,13 +30,11 @@ class OrderService {
     return body;
   }
 
-  Future<Map<String, dynamic>> getOrderDataMap(String documentId) async {
+  Future<Map<String, dynamic>> getOrderDataMap() async {
     String uid = await preferenceService.getUID();
 
     QuerySnapshot querySnapshot = await _firestore
         .collection('orders')
-        .document(documentId)
-        .collection('data')
         .where("uid", isEqualTo: uid)
         .getDocuments();
 
@@ -62,9 +56,7 @@ class OrderService {
       String url = 'https://mail-infinite.herokuapp.com/details';
       var uri = Uri.parse(url);
       var request = http.MultipartRequest("POST", uri);
-      request.fields["emailfrom"] = "harshtyagimdr@gmail.com";
-//      request.fields["emailfrom"] = "hunnygoel3468@gmail.com";
-//      request.fields["emailto"] = "agrawalharsh90@gamil.com";
+      request.fields["emailfrom"] = "bolesale@gmail.com";
       request.fields["emailto"] = user.email;
       request.fields["subject"] = "Order Successful";
       request.fields["text"] =

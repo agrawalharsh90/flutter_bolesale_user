@@ -12,7 +12,6 @@ import 'package:grocery/presentation/category_pages/sports_page.dart';
 import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
-import 'package:grocery/presentation/history_pages/combo_history_page.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/home_page.dart';
 import 'package:grocery/presentation/my_account.dart';
@@ -86,8 +85,6 @@ class Grocery extends StatelessWidget {
           HistoryPage.routeNamed: (BuildContext context) => HistoryPage(),
           WebviewScaffold.routeNamed: (BuildContext context) =>
               WebviewScaffold(),
-          ComboHistoryPage.routeNamed: (BuildContext context) =>
-              ComboHistoryPage(),
           ContactUs.routeNamed: (BuildContext context) => ContactUs(),
         },
       ),
