@@ -38,18 +38,18 @@ abstract class Styles {
   // Home Page Category Icons
   static const String HOME_FOOD_ICON = 'assets/category_icons/food_icon.png';
   static const String HOME_HELPING_HANDS_ICON =
-      'assets/category_icons/helping_hand_icon.png';
+      'assets/category_icons/sport.png';
   static const String HOME_MEDICAL_ICON =
-      'assets/category_icons/medical_icon.png';
+      'assets/category_icons/book.png';
   static const String HOME_RAW_NON_VEG_ICON =
-      'assets/category_icons/raw_non_veg_icon.png';
+      'assets/category_icons/mobile.png';
   static const String HOME_SWEETS_AND_CAKES_ICON =
-      'assets/category_icons/sweets_cakes_icon.png';
+      'assets/category_icons/fashion.png';
   static const String HOME_VEGITABLE_FRUITS_ICON =
-      'assets/category_icons/vegetable_fruits_icon.png';
+      'assets/category_icons/shoes.png';
   static const String HOME_WATER_ICON = 'assets/category_icons/water_icon.png';
   static const String HOME_GROCERIES_ICON =
-      'assets/category_icons/groceries_icon.png';
+      'assets/category_icons/clothes.png';
   static const String HOME_CONSTRUCTION_MATERIAL_ICON =
       'assets/category_icons/construction_material_icon.png';
 
