@@ -52,6 +52,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   isLoading: orderStore.isLoading,
                   onTap: () {
                     if (selected == 1) {
+                     
                       Navigator.push(
                           context,
                           MaterialPageRoute(

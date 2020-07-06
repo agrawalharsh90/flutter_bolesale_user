@@ -90,19 +90,19 @@ abstract class StringValue {
       'title': 'Terms',
       'image': Styles.MO_POLICY,
       'route': WebviewScaffold.routeNamed,
-      'url': 'https://sahayta-center.web.app/terms.html',
+      'url': 'https://hyathi.com',
     },
     {
       'title': 'Privacy Policy',
       'image': Styles.MO_POLICY,
       'route': WebviewScaffold.routeNamed,
-      'url': 'https://sahayta-center.web.app/privacy-policy.html',
+      'url': 'https://hyathi.com',
     },
     {
       'title': 'About Us',
       'image': Styles.MO_FAQS,
       'route': WebviewScaffold.routeNamed,
-      'url': 'https://sahayta-center.web.app/about-us.html',
+      'url': 'https://hyathi.com',
     },
     {
       'title': 'Contact us',

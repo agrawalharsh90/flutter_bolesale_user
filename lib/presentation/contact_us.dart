@@ -17,15 +17,15 @@ class ContactUs extends StatelessWidget {
             height: ScreenUtil.instance.setWidth(40),
           ),
           getTitleTex(
-              'SAHAYATA HOME SERVICES\n\nPurvi khurmabaad, Siwan, Bihar,841226',
+              ' Bolesale Tech Pvt. Ltd.\n\nCrossings Republik, Ghaziabad, UP, India',
               textAlign: TextAlign.center,
               textColor: Styles.BLACK_COLOR),
           SizedBox(
             height: ScreenUtil.instance.setWidth(40),
           ),
-          _personalDetailRow(Icons.mail, 'happiness@sahayatahome.com', context),
-          _personalDetailRow(Icons.call, '+918092848980', context),
-          _personalDetailRow(Icons.call, '+918056918389', context),
+          _personalDetailRow(Icons.mail, 'support@bolesale.com', context),
+          _personalDetailRow(Icons.call, '+918979058855', context),
+         
         ],
       ),
     );
