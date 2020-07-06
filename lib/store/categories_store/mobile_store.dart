@@ -2,11 +2,11 @@ import 'package:grocery/model/product.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:mobx/mobx.dart';
 
-part 'clothes_store.g.dart';
+part 'mobile_store.g.dart';
 
-class ClothesStore = _ClothesStore with _$ClothesStore;
+class MobileStore = _MobileStore with _$MobileStore;
 
-abstract class _ClothesStore with Store {
+abstract class _MobileStore with Store {
   @observable
   bool isLoading = false;
 
@@ -26,14 +26,14 @@ abstract class _ClothesStore with Store {
       isLoading = true;
       try {
         Map<String, List<Product>> response = await getProductService
-            .getProductList(collectionName: 'clothes');
-        print("reponse in clothes store");
+            .getProductList(collectionName: 'mobile');
+        print("reponse in mobile store");
         print(response);
         productMap.addAll(response);
         isLoading = false;
       } catch (e) {
         isLoading = false;
-        print("error in clothes store");
+        print("error in mobile store");
         print(e);
         throw e;
       }
@@ -48,15 +48,15 @@ abstract class _ClothesStore with Store {
     productMap.forEach((key, value) {
       if (key.toLowerCase().contains(searchString.toLowerCase())) {
         value.forEach((element) {
-          filterProductMap.addAll({element.name: element});
+          filterProductMap.addAll({element.sellerId: element});
         });
       } else
         dataList.addAll(value);
     });
 
     dataList.forEach((element) {
-      if (element.name.toLowerCase().contains(searchString.toLowerCase()))
-        filterProductMap.addAll({element.name: element});
+      if (element.sellerId.toLowerCase().contains(searchString.toLowerCase()))
+        filterProductMap.addAll({element.sellerId: element});
     });
     isSearching = false;
   }

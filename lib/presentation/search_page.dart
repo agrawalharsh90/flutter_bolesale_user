@@ -5,7 +5,7 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/clothes_store.dart';
+import 'package:grocery/store/categories_store/clothes_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
@@ -92,12 +92,12 @@ class _SearchPageState extends State<SearchPage> {
                       .toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
-                    "Construction Material": {product.name: product}
+                    "Construction Material": {product.sellerId: product}
                   });
                 }),
             imgUrl: constructionStore.filterProductMap.values
                 .toList()[index]
-                .imageUrl,
+                .productImage[0],
             height: 90,
             width: 90,
             imagePadding: 0,
@@ -106,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
             shownForwardArrow: false,
             text: constructionStore.filterProductMap.values
                 .toList()[index]
-                .name,
+                .product,
             boxFit: BoxFit.contain,
           );
         });

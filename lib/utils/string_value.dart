@@ -1,4 +1,11 @@
 import 'package:grocery/presentation/category_pages/clothes_page.dart';
+import 'package:grocery/presentation/category_pages/essentials_page.dart';
+import 'package:grocery/presentation/category_pages/fashion_page.dart';
+import 'package:grocery/presentation/category_pages/footwear_page.dart';
+import 'package:grocery/presentation/category_pages/kitchenware_page.dart';
+import 'package:grocery/presentation/category_pages/mobile_page.dart';
+import 'package:grocery/presentation/category_pages/sports_page.dart';
+import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/combo_history_page.dart';
@@ -29,37 +36,37 @@ abstract class StringValue {
     {
       'title': 'Essentials',
       'icon': Styles.HOME_FOOD_ICON,
-      'route': ClothesPage.routeNamed
+      'route': EssentialsPage.routeNamed
     },
     {
       'title': 'Fashion',
       'icon': Styles.HOME_SWEETS_AND_CAKES_ICON,
-      'route': ClothesPage.routeNamed
+      'route': FashionPage.routeNamed
     },
     {
       'title': 'Footwear',
       'icon': Styles.HOME_VEGITABLE_FRUITS_ICON,
-      'route': ClothesPage.routeNamed
+      'route': FootwearPage.routeNamed
     },
     {
       'title': 'Kitchenware',
       'icon': Styles.HOME_WATER_ICON,
-      'route': ClothesPage.routeNamed
+      'route': KitchenwarePage.routeNamed
     },
     {
       'title': 'Mobile',
       'icon': Styles.HOME_RAW_NON_VEG_ICON,
-      'route': ClothesPage.routeNamed
+      'route': MobilePage.routeNamed
     },
     {
       'title': 'Sports',
       'icon': Styles.HOME_HELPING_HANDS_ICON,
-      'route': ClothesPage.routeNamed
+      'route': SportsPage.routeNamed
     },
     {
       'title': 'Stationary',
       'icon': Styles.HOME_MEDICAL_ICON,
-      'route': ClothesPage.routeNamed
+      'route': StationaryPage.routeNamed
     },
   ];
   static const String MORE_OPTIONS_TITLE = "More Options";

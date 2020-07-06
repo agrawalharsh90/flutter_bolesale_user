@@ -4,7 +4,7 @@ import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/splash_page.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/clothes_store.dart';
+import 'package:grocery/store/categories_store/clothes_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/utils/string_value.dart';
 import 'package:grocery/utils/styles.dart';

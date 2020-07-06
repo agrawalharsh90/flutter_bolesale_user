@@ -6,74 +6,74 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/categories_store/clothes_store.dart';
+import 'package:grocery/store/categories_store/sports_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
-class ClothesPage extends StatefulWidget {
-  static const String routeNamed = 'ClothesPage';
+class SportsPage extends StatefulWidget {
+  static const String routeNamed = 'SportsPage';
 
   @override
-  _ClothesPageState createState() => _ClothesPageState();
+  _SportsPageState createState() => _SportsPageState();
 }
 
-class _ClothesPageState extends State<ClothesPage> {
+class _SportsPageState extends State<SportsPage> {
   bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Clothes',
+      appBarTitle: 'Sports',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
           setState(() {
             isSearching = false;
           });
-          Provider.of<ClothesStore>(context).clearSearchingStore();
+          Provider.of<SportsStore>(context).clearSearchingStore();
         } else {
           setState(() {
             isSearching = true;
           });
-          Provider.of<ClothesStore>(context).onSearch(searchString: value);
+          Provider.of<SportsStore>(context).onSearch(searchString: value);
         }
       },
       floatingActionButton: CustomFab(),
-      body: StoreObserver<ClothesStore>(
-        builder: (ClothesStore clothesStore, BuildContext context) {
-          if (clothesStore.productMap == null ||
-              clothesStore.productMap.isEmpty) clothesStore.fetchProductMap();
+      body: StoreObserver<SportsStore>(
+        builder: (SportsStore sportsStore, BuildContext context) {
+          if (sportsStore.productMap == null || sportsStore.productMap.isEmpty)
+            sportsStore.fetchProductMap();
           if (isSearching)
-            return getConstructionSearchingWidget(clothesStore);
+            return getConstructionSearchingWidget(sportsStore);
           else
-            return dataWidget(clothesStore);
+            return dataWidget(sportsStore);
         },
       ),
     );
   }
 
-  dataWidget(ClothesStore clothesStore) {
-    if (clothesStore.isLoading)
+  dataWidget(SportsStore sportsStore) {
+    if (sportsStore.isLoading)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (clothesStore.productMap.isEmpty)
+    if (sportsStore.productMap.isEmpty)
       return Center(
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
-        itemCount: clothesStore.productMap.length,
+        itemCount: sportsStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
-              clothesStore.productMap.keys.toList()[index],
+              sportsStore.productMap.keys.toList()[index],
               130,
               90,
               1,
-              clothesStore
-                  .productMap[clothesStore.productMap.keys.toList()[index]]);
+              sportsStore
+                  .productMap[sportsStore.productMap.keys.toList()[index]]);
         });
   }
 
@@ -110,7 +110,7 @@ class _ClothesPageState extends State<ClothesPage> {
                                     product.quantity = value;
                                     Provider.of<CartStore>(context)
                                         .updateCartMap({
-                                      "Clothes": {product.sellerId: product}
+                                      "Sports": {product.sellerId: product}
                                     });
                                   }),
                               imgUrl: productList[index].productImage[0],
@@ -134,7 +134,7 @@ class _ClothesPageState extends State<ClothesPage> {
                               Product product = productList[index];
                               product.quantity = value;
                               Provider.of<CartStore>(context).updateCartMap({
-                                "Clothes": {product.sellerId: product}
+                                "Sports": {product.sellerId: product}
                               });
                             }),
                         imgUrl: productList[index].productImage[0],
@@ -153,14 +153,14 @@ class _ClothesPageState extends State<ClothesPage> {
     );
   }
 
-  getConstructionSearchingWidget(ClothesStore clothesStore) {
-    if (clothesStore.isSearching)
+  getConstructionSearchingWidget(SportsStore sportsStore) {
+    if (sportsStore.isSearching)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (clothesStore.filterProductMap.isEmpty)
+    if (sportsStore.filterProductMap.isEmpty)
       return Center(
         child: getTitleTex('No items found'),
       );
@@ -169,22 +169,22 @@ class _ClothesPageState extends State<ClothesPage> {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
-        itemCount: clothesStore.filterProductMap.length,
+        itemCount: sportsStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => customProductDialog(
                 context: context,
-                product: clothesStore.filterProductMap.values.toList()[index],
+                product: sportsStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
                   print("on Add" + value.toString());
                   Product product =
-                      clothesStore.filterProductMap.values.toList()[index];
+                      sportsStore.filterProductMap.values.toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
-                    "Clothes": {product.sellerId: product}
+                    "Sports": {product.sellerId: product}
                   });
                 }),
-            imgUrl: clothesStore.filterProductMap.values
+            imgUrl: sportsStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
             height: 90,
@@ -193,7 +193,7 @@ class _ClothesPageState extends State<ClothesPage> {
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
             shownForwardArrow: false,
-            text: clothesStore.filterProductMap.values.toList()[index].product,
+            text: sportsStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );
         });

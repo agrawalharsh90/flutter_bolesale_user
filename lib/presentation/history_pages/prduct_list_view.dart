@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/model/orders_model/raw_non_veg_order.dart';
+import 'package:grocery/model/order.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/utils/styles.dart';
 
 class ProductListView extends StatelessWidget {
-  RawNonVegOrder orderModel;
+  Order orderModel;
 
   ProductListView({this.orderModel});
 
@@ -28,8 +28,8 @@ class ProductListView extends StatelessWidget {
                     List<Product> productList =
                         orderModel.ordersMap.values.toList();
                     return countRow(
-                      title: productList[index].name,
-                      imageUrl: productList[index].imageUrl,
+                      title: productList[index].product,
+                      imageUrl: productList[index].productImage[0],
                       suffixText: "Rs." +
                           (double.parse(productList[index].price) *
                                   productList[index].quantity)

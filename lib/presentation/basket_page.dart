@@ -89,8 +89,8 @@ class _BasketPageState extends State<BasketPage> {
             itemCount: productList.length,
             itemBuilder: (context, index) {
               return CountRow(
-                title: productList[index].name,
-                imageUrl: productList[index].imageUrl,
+                title: productList[index].product,
+                imageUrl: productList[index].productImage[0],
                 suffixText: "Rs." +
                     (double.parse(productList[index].price) *
                             productList[index].quantity)
@@ -101,12 +101,12 @@ class _BasketPageState extends State<BasketPage> {
                   Product product = productList[index];
                   product.quantity = v;
                   Provider.of<CartStore>(context).updateCartMap({
-                    title: {product.name: product}
+                    title: {product.sellerId: product}
                   });
                 },
                 onDelete: () {
                   Provider.of<CartStore>(context)
-                      .deleteProductCart(title, productList[index].name);
+                      .deleteProductCart(title, productList[index].sellerId);
                 },
               );
             }),

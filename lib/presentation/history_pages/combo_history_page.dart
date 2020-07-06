@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/model/orders_model/raw_non_veg_order.dart';
+import 'package:grocery/model/order.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/presentation/history_pages/prduct_list_view.dart';
@@ -32,7 +32,7 @@ class ComboHistoryPage extends StatelessWidget {
           return ListView.builder(
               itemCount: orderStore.combo.length,
               itemBuilder: (BuildContext context, index) {
-                List<RawNonVegOrder> rnvL = orderStore.combo.values.toList();
+                List<Order> rnvL = orderStore.combo.values.toList();
                 rnvL.sort((a, b) => b.id.compareTo(a.id));
                 return InkWell(
                   onTap: () {

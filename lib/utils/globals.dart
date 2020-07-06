@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/model/grocery_error.dart';
 import 'package:grocery/model/product.dart';
-import 'package:grocery/model/vendor.dart';
 import 'package:grocery/presentation/custom/custom_dialog.dart';
 import 'package:grocery/services/firebase_auth_service.dart';
 import 'package:grocery/services/firebase_services.dart';
@@ -137,20 +136,6 @@ customProductDialog({Product product, BuildContext context, Function onAdd}) {
         );
       });
 }
-
-customWorkerDialog(
-    {Vendor worker, BuildContext context, Function onAdd, String buttonText}) {
-  return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialogWidget(
-          worker: worker,
-          onAdd: onAdd,
-          buttonText: buttonText,
-        );
-      });
-}
-
 showToast(String text) {
   Fluttertoast.showToast(
       msg: text,

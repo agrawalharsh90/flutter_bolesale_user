@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:grocery/model/orders_model/vendor_request.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:http/http.dart' as http;
@@ -33,28 +32,6 @@ class OrderService {
     await sentEmail(user, id);
 
     return body;
-  }
-
-  Future<Map<String, VendorRequest>> getVendorsRequests(
-      String documentId) async {
-    String uid = await preferenceService.getUID();
-
-    QuerySnapshot querySnapshot = await _firestore
-        .collection('orders')
-        .document(documentId)
-        .collection('data')
-        .where("uid", isEqualTo: uid)
-        .getDocuments();
-
-    Map<String, VendorRequest> vendorRequestData = new Map();
-    if (querySnapshot.documents.isNotEmpty) {
-      querySnapshot.documents.forEach((DocumentSnapshot documentSnapshot) {
-        VendorRequest vendorRequest = VendorRequest.fromJson(
-            jsonDecode(jsonEncode(documentSnapshot.data)));
-        vendorRequestData.addAll({vendorRequest.id: vendorRequest});
-      });
-    }
-    return vendorRequestData;
   }
 
   Future<Map<String, dynamic>> getOrderDataMap(String documentId) async {

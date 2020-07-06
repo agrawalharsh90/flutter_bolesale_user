@@ -6,74 +6,75 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/categories_store/clothes_store.dart';
+import 'package:grocery/store/categories_store/essentials_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
-class ClothesPage extends StatefulWidget {
-  static const String routeNamed = 'ClothesPage';
+class EssentialsPage extends StatefulWidget {
+  static const String routeNamed = 'EssentialsPage';
 
   @override
-  _ClothesPageState createState() => _ClothesPageState();
+  _EssentialsPageState createState() => _EssentialsPageState();
 }
 
-class _ClothesPageState extends State<ClothesPage> {
+class _EssentialsPageState extends State<EssentialsPage> {
   bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Clothes',
+      appBarTitle: 'Essential',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
           setState(() {
             isSearching = false;
           });
-          Provider.of<ClothesStore>(context).clearSearchingStore();
+          Provider.of<EssentialsStore>(context).clearSearchingStore();
         } else {
           setState(() {
             isSearching = true;
           });
-          Provider.of<ClothesStore>(context).onSearch(searchString: value);
+          Provider.of<EssentialsStore>(context).onSearch(searchString: value);
         }
       },
       floatingActionButton: CustomFab(),
-      body: StoreObserver<ClothesStore>(
-        builder: (ClothesStore clothesStore, BuildContext context) {
-          if (clothesStore.productMap == null ||
-              clothesStore.productMap.isEmpty) clothesStore.fetchProductMap();
+      body: StoreObserver<EssentialsStore>(
+        builder: (EssentialsStore essentialsStore, BuildContext context) {
+          if (essentialsStore.productMap == null ||
+              essentialsStore.productMap.isEmpty)
+            essentialsStore.fetchProductMap();
           if (isSearching)
-            return getConstructionSearchingWidget(clothesStore);
+            return getConstructionSearchingWidget(essentialsStore);
           else
-            return dataWidget(clothesStore);
+            return dataWidget(essentialsStore);
         },
       ),
     );
   }
 
-  dataWidget(ClothesStore clothesStore) {
-    if (clothesStore.isLoading)
+  dataWidget(EssentialsStore essentialsStore) {
+    if (essentialsStore.isLoading)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (clothesStore.productMap.isEmpty)
+    if (essentialsStore.productMap.isEmpty)
       return Center(
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
-        itemCount: clothesStore.productMap.length,
+        itemCount: essentialsStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
-              clothesStore.productMap.keys.toList()[index],
+              essentialsStore.productMap.keys.toList()[index],
               130,
               90,
               1,
-              clothesStore
-                  .productMap[clothesStore.productMap.keys.toList()[index]]);
+              essentialsStore
+                  .productMap[essentialsStore.productMap.keys.toList()[index]]);
         });
   }
 
@@ -110,7 +111,7 @@ class _ClothesPageState extends State<ClothesPage> {
                                     product.quantity = value;
                                     Provider.of<CartStore>(context)
                                         .updateCartMap({
-                                      "Clothes": {product.sellerId: product}
+                                      "Essentials": {product.sellerId: product}
                                     });
                                   }),
                               imgUrl: productList[index].productImage[0],
@@ -134,7 +135,7 @@ class _ClothesPageState extends State<ClothesPage> {
                               Product product = productList[index];
                               product.quantity = value;
                               Provider.of<CartStore>(context).updateCartMap({
-                                "Clothes": {product.sellerId: product}
+                                "Essentials": {product.sellerId: product}
                               });
                             }),
                         imgUrl: productList[index].productImage[0],
@@ -153,14 +154,14 @@ class _ClothesPageState extends State<ClothesPage> {
     );
   }
 
-  getConstructionSearchingWidget(ClothesStore clothesStore) {
-    if (clothesStore.isSearching)
+  getConstructionSearchingWidget(EssentialsStore essentialStore) {
+    if (essentialStore.isSearching)
       return Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
         ),
       );
-    if (clothesStore.filterProductMap.isEmpty)
+    if (essentialStore.filterProductMap.isEmpty)
       return Center(
         child: getTitleTex('No items found'),
       );
@@ -169,22 +170,22 @@ class _ClothesPageState extends State<ClothesPage> {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
-        itemCount: clothesStore.filterProductMap.length,
+        itemCount: essentialStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => customProductDialog(
                 context: context,
-                product: clothesStore.filterProductMap.values.toList()[index],
+                product: essentialStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
                   print("on Add" + value.toString());
                   Product product =
-                      clothesStore.filterProductMap.values.toList()[index];
+                      essentialStore.filterProductMap.values.toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
-                    "Clothes": {product.sellerId: product}
+                    "Essentials": {product.sellerId: product}
                   });
                 }),
-            imgUrl: clothesStore.filterProductMap.values
+            imgUrl: essentialStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
             height: 90,
@@ -193,7 +194,8 @@ class _ClothesPageState extends State<ClothesPage> {
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
             shownForwardArrow: false,
-            text: clothesStore.filterProductMap.values.toList()[index].product,
+            text:
+                essentialStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );
         });

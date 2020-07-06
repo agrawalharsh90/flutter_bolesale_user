@@ -3,6 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/basket_page.dart';
 import 'package:grocery/presentation/category_pages/clothes_page.dart';
+import 'package:grocery/presentation/category_pages/essentials_page.dart';
+import 'package:grocery/presentation/category_pages/fashion_page.dart';
+import 'package:grocery/presentation/category_pages/footwear_page.dart';
+import 'package:grocery/presentation/category_pages/kitchenware_page.dart';
+import 'package:grocery/presentation/category_pages/mobile_page.dart';
+import 'package:grocery/presentation/category_pages/sports_page.dart';
+import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/combo_history_page.dart';
@@ -13,7 +20,14 @@ import 'package:grocery/presentation/phone_auth_page.dart';
 import 'package:grocery/presentation/splash_page.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
-import 'package:grocery/store/clothes_store.dart';
+import 'package:grocery/store/categories_store/clothes_store.dart';
+import 'package:grocery/store/categories_store/essentials_store.dart';
+import 'package:grocery/store/categories_store/fashion_store.dart';
+import 'package:grocery/store/categories_store/footwear_store.dart';
+import 'package:grocery/store/categories_store/kitchenware_store.dart';
+import 'package:grocery/store/categories_store/mobile_store.dart';
+import 'package:grocery/store/categories_store/sports_store.dart';
+import 'package:grocery/store/categories_store/stationary_store.dart';
 import 'package:grocery/store/offer_store.dart';
 import 'package:grocery/store/order_store.dart';
 import 'package:grocery/store/user_store.dart';
@@ -32,6 +46,13 @@ class Grocery extends StatelessWidget {
       providers: [
         Provider<UserStore>.value(value: UserStore()),
         Provider<ClothesStore>.value(value: ClothesStore()),
+        Provider<EssentialsStore>.value(value: EssentialsStore()),
+        Provider<FashionStore>.value(value: FashionStore()),
+        Provider<FootwearStore>.value(value: FootwearStore()),
+        Provider<KitchenwareStore>.value(value: KitchenwareStore()),
+        Provider<MobileStore>.value(value: MobileStore()),
+        Provider<SportsStore>.value(value: SportsStore()),
+        Provider<StationaryStore>.value(value: StationaryStore()),
         Provider<CartStore>.value(value: CartStore()),
         Provider<AddressStore>.value(value: AddressStore()),
         Provider<OrderStore>.value(value: OrderStore()),
@@ -48,8 +69,15 @@ class Grocery extends StatelessWidget {
           HomePage.routeNamed: (BuildContext context) => HomePage(),
           MyAccount.routeNamed: (BuildContext context) => MyAccount(),
           BasketPage.routeNamed: (BuildContext context) => BasketPage(),
-          ClothesPage.routeNamed: (BuildContext context) =>
-              ClothesPage(),
+          ClothesPage.routeNamed: (BuildContext context) => ClothesPage(),
+          EssentialsPage.routeNamed: (BuildContext context) => EssentialsPage(),
+          FashionPage.routeNamed: (BuildContext context) => FashionPage(),
+          FootwearPage.routeNamed: (BuildContext context) => FootwearPage(),
+          KitchenwarePage.routeNamed: (BuildContext context) =>
+              KitchenwarePage(),
+          MobilePage.routeNamed: (BuildContext context) => MobilePage(),
+          SportsPage.routeNamed: (BuildContext context) => SportsPage(),
+          StationaryPage.routeNamed: (BuildContext context) => StationaryPage(),
           PhoneAuthPage.routeNamed: (BuildContext context) =>
               Scaffold(body: PhoneAuthPage()),
           AddressEditPage.routeNamed: (BuildContext context) => Scaffold(

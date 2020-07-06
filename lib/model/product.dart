@@ -12,29 +12,51 @@ class Product extends _Product with _$Product {
 
 abstract class _Product with Store {
   @observable
-  int id;
+  @JsonKey(name: 'Id')
+  String sellerId;
 
   @observable
-  String imageUrl;
-
-  @observable
-  String name;
-
-  @observable
-  String description;
+  String brand;
 
   @observable
   String category;
 
   @observable
-  String city;
+  String dispatch;
 
   @observable
-  String type;
+  String description;
+
+  @observable
+  String material;
+
+  @observable
+  String moq;
+
+  @observable
+  String mrp;
+
+  @observable
+  String origin;
+
+  @observable
+  String price;
+
+  @observable
+  String product;
+
+  @observable
+  String stock;
+
+  @observable
+  String sub_category;
+
+  @observable
+  String warrenty;
 
   @observable
   int quantity;
 
   @observable
-  String price;
+  List<String> productImage;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'clothes_store.dart';
+part of 'essentials_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'clothes_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ClothesStore on _ClothesStore, Store {
-  final _$isLoadingAtom = Atom(name: '_ClothesStore.isLoading');
+mixin _$EssentialsStore on _EssentialsStore, Store {
+  final _$isLoadingAtom = Atom(name: '_EssentialsStore.isLoading');
 
   @override
   bool get isLoading {
@@ -26,7 +26,7 @@ mixin _$ClothesStore on _ClothesStore, Store {
     }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
   }
 
-  final _$isSearchingAtom = Atom(name: '_ClothesStore.isSearching');
+  final _$isSearchingAtom = Atom(name: '_EssentialsStore.isSearching');
 
   @override
   bool get isSearching {
@@ -43,7 +43,7 @@ mixin _$ClothesStore on _ClothesStore, Store {
     }, _$isSearchingAtom, name: '${_$isSearchingAtom.name}_set');
   }
 
-  final _$productMapAtom = Atom(name: '_ClothesStore.productMap');
+  final _$productMapAtom = Atom(name: '_EssentialsStore.productMap');
 
   @override
   ObservableMap<String, List<Product>> get productMap {
@@ -60,7 +60,8 @@ mixin _$ClothesStore on _ClothesStore, Store {
     }, _$productMapAtom, name: '${_$productMapAtom.name}_set');
   }
 
-  final _$filterProductMapAtom = Atom(name: '_ClothesStore.filterProductMap');
+  final _$filterProductMapAtom =
+      Atom(name: '_EssentialsStore.filterProductMap');
 
   @override
   ObservableMap<String, Product> get filterProductMap {
@@ -77,12 +78,11 @@ mixin _$ClothesStore on _ClothesStore, Store {
     }, _$filterProductMapAtom, name: '${_$filterProductMapAtom.name}_set');
   }
 
-  final _$getConstructionListAsyncAction = AsyncAction('getConstructionList');
+  final _$fetchProductMapAsyncAction = AsyncAction('fetchProductMap');
 
   @override
   Future fetchProductMap() {
-    return _$getConstructionListAsyncAction
-        .run(() => super.fetchProductMap());
+    return _$fetchProductMapAsyncAction.run(() => super.fetchProductMap());
   }
 
   final _$onSearchAsyncAction = AsyncAction('onSearch');
@@ -93,26 +93,26 @@ mixin _$ClothesStore on _ClothesStore, Store {
         .run(() => super.onSearch(searchString: searchString));
   }
 
-  final _$_ClothesStoreActionController =
-      ActionController(name: '_ClothesStore');
+  final _$_EssentialsStoreActionController =
+      ActionController(name: '_EssentialsStore');
 
   @override
   dynamic clearSearchingStore() {
-    final _$actionInfo = _$_ClothesStoreActionController.startAction();
+    final _$actionInfo = _$_EssentialsStoreActionController.startAction();
     try {
       return super.clearSearchingStore();
     } finally {
-      _$_ClothesStoreActionController.endAction(_$actionInfo);
+      _$_EssentialsStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic clearStore() {
-    final _$actionInfo = _$_ClothesStoreActionController.startAction();
+    final _$actionInfo = _$_EssentialsStoreActionController.startAction();
     try {
       return super.clearStore();
     } finally {
-      _$_ClothesStoreActionController.endAction(_$actionInfo);
+      _$_EssentialsStoreActionController.endAction(_$actionInfo);
     }
   }
 }
