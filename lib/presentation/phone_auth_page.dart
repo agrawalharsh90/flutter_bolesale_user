@@ -39,7 +39,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                   logoContainer(),
                   userStore.isLoggedIn
                       ? detailsWidget(userStore)
-                      : phoneWidget(userStore),
+                      : loginWidget(userStore),
                 ],
               ),
             ));
@@ -47,18 +47,19 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
     );
   }
 
-  phoneWidget(UserStore userStore) {
+  loginWidget(UserStore userStore) {
     return Container(
-      key: Key('PHONE'),
+      key: Key('LOGIN'),
       margin:
           EdgeInsets.symmetric(horizontal: ScreenUtil.instance.setWidth(30)),
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: ScreenUtil.instance.setHeight(20),
+            height: ScreenUtil.instance.setHeight(50),
           ),
           CustomButton(
             isLoading: userStore.isLoading,
+            text: "Continue with google",
             onTap: () async {
               try {
                 await userStore.loginWithGoogle();
