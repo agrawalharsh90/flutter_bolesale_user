@@ -11,6 +11,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..uid = json['uid'] as String
     ..name = json['name'] as String
     ..phoneNumber = json['phoneNumber'] as String
+    ..referralSellerId = json['referralSellerId'] as String
     ..imgUrl = json['imgUrl'] as String
     ..email = json['email'] as String
     ..createdAt = json['createdAt'] as String
@@ -22,6 +23,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'uid': instance.uid,
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
+      'referralSellerId': instance.referralSellerId,
       'imgUrl': instance.imgUrl,
       'email': instance.email,
       'createdAt': instance.createdAt,
@@ -85,6 +87,23 @@ mixin _$User on _User, Store {
       super.phoneNumber = value;
       _$phoneNumberAtom.reportChanged();
     }, _$phoneNumberAtom, name: '${_$phoneNumberAtom.name}_set');
+  }
+
+  final _$referralSellerIdAtom = Atom(name: '_User.referralSellerId');
+
+  @override
+  String get referralSellerId {
+    _$referralSellerIdAtom.context.enforceReadPolicy(_$referralSellerIdAtom);
+    _$referralSellerIdAtom.reportObserved();
+    return super.referralSellerId;
+  }
+
+  @override
+  set referralSellerId(String value) {
+    _$referralSellerIdAtom.context.conditionallyRunInAction(() {
+      super.referralSellerId = value;
+      _$referralSellerIdAtom.reportChanged();
+    }, _$referralSellerIdAtom, name: '${_$referralSellerIdAtom.name}_set');
   }
 
   final _$imgUrlAtom = Atom(name: '_User.imgUrl');
