@@ -25,8 +25,8 @@ abstract class _ClothesStore with Store {
     if (productMap.isEmpty) {
       isLoading = true;
       try {
-        Map<String, List<Product>> response = await getProductService
-            .getProductList(collectionName: 'clothes');
+        Map<String, List<Product>> response =
+            await getProductService.getProductList(collectionName: 'clothes');
         print("reponse in clothes store");
         print(response);
         productMap.addAll(response);
@@ -43,20 +43,21 @@ abstract class _ClothesStore with Store {
   @action
   onSearch({String searchString}) async {
     isSearching = true;
+    await fetchProductMap();
     filterProductMap = ObservableMap<String, Product>();
     List<Product> dataList = List();
     productMap.forEach((key, value) {
       if (key.toLowerCase().contains(searchString.toLowerCase())) {
         value.forEach((element) {
-          filterProductMap.addAll({element.sellerId: element});
+          filterProductMap.addAll({element.productID: element});
         });
       } else
         dataList.addAll(value);
     });
 
     dataList.forEach((element) {
-      if (element.sellerId.toLowerCase().contains(searchString.toLowerCase()))
-        filterProductMap.addAll({element.sellerId: element});
+      if (element.product.toLowerCase().contains(searchString.toLowerCase()))
+        filterProductMap.addAll({element.productID: element});
     });
     isSearching = false;
   }

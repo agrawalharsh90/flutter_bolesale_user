@@ -3,6 +3,6 @@ import 'package:grocery/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    await tester.pumpWidget(Grocery());
+    await tester.pumpWidget(BoleSale());
   });
 }

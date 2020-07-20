@@ -34,10 +34,10 @@ import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(Grocery());
+  runApp(BoleSale());
 }
 
-class Grocery extends StatelessWidget {
+class BoleSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

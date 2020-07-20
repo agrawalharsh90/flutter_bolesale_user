@@ -85,24 +85,24 @@ abstract class StringValue {
 //      'image': Styles.MO_INVITE,
 //      'route': MyAccount.routeNamed
 //    },
-    {
-      'title': 'Terms',
-      'image': Styles.MO_POLICY,
-      'route': WebviewScaffold.routeNamed,
-      'url': 'https://hyathi.com',
-    },
-    {
-      'title': 'Privacy Policy',
-      'image': Styles.MO_POLICY,
-      'route': WebviewScaffold.routeNamed,
-      'url': 'https://hyathi.com',
-    },
-    {
-      'title': 'About Us',
-      'image': Styles.MO_FAQS,
-      'route': WebviewScaffold.routeNamed,
-      'url': 'https://hyathi.com',
-    },
+//    {
+//      'title': 'Terms',
+//      'image': Styles.MO_POLICY,
+//      'route': WebviewScaffold.routeNamed,
+//      'url': 'https://hyathi.com',
+//    },
+//    {
+//      'title': 'Privacy Policy',
+//      'image': Styles.MO_POLICY,
+//      'route': WebviewScaffold.routeNamed,
+//      'url': 'https://hyathi.com',
+//    },
+//    {
+//      'title': 'About Us',
+//      'image': Styles.MO_FAQS,
+//      'route': WebviewScaffold.routeNamed,
+//      'url': 'https://hyathi.com',
+//    },
     {
       'title': 'Contact us',
       'image': Styles.MO_CONTACT_US,

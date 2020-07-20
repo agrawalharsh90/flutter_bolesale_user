@@ -12,8 +12,6 @@ class PreferenceService {
 
   static const String UID = 'UID';
   static const String LOGGED_IN_USER = 'LOGGED_IN_USER';
-  static const String LOGGED_IN_SHOP = 'logged_in_shop';
-  static const String CITY = 'CITY';
 
   Future<SharedPreferences> _getInstance() async {
     return SharedPreferences.getInstance();
@@ -29,18 +27,6 @@ class PreferenceService {
 
   Future<void> removeUID() async {
     (await _getInstance()).setString(PreferenceService.UID, null);
-  }
-
-  Future<void> setCity(String city) async {
-    (await _getInstance()).setString(PreferenceService.CITY, city);
-  }
-
-  Future<String> getCity() async {
-    return (await _getInstance()).getString(PreferenceService.CITY);
-  }
-
-  Future<void> removeCity() async {
-    (await _getInstance()).setString(PreferenceService.CITY, null);
   }
 
   Future<void> setAuthUser(User user) async {

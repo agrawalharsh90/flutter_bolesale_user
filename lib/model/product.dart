@@ -16,6 +16,9 @@ abstract class _Product with Store {
   String sellerId;
 
   @observable
+  String productID;
+
+  @observable
   String brand;
 
   @observable

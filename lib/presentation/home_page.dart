@@ -17,6 +17,8 @@ import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/string_value.dart';
 import 'package:grocery/utils/styles.dart';
 
+import '../utils/styles.dart';
+
 class HomePage extends StatefulWidget {
   static const String routeNamed = 'HomePage';
 
@@ -202,6 +204,7 @@ class _HomePageState extends State<HomePage> {
                   imgUrl: StringValue.CATEGORY_LIST[index]['icon'],
                   horizontalMargin: 10,
                   verticalMargin: 0,
+                  imageColor: Styles.SECONDARY_COLOR,
                   width: 140,
                   text: StringValue.CATEGORY_LIST[index]['title'],
                   boxFit: BoxFit.contain,
@@ -238,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                   child: Image.asset(
                     Styles.MO_CONTACT_US,
                     fit: BoxFit.contain,
+                    color: Styles.PRIMARY_COLOR,
                   ),
                 ),
               ),
@@ -271,6 +275,7 @@ class _HomePageState extends State<HomePage> {
             isSelected ? slectedIcon : icon,
             height: ScreenUtil.instance.setHeight(20),
             width: ScreenUtil.instance.setWidth(40),
+            color: Styles.PRIMARY_COLOR,
           ),
           Text(title),
           Container(

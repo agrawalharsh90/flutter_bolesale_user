@@ -17,8 +17,12 @@ class GetProductService {
     Map<String, List<Product>> productList = Map<String, List<Product>>();
     querySnapshot.documents.forEach((DocumentSnapshot documentSnapshot) {
       List<Product> items = List<Product>();
+      print("product");
       if (documentSnapshot.data != null) {
         List data = documentSnapshot.data['items'];
+        print("######");
+        print(documentSnapshot.documentID);
+        print(documentSnapshot.data);
         data.forEach((value) {
           items.add(Product.fromJson(jsonDecode(jsonEncode(value))));
         });

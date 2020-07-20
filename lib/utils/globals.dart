@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/model/grocery_error.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/custom_dialog.dart';
-import 'package:grocery/services/firebase_auth_service.dart';
 import 'package:grocery/services/firebase_services.dart';
 import 'package:grocery/services/get_product_service.dart';
 import 'package:grocery/services/location_service.dart';
@@ -17,7 +17,6 @@ import 'package:grocery/services/user_service.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-FirebaseAuthService firebaseAuthService = FirebaseAuthService.getInstance();
 FirebaseService firebaseService = FirebaseService.getInstance();
 PreferenceService preferenceService = PreferenceService.getInstance();
 UserService userService = UserService.getInstance();
@@ -25,6 +24,7 @@ GetProductService getProductService = GetProductService.getInstance();
 OrderService orderService = OrderService.getInstance();
 LocationService locationService = LocationService.getInstance();
 OfferService offerService = OfferService.getInstance();
+FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
 bool validateEmail(String email) {
   if (!requiredString(email)) {
@@ -136,6 +136,7 @@ customProductDialog({Product product, BuildContext context, Function onAdd}) {
         );
       });
 }
+
 showToast(String text) {
   Fluttertoast.showToast(
       msg: text,

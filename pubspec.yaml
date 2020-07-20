@@ -30,7 +30,6 @@ dependencies:
   shared_preferences:
   path_provider: ^1.5.0
   json_serializable: ^3.0.0
-  pin_entry_text_field:
   firebase_auth:
   cloud_firestore:
   firebase_messaging:
@@ -44,6 +43,7 @@ dependencies:
   geolocator:
   location_permissions:
   webview_flutter:
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grocery/model/user.dart';
+import 'package:grocery/services/google_service.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,72 +18,27 @@ abstract class _UserStore with Store {
   bool isLoggedIn = false;
 
   @observable
-  bool isCodeSent = false;
-
-  @observable
-  bool isCodeAutoReceived = false;
-
-  @observable
   User loggedInUser;
 
-  @observable
-  String verfId;
-
   @action
-  sendOTP(
-      {String phoneNumber,
-      Function verificationFailed,
-      Function verificationComplete}) async {
+  loginWithGoogle() async {
     isLoading = true;
     try {
-      firebaseAuthService.verifyPhoneNumber(
-          phoneNumber: phoneNumber,
-          codeSentCallBack: (String id, [int forceCodeSend]) {
-            print("code sent");
-            print(id);
-            print(forceCodeSend);
-            verfId = id;
-            isCodeSent = true;
-            isLoading = false;
-          },
-          verificationComplete: (AuthCredential authCredential) async {
-            print("auto verification complete");
-            isCodeAutoReceived = true;
-            isLoading = true;
-            User response = await firebaseAuthService.verifyOTP(
-                authCredential: authCredential);
-            createUser(response);
-          },
-          codeAutoRetrievalTimeout: (String id) {
-            print("code auto retrieval");
-            print(id);
-            verfId = id;
-            isCodeSent = true;
-            isLoading = false;
-          },
-          verificationFailed: (AuthException exception) {
-            print("verification failed");
-            print(exception.message);
-            isLoading = false;
-            verificationFailed(exception);
-            throw exception;
-          });
-    } catch (e) {
-      print(e);
-      isLoading = false;
-      throw e;
-    }
-  }
-
-  @action
-  verifyOTP({String otp}) async {
-    isLoading = true;
-    try {
-      AuthCredential authCredential =
-          PhoneAuthProvider.getCredential(verificationId: verfId, smsCode: otp);
-      User response =
-          await firebaseAuthService.verifyOTP(authCredential: authCredential);
-      createUser(response);
+      FirebaseUser firebaseUser =
+          await GoogleService.getInstance().signInWithGoogle();
+      String token = await firebaseMessaging.getToken();
+      Map<String, dynamic> value = {
+        'uid': firebaseUser.uid,
+        'photoUrl': firebaseUser.photoUrl,
+        'email': firebaseUser.email,
+        'phoneNumber': firebaseUser.phoneNumber,
+        'displayName': firebaseUser.displayName,
+        'createdAt': DateTime.now().toString(),
+        'lastLoggedIn': DateTime.now().toString(),
+        'deviceToken': token,
+      };
+      User user = User.fromJson(value);
+      createUser(user);
     } catch (e) {
       isLoading = false;
       throw e;
@@ -123,11 +79,9 @@ abstract class _UserStore with Store {
   @action
   logout() async {
     isLoading = true;
-    firebaseAuthService.signOut();
+    GoogleService.getInstance().signOutGoogle();
     isLoggedIn = false;
     loggedInUser = null;
-    isCodeSent = false;
-    isCodeAutoReceived = false;
     await preferenceService.removeUID();
     await preferenceService.removeAuthUser();
     isLoading = false;

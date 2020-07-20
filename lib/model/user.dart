@@ -21,6 +21,9 @@ abstract class _User with Store {
   String phoneNumber;
 
   @observable
+  String referralSellerId;
+
+  @observable
   String imgUrl;
 
   @observable

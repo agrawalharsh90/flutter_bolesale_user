@@ -43,41 +43,6 @@ mixin _$UserStore on _UserStore, Store {
     }, _$isLoggedInAtom, name: '${_$isLoggedInAtom.name}_set');
   }
 
-  final _$isCodeSentAtom = Atom(name: '_UserStore.isCodeSent');
-
-  @override
-  bool get isCodeSent {
-    _$isCodeSentAtom.context.enforceReadPolicy(_$isCodeSentAtom);
-    _$isCodeSentAtom.reportObserved();
-    return super.isCodeSent;
-  }
-
-  @override
-  set isCodeSent(bool value) {
-    _$isCodeSentAtom.context.conditionallyRunInAction(() {
-      super.isCodeSent = value;
-      _$isCodeSentAtom.reportChanged();
-    }, _$isCodeSentAtom, name: '${_$isCodeSentAtom.name}_set');
-  }
-
-  final _$isCodeAutoReceivedAtom = Atom(name: '_UserStore.isCodeAutoReceived');
-
-  @override
-  bool get isCodeAutoReceived {
-    _$isCodeAutoReceivedAtom.context
-        .enforceReadPolicy(_$isCodeAutoReceivedAtom);
-    _$isCodeAutoReceivedAtom.reportObserved();
-    return super.isCodeAutoReceived;
-  }
-
-  @override
-  set isCodeAutoReceived(bool value) {
-    _$isCodeAutoReceivedAtom.context.conditionallyRunInAction(() {
-      super.isCodeAutoReceived = value;
-      _$isCodeAutoReceivedAtom.reportChanged();
-    }, _$isCodeAutoReceivedAtom, name: '${_$isCodeAutoReceivedAtom.name}_set');
-  }
-
   final _$loggedInUserAtom = Atom(name: '_UserStore.loggedInUser');
 
   @override
@@ -95,41 +60,11 @@ mixin _$UserStore on _UserStore, Store {
     }, _$loggedInUserAtom, name: '${_$loggedInUserAtom.name}_set');
   }
 
-  final _$verfIdAtom = Atom(name: '_UserStore.verfId');
+  final _$loginWithGoogleAsyncAction = AsyncAction('loginWithGoogle');
 
   @override
-  String get verfId {
-    _$verfIdAtom.context.enforceReadPolicy(_$verfIdAtom);
-    _$verfIdAtom.reportObserved();
-    return super.verfId;
-  }
-
-  @override
-  set verfId(String value) {
-    _$verfIdAtom.context.conditionallyRunInAction(() {
-      super.verfId = value;
-      _$verfIdAtom.reportChanged();
-    }, _$verfIdAtom, name: '${_$verfIdAtom.name}_set');
-  }
-
-  final _$sendOTPAsyncAction = AsyncAction('sendOTP');
-
-  @override
-  Future sendOTP(
-      {String phoneNumber,
-      Function verificationFailed,
-      Function verificationComplete}) {
-    return _$sendOTPAsyncAction.run(() => super.sendOTP(
-        phoneNumber: phoneNumber,
-        verificationFailed: verificationFailed,
-        verificationComplete: verificationComplete));
-  }
-
-  final _$verifyOTPAsyncAction = AsyncAction('verifyOTP');
-
-  @override
-  Future verifyOTP({String otp}) {
-    return _$verifyOTPAsyncAction.run(() => super.verifyOTP(otp: otp));
+  Future loginWithGoogle() {
+    return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
   final _$updatedUserAsyncAction = AsyncAction('updatedUser');

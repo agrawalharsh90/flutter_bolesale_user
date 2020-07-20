@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/user.dart';
@@ -10,7 +9,6 @@ import 'package:grocery/presentation/splash_page.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
-import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:provider/provider.dart';
 
 class PhoneAuthPage extends StatefulWidget {
@@ -21,13 +19,11 @@ class PhoneAuthPage extends StatefulWidget {
 }
 
 class _PhoneAuthPageState extends State<PhoneAuthPage> {
-  final GlobalKey<FormState> _phoneFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _detailsFormKey = GlobalKey<FormState>();
-  String _phoneNumber;
   String name;
   String email;
-  String finalOTP = "";
-  int maxOTPletters = 6;
+  String referralSellerId;
+  bool referEditable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +39,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                   logoContainer(),
                   userStore.isLoggedIn
                       ? detailsWidget(userStore)
-                      : userStore.isCodeSent
-                          ? otpWidget(userStore)
-                          : phoneWidget(userStore),
+                      : phoneWidget(userStore),
                 ],
               ),
             ));
@@ -58,135 +52,35 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       key: Key('PHONE'),
       margin:
           EdgeInsets.symmetric(horizontal: ScreenUtil.instance.setWidth(30)),
-      child: Form(
-        key: _phoneFormKey,
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: ScreenUtil.instance.setHeight(30),
-            ),
-            CustomTextField(
-              fieldHeader: 'Enter Your Mobile Number',
-              textInputType: TextInputType.phone,
-              initialValue: _phoneNumber,
-              onChanged: (value) {
-                setState(() {
-                  _phoneNumber = value;
-                });
-              },
-              validators: (value) {
-                if (requiredString(value) && value.length == 10) return null;
-                return "Enter Valid Number";
-              },
-            ),
-            SizedBox(
-              height: ScreenUtil.instance.setHeight(20),
-            ),
-            CustomButton(
-              isLoading: userStore.isLoading,
-              onTap: () async {
-                _phoneFormKey.currentState.save();
-                if (_phoneFormKey.currentState.validate()) {
-                  try {
-                    await userStore.sendOTP(
-                      phoneNumber: '+91' + _phoneNumber,
-                      verificationFailed: (AuthException exception) {
-                        showSnackbar(exception.message, context);
-                      },
-                    );
-                  } catch (e) {
-                    print("error in send otp");
-                    print(e);
-                    showSnackbar(e, context);
-                  }
-                }
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  otpWidget(UserStore userStore) {
-    return Container(
-        key: Key('OTP'),
-        margin: EdgeInsets.symmetric(
-            horizontal: ScreenUtil.instance.setWidth(30),
-            vertical: ScreenUtil.instance.setHeight(40)),
-        child: Column(children: <Widget>[
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Enter OTP',
-              style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 20),
-              textAlign: TextAlign.left,
-            ),
-          ),
+      child: Column(
+        children: <Widget>[
           SizedBox(
-            height: ScreenUtil.instance.setHeight(40),
-          ),
-          userStore.isCodeAutoReceived
-              ? SizedBox()
-              : PinEntryTextField(
-                  isTextObscure: true,
-                  fields: maxOTPletters,
-                  lastPin: userStore.isCodeAutoReceived ? '000000' : null,
-                  onSubmit: (String pin) {
-                    setState(() {
-                      finalOTP = pin;
-                    });
-                  },
-                ),
-          userStore.isCodeAutoReceived
-              ? SizedBox()
-              : CustomButton(
-                  onTap: () {
-                    userStore.sendOTP(
-                      phoneNumber: '+91' + _phoneNumber,
-                      verificationFailed: (AuthException exception) {
-                        print("error in resend otp");
-                        print(exception);
-                      },
-                    );
-                  },
-                  alignment: MainAxisAlignment.end,
-                  text: 'Resend OTP?',
-                  isForwardArrow: false,
-                  textColor: Styles.PRIMARY_COLOR,
-                  buttonColor: Styles.TRANSPARENT_COLOR,
-                ),
-          SizedBox(
-            height: ScreenUtil.instance.setHeight(120),
+            height: ScreenUtil.instance.setHeight(20),
           ),
           CustomButton(
             isLoading: userStore.isLoading,
             onTap: () async {
-              if (finalOTP.length == maxOTPletters) {
-                print("$finalOTP");
-                try {
-                  await userStore.verifyOTP(otp: finalOTP);
-                } catch (e) {
-                  if (e.runtimeType == AuthException) {
-                    showSnackbar(e.message, context);
-                  } else {
-                    showSnackbar(e, context);
-                  }
-                }
-              } else
-                showSnackbar("Enter Valid OTP", context);
+              try {
+                await userStore.loginWithGoogle();
+              } catch (e) {
+                print("error in login ");
+                print(e);
+                showSnackbar(e, context);
+              }
             },
-            text: 'Confirm',
-            fontSize: 20,
-            borderRadius: 5,
-          ),
-        ]));
+          )
+        ],
+      ),
+    );
   }
 
   detailsWidget(UserStore userStore) {
     if (userStore.loggedInUser != null && name == null && email == null) {
       name = userStore.loggedInUser.name;
       email = userStore.loggedInUser.email;
+      referralSellerId = userStore.loggedInUser.referralSellerId;
+      if (userStore.loggedInUser.createdAt !=
+          userStore.loggedInUser.lastLoggedIn) referEditable = false;
     }
     return Column(
       key: Key('DETAILS'),
@@ -229,6 +123,16 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                     return "Enter Valid Email";
                   },
                 ),
+                CustomTextField(
+                  fieldHeader: 'Referal Seller Id',
+                  textInputType: TextInputType.emailAddress,
+                  initialValue: referralSellerId,
+                  onChanged: (value) {
+                    setState(() {
+                      referralSellerId = value;
+                    });
+                  },
+                ),
                 SizedBox(
                   height: ScreenUtil.instance.setHeight(80),
                 ),
@@ -250,6 +154,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                 User user = Provider.of<UserStore>(context).loggedInUser;
                 user.email = email;
                 user.name = name;
+                user.referralSellerId = referralSellerId;
                 try {
                   await userStore.updatedUser(user: user);
                   _navigateToSplashPage();

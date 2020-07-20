@@ -136,6 +136,7 @@ class CustomButton extends StatelessWidget {
         ? CachedNetworkImage(
             imageUrl: imageUrl,
             fit: isImageCircle ? BoxFit.fill : BoxFit.contain,
+            color: Styles.PRIMARY_COLOR,
             placeholder: (context, s) {
               return Center(
                 child: CircularProgressIndicator(
@@ -152,6 +153,7 @@ class CustomButton extends StatelessWidget {
           )
         : Image.asset(
             imageUrl,
+            color: Styles.PRIMARY_COLOR,
             fit: isImageCircle ? BoxFit.fill : BoxFit.contain,
           );
   }

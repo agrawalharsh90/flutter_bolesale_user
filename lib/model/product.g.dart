@@ -9,6 +9,7 @@ part of 'product.dart';
 Product _$ProductFromJson(Map<String, dynamic> json) {
   return Product()
     ..sellerId = json['Id'] as String
+    ..productID = json['productID'] as String
     ..brand = json['brand'] as String
     ..category = json['category'] as String
     ..dispatch = json['dispatch'] as String
@@ -29,6 +30,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'Id': instance.sellerId,
+      'productID': instance.productID,
       'brand': instance.brand,
       'category': instance.category,
       'dispatch': instance.dispatch,
@@ -68,6 +70,23 @@ mixin _$Product on _Product, Store {
       super.sellerId = value;
       _$sellerIdAtom.reportChanged();
     }, _$sellerIdAtom, name: '${_$sellerIdAtom.name}_set');
+  }
+
+  final _$productIDAtom = Atom(name: '_Product.productID');
+
+  @override
+  String get productID {
+    _$productIDAtom.context.enforceReadPolicy(_$productIDAtom);
+    _$productIDAtom.reportObserved();
+    return super.productID;
+  }
+
+  @override
+  set productID(String value) {
+    _$productIDAtom.context.conditionallyRunInAction(() {
+      super.productID = value;
+      _$productIDAtom.reportChanged();
+    }, _$productIDAtom, name: '${_$productIDAtom.name}_set');
   }
 
   final _$brandAtom = Atom(name: '_Product.brand');

@@ -22,6 +22,7 @@ class ImageCard extends StatelessWidget {
   double verticalMargin;
   double horizontalMargin;
   MainAxisAlignment mainAxisAlignment;
+  Color imageColor;
 
   ImageCard({
     this.imgUrl,
@@ -41,6 +42,7 @@ class ImageCard extends StatelessWidget {
     this.verticalMargin = 10,
     this.horizontalMargin = 10,
     this.mainAxisAlignment = MainAxisAlignment.spaceAround,
+    this.imageColor,
   });
 
   @override
@@ -108,6 +110,7 @@ class ImageCard extends StatelessWidget {
           ? CachedNetworkImage(
               imageUrl: imgUrl,
               fit: boxFit,
+              color: imageColor,
               placeholder: (context, s) {
                 return Center(
                   child: CircularProgressIndicator(

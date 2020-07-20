@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/model/address.dart';
+import 'package:grocery/model/product.dart';
+import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/basket_page.dart';
 import 'package:grocery/presentation/custom/custom_button.dart';
@@ -7,9 +9,10 @@ import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/custom/order_details.dart';
 import 'package:grocery/presentation/custom/search_bar.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
-import 'package:grocery/presentation/payment_page.dart';
+import 'package:grocery/presentation/home_page.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
+import 'package:grocery/store/order_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:provider/provider.dart';
 
@@ -58,30 +61,32 @@ class CartPage extends StatelessWidget {
                       ),
                     ),
                     cartStore.totalAmount > 0
-                        ? CustomButton(
-                            text: "Proceed To Pay",
-                            onTap: () {
-                              Address address =
-                                  Provider.of<AddressStore>(context).address;
-                              if (address == null) {
-                                showSnackbar("Please Provide Delivery Location",
-                                    context);
-                                return;
-                              }
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PaymentPage(
-                                    totalAmount: cartStore.totalAmount,
-                                    data: cartStore.cartMap,
-                                    address: address.addressString,
-                                  ),
-                                ),
+                        ? StoreObserver<OrderStore>(
+                            builder:
+                                (OrderStore orderStore, BuildContext context) {
+                              return CustomButton(
+                                text: "Confirm Order",
+                                isLoading: orderStore.isLoading,
+                                onTap: () {
+                                  Address address =
+                                      Provider.of<AddressStore>(context)
+                                          .address;
+                                  if (address == null) {
+                                    showSnackbar(
+                                        "Please Provide Delivery Location",
+                                        context);
+                                    return;
+                                  }
+                                  onConfirm(
+                                      cartStore.cartMap,
+                                      context,
+                                      address.addressString,
+                                      cartStore.totalAmount);
+                                },
+                                horizontalMargin: 30,
+                                verticalMargin: 40,
                               );
                             },
-                            horizontalMargin: 30,
-                            verticalMargin: 40,
                           )
                         : SizedBox(),
                   ],
@@ -92,5 +97,33 @@ class CartPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  onConfirm(Map cartMap, context, String address, double totalAmount) async {
+    Map<String, dynamic> data = {};
+    cartMap.forEach((key, value) {
+      Map<String, dynamic> products = {};
+      value.forEach((key, value) {
+        products.addAll({key: Product.toJson(value)});
+      });
+      data.addAll({
+        key: products,
+        'paid': false,
+        'address': address,
+        'totalAmount': totalAmount
+      });
+    });
+    try {
+      await Provider.of<OrderStore>(context).postComboRequest(data);
+      print("data udated");
+      await Provider.of<CartStore>(context).clearStore();
+      print("store cleared");
+      showToast("Your Order Has been Recorded");
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          HomePage.routeNamed, (route) => false,
+          arguments: ScreenArguments(currentPage: 0));
+    } catch (e) {
+      showSnackbar("Please try again later", context);
+    }
   }
 }
