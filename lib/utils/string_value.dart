@@ -7,7 +7,6 @@ import 'package:grocery/presentation/category_pages/mobile_page.dart';
 import 'package:grocery/presentation/category_pages/sports_page.dart';
 import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
-import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/utils/styles.dart';
@@ -28,7 +27,7 @@ abstract class StringValue {
   //Home Page
   static const List CATEGORY_LIST = [
     {
-      'title': 'Clothes',
+      'title': 'Clothing & Apparels',
       'icon': Styles.HOME_CLOTHES_ICON,
       'route': ClothesPage.routeNamed
     },
@@ -38,7 +37,7 @@ abstract class StringValue {
       'route': EssentialsPage.routeNamed
     },
     {
-      'title': 'Fashion',
+      'title': 'Fashion Accessories, Bags & Fabrics',
       'icon': Styles.HOME_FASHION_ICON,
       'route': FashionPage.routeNamed
     },
@@ -48,22 +47,22 @@ abstract class StringValue {
       'route': FootwearPage.routeNamed
     },
     {
-      'title': 'Kitchenware',
+      'title': 'Home Decor & Kitchenware',
       'icon': Styles.HOME_KITCHENWARE_ICON,
       'route': KitchenwarePage.routeNamed
     },
     {
-      'title': 'Mobile',
+      'title': 'Mobiles & Electronics',
       'icon': Styles.HOME_MOBILE_ICON,
       'route': MobilePage.routeNamed
     },
     {
-      'title': 'Sports',
+      'title': 'Toys & Sports Goods',
       'icon': Styles.HOME_SPORTS_ICON,
       'route': SportsPage.routeNamed
     },
     {
-      'title': 'Stationary',
+      'title': 'Stationery & Office Supplies',
       'icon': Styles.HOME_STATIONARY_ICON,
       'route': StationaryPage.routeNamed
     },

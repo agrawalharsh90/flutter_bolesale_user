@@ -22,6 +22,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
   final GlobalKey<FormState> _detailsFormKey = GlobalKey<FormState>();
   String name;
   String email;
+  String phone;
   String referralSellerId;
   bool referEditable = true;
 
@@ -62,7 +63,10 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
             text: "Continue with google",
             onTap: () async {
               try {
-                await userStore.loginWithGoogle();
+                User user = await userStore.loginWithGoogle();
+                if (user.phoneNumber != null) {
+                  _navigateToSplashPage();
+                }
               } catch (e) {
                 print("error in login ");
                 print(e);
@@ -79,6 +83,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
     if (userStore.loggedInUser != null && name == null && email == null) {
       name = userStore.loggedInUser.name;
       email = userStore.loggedInUser.email;
+      phone = userStore.loggedInUser.phoneNumber;
       referralSellerId = userStore.loggedInUser.referralSellerId;
       if (userStore.loggedInUser.createdAt !=
           userStore.loggedInUser.lastLoggedIn) referEditable = false;
@@ -114,14 +119,20 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                   fieldHeader: 'Email',
                   textInputType: TextInputType.emailAddress,
                   initialValue: email,
+                  isEditable: false,
+                ),
+                CustomTextField(
+                  fieldHeader: 'Phone Number',
+                  textInputType: TextInputType.phone,
+                  initialValue: phone,
                   onChanged: (value) {
                     setState(() {
-                      email = value;
+                      phone = value;
                     });
                   },
                   validators: (value) {
-                    if (validateEmail(value)) return null;
-                    return "Enter Valid Email";
+                    if (requiredString(value)) return null;
+                    return "Required Field";
                   },
                 ),
                 CustomTextField(
@@ -153,7 +164,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
               _detailsFormKey.currentState.save();
               if (_detailsFormKey.currentState.validate()) {
                 User user = Provider.of<UserStore>(context).loggedInUser;
-                user.email = email;
+                user.phoneNumber = phone;
                 user.name = name;
                 user.referralSellerId = referralSellerId;
                 try {

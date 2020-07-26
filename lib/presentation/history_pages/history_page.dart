@@ -30,6 +30,7 @@ class HistoryPage extends StatelessWidget {
               child: getTitleTex("No Order Yet"),
             );
           return ListView.builder(
+        shrinkWrap: true,
               itemCount: orderStore.combo.length,
               itemBuilder: (BuildContext context, index) {
                 List<Order> rnvL = orderStore.combo.values.toList();

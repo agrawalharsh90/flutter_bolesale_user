@@ -42,7 +42,10 @@ class MyAccount extends StatelessWidget {
                           boxShadow: kElevationToShadow[8],
                         ),
                         child: userStore.loggedInUser.imgUrl == null
-                            ? Image.asset(Styles.MO_CONTACT_US)
+                            ? Image.asset(
+                                Styles.MO_CONTACT_US,
+                                color: Styles.PRIMARY_COLOR,
+                              )
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(
                                     ScreenUtil.instance.setWidth(100)),
@@ -106,8 +109,8 @@ class MyAccount extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Text(userStore.loggedInUser.email),
-                      Text(userStore.loggedInUser.phoneNumber),
+                      Text(userStore.loggedInUser.email ?? ''),
+                      Text(userStore.loggedInUser.phoneNumber ?? ''),
                     ],
                   ),
                 ),

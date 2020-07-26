@@ -65,7 +65,14 @@ class CustomScaffold extends StatelessWidget {
                 ),
               )
             : null,
-        body: body,
+        body: Container(
+          height: ScreenUtil.instance.setHeight(ScreenUtil.instance.height),
+          width: ScreenUtil.instance.setWidth(ScreenUtil.instance.width),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Styles.BG), fit: BoxFit.fill)),
+          child: body,
+        ),
       ),
     );
   }

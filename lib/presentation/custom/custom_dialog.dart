@@ -31,32 +31,34 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
               widget.product.productImage != null &&
                       widget.product.productImage.isNotEmpty
                   ? Container(
-                height: ScreenUtil.instance.setHeight(280),
-                    child: ListView.builder(
-                        itemCount: widget.product.productImage.length,
-                        itemBuilder: (BuildContext context, index) {
-                          return Container(
-                            height: ScreenUtil.instance.setHeight(250),
-                            padding: EdgeInsets.only(
-                                bottom: ScreenUtil.instance.setHeight(20)),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.product.productImage[0],
-                              fit: BoxFit.fitHeight,
-                              placeholder: (context, s) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Styles.PRIMARY_COLOR),
-                                  ),
-                                );
-                              },
-                              errorWidget: (context, s, o) {
-                                return Center(child: Icon(Icons.error_outline));
-                              },
-                            ),
-                          );
-                        }),
-                  )
+                      height: ScreenUtil.instance.setHeight(280),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: widget.product.productImage.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return Container(
+                              height: ScreenUtil.instance.setHeight(250),
+                              padding: EdgeInsets.only(
+                                  bottom: ScreenUtil.instance.setHeight(20)),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.product.productImage[0],
+                                fit: BoxFit.fitHeight,
+                                placeholder: (context, s) {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Styles.PRIMARY_COLOR),
+                                    ),
+                                  );
+                                },
+                                errorWidget: (context, s, o) {
+                                  return Center(
+                                      child: Icon(Icons.error_outline));
+                                },
+                              ),
+                            );
+                          }),
+                    )
                   : SizedBox(),
               Text(widget.product.product,
                   style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 20)),
@@ -77,14 +79,14 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      if (widget.initialCount < 2) return;
+                      if (widget.initialCount <= int.parse(widget.product.moq))
+                        return;
                       setState(() {
                         widget.initialCount--;
                       });
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      width: ScreenUtil.instance.setWidth(35),
                       height: ScreenUtil.instance.setWidth(35),
                       margin: EdgeInsets.all(0),
                       decoration: BoxDecoration(

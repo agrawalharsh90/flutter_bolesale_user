@@ -5,6 +5,7 @@ import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/cart_page.dart';
+import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/search_bar.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
@@ -12,7 +13,6 @@ import 'package:grocery/presentation/more_page.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/presentation/search_page.dart';
 import 'package:grocery/store/address_store.dart';
-import 'package:grocery/store/offer_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/string_value.dart';
 import 'package:grocery/utils/styles.dart';
@@ -101,120 +101,63 @@ class _HomePageState extends State<HomePage> {
   }
 
   homeWidget() {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          profileRow(),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, AddressEditPage.routeNamed);
-            },
-            child: IgnorePointer(
-              child: StoreObserver<AddressStore>(
-                builder: (AddressStore addressStore, BuildContext context) {
-                  return SearchBar(
-                    hintText: addressStore.address == null
-                        ? "Select Delivery Location"
-                        : addressStore.address.addressString,
-                    icon: Icons.location_on,
-                    onSearch: (value) {
-                      print(value);
-                    },
-                  );
-                },
+    return CustomScaffold(
+      body: SingleChildScrollView(
+        controller: scrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            profileRow(),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, AddressEditPage.routeNamed);
+              },
+              child: IgnorePointer(
+                child: StoreObserver<AddressStore>(
+                  builder: (AddressStore addressStore, BuildContext context) {
+                    return SearchBar(
+                      hintText: addressStore.address == null
+                          ? "Select Delivery Location"
+                          : addressStore.address.addressString,
+                      icon: Icons.location_on,
+                      onSearch: (value) {
+                        print(value);
+                      },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          getTitleTex("Offers"),
-          StoreObserver<OfferStore>(
-            builder: (OfferStore offerStore, BuildContext context) {
-              if (offerStore.isLoading) return CircularProgressIndicator();
-              if (offerStore.offerMap.isEmpty)
-                return Center(
-                  child: getTitleTex("Offers Will Be added soon"),
-                );
-              return Container(
-                height: ScreenUtil.instance.setWidth(190),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: offerStore.offerMap.length,
-                    itemBuilder: (BuildContext context, index) {
-                      if (index == 0)
-                        return Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: ScreenUtil.instance.setWidth(20),
-                            ),
-                            ImageCard(
-                              imgUrl: offerStore.offerMap.values
-                                      .toList()[index]
-                                      .offerUrl ??
-                                  'assets/offericon0.jpg',
-                              width: 190,
-                              height: 125,
-                              imagePadding: 0,
-                              verticalMargin: 0,
-                              textColor: Styles.BLACK_COLOR,
-                              shownForwardArrow: false,
-                              text: offerStore.offerMap.values
-                                      .toList()[index]
-                                      .description ??
-                                  '',
-                            )
-                          ],
-                        );
-                      return ImageCard(
-                        imgUrl: offerStore.offerMap.values
-                                .toList()[index]
-                                .offerUrl ??
-                            'assets/offericon0.jpg',
-                        width: 190,
-                        height: 125,
-                        imagePadding: 0,
-                        verticalMargin: 0,
-                        textColor: Styles.BLACK_COLOR,
-                        shownForwardArrow: false,
-                        text: offerStore.offerMap.values
-                                .toList()[index]
-                                .description ??
-                            '',
-                      );
-                    }),
-              );
-            },
-          ),
-          getTitleTex("Categories"),
-          GridView.builder(
-              controller: scrollController,
-              scrollDirection: Axis.vertical,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              shrinkWrap: true,
-              itemCount: StringValue.CATEGORY_LIST.length,
-              itemBuilder: (BuildContext context, index) {
-                return ImageCard(
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, StringValue.CATEGORY_LIST[index]['route']);
-                  },
-                  imgUrl: StringValue.CATEGORY_LIST[index]['icon'],
-                  horizontalMargin: 10,
-                  verticalMargin: 0,
-                  imageColor: Styles.SECONDARY_COLOR,
-                  width: 140,
-                  text: StringValue.CATEGORY_LIST[index]['title'],
-                  boxFit: BoxFit.contain,
-                  textAlign: TextAlign.center,
-                );
-              }),
-          SizedBox(
-            height: ScreenUtil.instance.setHeight(20),
-          ),
-        ],
+            getTitleTex("Categories"),
+            GridView.builder(
+                controller: scrollController,
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                shrinkWrap: true,
+                itemCount: StringValue.CATEGORY_LIST.length,
+                itemBuilder: (BuildContext context, index) {
+                  return ImageCard(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, StringValue.CATEGORY_LIST[index]['route']);
+                    },
+                    imgUrl: StringValue.CATEGORY_LIST[index]['icon'],
+                    horizontalMargin: 10,
+                    verticalMargin: 0,
+                    imageColor: Styles.SECONDARY_COLOR,
+                    width: 130,
+                    text: StringValue.CATEGORY_LIST[index]['title'],
+                    boxFit: BoxFit.contain,
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                  );
+                }),
+            SizedBox(
+              height: ScreenUtil.instance.setHeight(20),
+            ),
+          ],
+        ),
       ),
     );
   }

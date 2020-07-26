@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class Styles {
   static const Color SECONDARY_COLOR = Color.fromRGBO(4, 145, 172, 1);
-  static const Color PRIMARY_COLOR = Color.fromRGBO(253, 167, 0, 1);
+  static const Color PRIMARY_COLOR = Color.fromRGBO(255, 69, 0, 1);
   static const Color SHADOW_COLOR = Color.fromRGBO(0, 0, 0, 0.16);
   static const Color WHITE_COLOR = Colors.white;
   static const Color BLACK_COLOR = Colors.black;
@@ -17,6 +17,7 @@ abstract class Styles {
   static const String FORWARD_ARROW = 'assets/forward_arrow.png';
   static const String PHONE_AUTH_BG = 'assets/phone_auth_bg.png';
   static const String FAB_CART_ICON = 'assets/fab_cart_icon.png';
+  static const String BG = 'assets/bg.png';
 
   // Bottom Navigation Icons
   static const String BNI_HOME_ICON =

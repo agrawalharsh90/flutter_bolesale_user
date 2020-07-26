@@ -20,6 +20,7 @@ class EssentialsPage extends StatefulWidget {
 
 class _EssentialsPageState extends State<EssentialsPage> {
   bool isSearching = false;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +67,19 @@ class _EssentialsPageState extends State<EssentialsPage> {
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
+        shrinkWrap: true,
+        controller: _scrollController,
         itemCount: essentialsStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
               essentialsStore.productMap.keys.toList()[index],
-              130,
               90,
-              1,
               essentialsStore
                   .productMap[essentialsStore.productMap.keys.toList()[index]]);
         });
   }
 
-  getListWidget(String title, double height, double width, double ratio,
-      List<Product> productList) {
+  getListWidget(String title, double width, List<Product> productList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -89,10 +89,11 @@ class _EssentialsPageState extends State<EssentialsPage> {
                 child: getTitleTex("No Items", fontSize: 14),
               )
             : Container(
-                height: ScreenUtil.instance.setWidth(height),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                child: GridView.builder(
+                    controller: _scrollController,
                     shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
                     itemCount: productList.length,
                     itemBuilder: (BuildContext context, index) {
                       if (index == 0)
@@ -116,7 +117,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                   }),
                               imgUrl: productList[index].productImage[0],
                               width: width,
-                              height: width * ratio,
+                              height: width,
                               imagePadding: 0,
                               verticalMargin: 0,
                               textColor: Styles.BLACK_COLOR,
@@ -140,7 +141,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                             }),
                         imgUrl: productList[index].productImage[0],
                         width: width,
-                        height: width * ratio,
+                        height: width,
                         imagePadding: 0,
                         verticalMargin: 0,
                         textColor: Styles.BLACK_COLOR,
@@ -166,7 +167,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
         child: getTitleTex('No items found'),
       );
     return GridView.builder(
-        scrollDirection: Axis.vertical,
+        controller: _scrollController,
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,

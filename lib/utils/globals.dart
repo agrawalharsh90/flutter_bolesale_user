@@ -132,6 +132,7 @@ customProductDialog({Product product, BuildContext context, Function onAdd}) {
         return CustomDialogWidget(
           product: product,
           onAdd: onAdd,
+          initialCount: int.parse(product.moq),
           buttonText: 'Add To Cart',
         );
       });

@@ -23,6 +23,7 @@ class ImageCard extends StatelessWidget {
   double horizontalMargin;
   MainAxisAlignment mainAxisAlignment;
   Color imageColor;
+  int maxLines;
 
   ImageCard({
     this.imgUrl,
@@ -43,6 +44,7 @@ class ImageCard extends StatelessWidget {
     this.horizontalMargin = 10,
     this.mainAxisAlignment = MainAxisAlignment.spaceAround,
     this.imageColor,
+    this.maxLines = 2,
   });
 
   @override
@@ -84,7 +86,7 @@ class ImageCard extends StatelessWidget {
                     text ?? '',
                     style: TextStyle(fontSize: fontSize, color: textColor),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: maxLines,
                     textAlign: textAlign,
                   ),
                 ),

@@ -38,7 +38,8 @@ abstract class _UserStore with Store {
         'deviceToken': token,
       };
       User user = User.fromJson(value);
-      createUser(user);
+      user = await createUser(user);
+      return user;
     } catch (e) {
       isLoading = false;
       throw e;
@@ -64,7 +65,7 @@ abstract class _UserStore with Store {
     isLoading = true;
     user = await userService.setUser(user: user);
     setLoggedIn(user);
-    isLoading = false;
+    return user;
   }
 
   @action
@@ -74,6 +75,7 @@ abstract class _UserStore with Store {
     await preferenceService.setUID(user.uid);
     loggedInUser = user;
     isLoggedIn = true;
+    isLoading = false;
   }
 
   @action

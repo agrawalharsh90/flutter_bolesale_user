@@ -20,6 +20,7 @@ class MobilePage extends StatefulWidget {
 
 class _MobilePageState extends State<MobilePage> {
   bool isSearching = false;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,20 +66,19 @@ class _MobilePageState extends State<MobilePage> {
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
+        shrinkWrap: true,
+        controller: _scrollController,
         itemCount: mobileStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
               mobileStore.productMap.keys.toList()[index],
-              130,
               90,
-              1,
               mobileStore
                   .productMap[mobileStore.productMap.keys.toList()[index]]);
         });
   }
 
-  getListWidget(String title, double height, double width, double ratio,
-      List<Product> productList) {
+  getListWidget(String title, double width, List<Product> productList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -88,11 +88,12 @@ class _MobilePageState extends State<MobilePage> {
                 child: getTitleTex("No Items", fontSize: 14),
               )
             : Container(
-                height: ScreenUtil.instance.setWidth(height),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                child: GridView.builder(
+                    controller: _scrollController,
                     shrinkWrap: true,
                     itemCount: productList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
                     itemBuilder: (BuildContext context, index) {
                       if (index == 0)
                         return Row(
@@ -115,7 +116,7 @@ class _MobilePageState extends State<MobilePage> {
                                   }),
                               imgUrl: productList[index].productImage[0],
                               width: width,
-                              height: width * ratio,
+                              height: width,
                               imagePadding: 0,
                               verticalMargin: 0,
                               textColor: Styles.BLACK_COLOR,
@@ -139,7 +140,7 @@ class _MobilePageState extends State<MobilePage> {
                             }),
                         imgUrl: productList[index].productImage[0],
                         width: width,
-                        height: width * ratio,
+                        height: width,
                         imagePadding: 0,
                         verticalMargin: 0,
                         textColor: Styles.BLACK_COLOR,
@@ -165,7 +166,7 @@ class _MobilePageState extends State<MobilePage> {
         child: getTitleTex('No items found'),
       );
     return GridView.builder(
-        scrollDirection: Axis.vertical,
+        controller: _scrollController,
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,

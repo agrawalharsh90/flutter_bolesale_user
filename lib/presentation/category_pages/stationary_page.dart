@@ -20,6 +20,7 @@ class StationaryPage extends StatefulWidget {
 
 class _StationaryPageState extends State<StationaryPage> {
   bool isSearching = false;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,89 +67,91 @@ class _StationaryPageState extends State<StationaryPage> {
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
+        shrinkWrap: true,
+        controller: _scrollController,
         itemCount: stationaryStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
               stationaryStore.productMap.keys.toList()[index],
-              130,
               90,
-              1,
               stationaryStore
                   .productMap[stationaryStore.productMap.keys.toList()[index]]);
         });
   }
-  getListWidget(String title, double height, double width, double ratio,
-      List<Product> productList) {
+
+  getListWidget(String title, double width, List<Product> productList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         getTitleTex(title),
         productList.isEmpty
             ? Center(
-          child: getTitleTex("No Items", fontSize: 14),
-        )
+                child: getTitleTex("No Items", fontSize: 14),
+              )
             : Container(
-          height: ScreenUtil.instance.setWidth(height),
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: productList.length,
-              itemBuilder: (BuildContext context, index) {
-                if (index == 0)
-                  return Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: ScreenUtil.instance.setWidth(20),
-                      ),
-                      ImageCard(
+                child: GridView.builder(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: productList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemBuilder: (BuildContext context, index) {
+                      if (index == 0)
+                        return Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: ScreenUtil.instance.setWidth(20),
+                            ),
+                            ImageCard(
+                              onTap: () => customProductDialog(
+                                  context: context,
+                                  product: productList[index],
+                                  onAdd: (value) {
+                                    print("on Add" + value.toString());
+                                    Product product = productList[index];
+                                    product.quantity = value;
+                                    Provider.of<CartStore>(context)
+                                        .updateCartMap({
+                                      "Stationary": {product.sellerId: product}
+                                    });
+                                  }),
+                              imgUrl: productList[index].productImage[0],
+                              width: width,
+                              height: width,
+                              imagePadding: 0,
+                              verticalMargin: 0,
+                              textColor: Styles.BLACK_COLOR,
+                              shownForwardArrow: false,
+                              text: productList[index].product,
+                              boxFit: BoxFit.contain,
+                            )
+                          ],
+                        );
+                      return ImageCard(
                         onTap: () => customProductDialog(
                             context: context,
                             product: productList[index],
                             onAdd: (value) {
-                              print("on Add" + value.toString());
+                              print("on Add " + value.toString());
                               Product product = productList[index];
                               product.quantity = value;
-                              Provider.of<CartStore>(context)
-                                  .updateCartMap({
+                              Provider.of<CartStore>(context).updateCartMap({
                                 "Stationary": {product.sellerId: product}
                               });
                             }),
                         imgUrl: productList[index].productImage[0],
                         width: width,
-                        height: width * ratio,
+                        height: width,
                         imagePadding: 0,
                         verticalMargin: 0,
                         textColor: Styles.BLACK_COLOR,
                         shownForwardArrow: false,
                         text: productList[index].product,
                         boxFit: BoxFit.contain,
-                      )
-                    ],
-                  );
-                return ImageCard(
-                  onTap: () => customProductDialog(
-                      context: context,
-                      product: productList[index],
-                      onAdd: (value) {
-                        print("on Add " + value.toString());
-                        Product product = productList[index];
-                        product.quantity = value;
-                        Provider.of<CartStore>(context).updateCartMap({
-                          "Stationary": {product.sellerId: product}
-                        });
-                      }),
-                  imgUrl: productList[index].productImage[0],
-                  width: width,
-                  height: width * ratio,
-                  imagePadding: 0,
-                  verticalMargin: 0,
-                  textColor: Styles.BLACK_COLOR,
-                  shownForwardArrow: false,
-                  text: productList[index].product,
-                  boxFit: BoxFit.contain,
-                );
-              }),
-        ),
+                      );
+                    }),
+              ),
       ],
     );
   }
@@ -165,20 +168,22 @@ class _StationaryPageState extends State<StationaryPage> {
         child: getTitleTex('No items found'),
       );
     return GridView.builder(
+        controller: _scrollController,
         scrollDirection: Axis.vertical,
         gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
         itemCount: stationaryStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => customProductDialog(
                 context: context,
-                product: stationaryStore.filterProductMap.values.toList()[index],
+                product:
+                    stationaryStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
                   print("on Add" + value.toString());
                   Product product =
-                  stationaryStore.filterProductMap.values.toList()[index];
+                      stationaryStore.filterProductMap.values.toList()[index];
                   product.quantity = value;
                   Provider.of<CartStore>(context).updateCartMap({
                     "Stationary": {product.sellerId: product}
@@ -193,7 +198,8 @@ class _StationaryPageState extends State<StationaryPage> {
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
             shownForwardArrow: false,
-            text: stationaryStore.filterProductMap.values.toList()[index].product,
+            text:
+                stationaryStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );
         });

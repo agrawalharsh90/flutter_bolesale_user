@@ -20,6 +20,7 @@ class ClothesPage extends StatefulWidget {
 
 class _ClothesPageState extends State<ClothesPage> {
   bool isSearching = false;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,20 +66,19 @@ class _ClothesPageState extends State<ClothesPage> {
         child: getTitleTex('Items Will be Added Soon'),
       );
     return ListView.builder(
+        shrinkWrap: true,
         itemCount: clothesStore.productMap.length,
+        controller: _scrollController,
         itemBuilder: (BuildContext context, index) {
           return getListWidget(
               clothesStore.productMap.keys.toList()[index],
-              130,
               90,
-              1,
               clothesStore
                   .productMap[clothesStore.productMap.keys.toList()[index]]);
         });
   }
 
-  getListWidget(String title, double height, double width, double ratio,
-      List<Product> productList) {
+  getListWidget(String title, double width, List<Product> productList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -88,11 +88,12 @@ class _ClothesPageState extends State<ClothesPage> {
                 child: getTitleTex("No Items", fontSize: 14),
               )
             : Container(
-                height: ScreenUtil.instance.setWidth(height),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                child: GridView.builder(
+                    controller: _scrollController,
                     shrinkWrap: true,
                     itemCount: productList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
                     itemBuilder: (BuildContext context, index) {
                       if (index == 0)
                         return Row(
@@ -115,7 +116,7 @@ class _ClothesPageState extends State<ClothesPage> {
                                   }),
                               imgUrl: productList[index].productImage[0],
                               width: width,
-                              height: width * ratio,
+                              height: width,
                               imagePadding: 0,
                               verticalMargin: 0,
                               textColor: Styles.BLACK_COLOR,
@@ -139,7 +140,7 @@ class _ClothesPageState extends State<ClothesPage> {
                             }),
                         imgUrl: productList[index].productImage[0],
                         width: width,
-                        height: width * ratio,
+                        height: width,
                         imagePadding: 0,
                         verticalMargin: 0,
                         textColor: Styles.BLACK_COLOR,
@@ -165,7 +166,7 @@ class _ClothesPageState extends State<ClothesPage> {
         child: getTitleTex('No items found'),
       );
     return GridView.builder(
-        scrollDirection: Axis.vertical,
+        controller: _scrollController,
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,

@@ -24,6 +24,7 @@ class _MorePageState extends State<MorePage> {
       appBarTitle: StringValue.MORE_OPTIONS_TITLE,
       showbackArrow: false,
       body: ListView.builder(
+        shrinkWrap: true,
           itemCount: StringValue.MORE_OPTIONS_LIST.length,
           itemBuilder: (BuildContext context, index) {
             return CustomButton(

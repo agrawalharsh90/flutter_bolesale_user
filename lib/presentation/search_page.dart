@@ -69,49 +69,50 @@ class _SearchPageState extends State<SearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  getTitleTex('Clothes'),
+                  getTitleTex('Clothing & Apparels', fontSize: 16),
                   StoreObserver<ClothesStore>(
                     builder: (ClothesStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Clothes');
                     },
                   ),
-                  getTitleTex('Essentails'),
+                  getTitleTex('Essentials', fontSize: 16),
                   StoreObserver<EssentialsStore>(
                     builder: (EssentialsStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Essentails');
                     },
                   ),
-                  getTitleTex('Fashion'),
+                  getTitleTex('Fashion Accessories, Bags & Fabrics',
+                      fontSize: 16),
                   StoreObserver<FashionStore>(
                     builder: (FashionStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Fashion');
                     },
                   ),
-                  getTitleTex('Footwear'),
+                  getTitleTex('Footwear', fontSize: 16),
                   StoreObserver<FootwearStore>(
                     builder: (FootwearStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Footwear');
                     },
                   ),
-                  getTitleTex('Kitchenware'),
+                  getTitleTex('Home Decor & Kitchenware', fontSize: 16),
                   StoreObserver<KitchenwareStore>(
                     builder: (KitchenwareStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Kitchenware');
                     },
                   ),
-                  getTitleTex('Mobile'),
+                  getTitleTex('Mobiles & Electronics', fontSize: 16),
                   StoreObserver<MobileStore>(
                     builder: (MobileStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Mobile');
                     },
                   ),
-                  getTitleTex('Sports'),
+                  getTitleTex('Toys & Sports Goods', fontSize: 16),
                   StoreObserver<SportsStore>(
                     builder: (SportsStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Sports');
                     },
                   ),
-                  getTitleTex('Stationary'),
+                  getTitleTex('Stationery & Office Supplies', fontSize: 16),
                   StoreObserver<SportsStore>(
                     builder: (SportsStore store, BuildContext context) {
                       return getSearchingWidget(store, 'Stationary');
@@ -157,7 +158,6 @@ class _SearchPageState extends State<SearchPage> {
                 }),
             imgUrl:
                 store.filterProductMap.values.toList()[index].productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
