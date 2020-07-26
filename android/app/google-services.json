@@ -15,19 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "679659662523-u71lm42am49hruedgv3iasuv1v03n9su.apps.googleusercontent.com",
+          "client_id": "679659662523-vjdhv3qt08gqpntrsgpt00bvbj6vsjas.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bolesale.main",
-            "certificate_hash": "26455d3cdbd5f33a36a238652b22859312aa4283"
-          }
-        },
-        {
-          "client_id": "679659662523-pg000ap1rjstq61nbnbtgdvhgjgs1ap9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bolesale.main",
-            "certificate_hash": "771a7c87cf1458863ad1c8894fe6ebd9ccab9291"
+            "certificate_hash": "a746e73fa55c0fe1865f4edb8e90f8829511a820"
           }
         },
         {
