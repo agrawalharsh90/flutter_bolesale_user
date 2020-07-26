@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/presentation/custom/count_row.dart';
@@ -88,26 +89,32 @@ class _BasketPageState extends State<BasketPage> {
             controller: controller,
             itemCount: productList.length,
             itemBuilder: (context, index) {
-              return CountRow(
-                title: productList[index].product,
-                imageUrl: productList[index].productImage[0],
-                suffixText: "Rs." +
-                    (double.parse(productList[index].price) *
-                            productList[index].quantity)
-                        .toString(),
-                initialCount: productList[index].quantity,
-                verticalMargin: 10,
-                onCountChange: (v) {
-                  Product product = productList[index];
-                  product.quantity = v;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    title: {product.sellerId: product}
-                  });
-                },
-                onDelete: () {
-                  Provider.of<CartStore>(context)
-                      .deleteProductCart(title, productList[index].sellerId);
-                },
+              return Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: ScreenUtil.instance.setWidth(5),
+                ),
+                child: CountRow(
+                  title: productList[index].product,
+                  imageUrl: productList[index].productImage[0],
+                  suffixText: "Rs." +
+                      (double.parse(productList[index].price) *
+                              productList[index].quantity)
+                          .toString(),
+                  initialCount: productList[index].quantity,
+                  moq: int.parse(productList[index].moq),
+                  verticalMargin: 10,
+                  onCountChange: (v) {
+                    Product product = productList[index];
+                    product.quantity = v;
+                    Provider.of<CartStore>(context).updateCartMap({
+                      title: {product.sellerId: product}
+                    });
+                  },
+                  onDelete: () {
+                    Provider.of<CartStore>(context)
+                        .deleteProductCart(title, productList[index].sellerId);
+                  },
+                ),
               );
             }),
       ],

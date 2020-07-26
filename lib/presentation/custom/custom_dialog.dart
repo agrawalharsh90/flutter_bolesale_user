@@ -87,7 +87,7 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      width: ScreenUtil.instance.setWidth(70),
+                      width: ScreenUtil.instance.setWidth(35),
                       height: ScreenUtil.instance.setWidth(35),
                       margin: EdgeInsets.all(0),
                       decoration: BoxDecoration(
@@ -104,7 +104,9 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    width: ScreenUtil.instance.setWidth(35),
+                    constraints: BoxConstraints(
+                      minWidth: ScreenUtil.instance.setWidth(70),
+                    ),
                     height: ScreenUtil.instance.setWidth(35),
                     margin: EdgeInsets.all(0),
                     decoration: BoxDecoration(

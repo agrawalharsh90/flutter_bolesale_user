@@ -13,17 +13,18 @@ class CountRow extends StatefulWidget {
   String suffixText;
   int initialCount;
   double verticalMargin;
+  int moq;
 
-  CountRow({
-    this.imageUrl,
-    this.description,
-    this.title,
-    this.initialCount,
-    this.onCountChange,
-    this.onDelete,
-    this.suffixText,
-    this.verticalMargin = 0,
-  });
+  CountRow(
+      {this.imageUrl,
+      this.description,
+      this.title,
+      this.initialCount,
+      this.onCountChange,
+      this.onDelete,
+      this.suffixText,
+      this.verticalMargin = 0,
+      this.moq});
 
   @override
   _CountRowState createState() => _CountRowState();
@@ -78,7 +79,7 @@ class _CountRowState extends State<CountRow> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            if (widget.initialCount < 2) {
+            if (widget.initialCount <= widget.moq) {
               widget.onDelete();
               return;
             }
@@ -105,7 +106,8 @@ class _CountRowState extends State<CountRow> {
         ),
         Container(
           alignment: Alignment.center,
-          width: ScreenUtil.instance.setWidth(30),
+          constraints:
+              BoxConstraints(minWidth: ScreenUtil.instance.setWidth(30)),
           height: ScreenUtil.instance.setWidth(30),
           margin: EdgeInsets.all(0),
           decoration: BoxDecoration(

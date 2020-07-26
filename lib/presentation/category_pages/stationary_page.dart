@@ -91,7 +91,6 @@ class _StationaryPageState extends State<StationaryPage> {
             : Container(
                 child: GridView.builder(
                     controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: productList.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -169,7 +168,6 @@ class _StationaryPageState extends State<StationaryPage> {
       );
     return GridView.builder(
         controller: _scrollController,
-        scrollDirection: Axis.vertical,
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         shrinkWrap: true,
