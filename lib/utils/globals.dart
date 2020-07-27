@@ -126,16 +126,15 @@ urlLauncher(String data, context) async {
 }
 
 customProductDialog({Product product, BuildContext context, Function onAdd}) {
-  return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomDialogWidget(
-          product: product,
-          onAdd: onAdd,
-          initialCount: int.parse(product.moq),
-          buttonText: 'Add To Cart',
-        );
-      });
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (BuildContext context) => CustomDialogWidget(
+                product: product,
+                onAdd: onAdd,
+                initialCount: int.parse(product.moq),
+                buttonText: 'Add To Cart',
+              )));
 }
 
 showToast(String text) {

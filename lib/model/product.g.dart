@@ -22,7 +22,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
     ..product = json['product'] as String
     ..stock = json['stock'] as String
     ..sub_category = json['sub_category'] as String
-    ..warrenty = json['warrenty'] as String
+    ..warranty = json['warranty'] as String
     ..quantity = json['quantity'] as int
     ..productImage =
         (json['productImage'] as List)?.map((e) => e as String)?.toList();
@@ -43,7 +43,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'product': instance.product,
       'stock': instance.stock,
       'sub_category': instance.sub_category,
-      'warrenty': instance.warrenty,
+      'warranty': instance.warranty,
       'quantity': instance.quantity,
       'productImage': instance.productImage,
     };
@@ -293,21 +293,21 @@ mixin _$Product on _Product, Store {
     }, _$sub_categoryAtom, name: '${_$sub_categoryAtom.name}_set');
   }
 
-  final _$warrentyAtom = Atom(name: '_Product.warrenty');
+  final _$warrantyAtom = Atom(name: '_Product.warranty');
 
   @override
-  String get warrenty {
-    _$warrentyAtom.context.enforceReadPolicy(_$warrentyAtom);
-    _$warrentyAtom.reportObserved();
-    return super.warrenty;
+  String get warranty {
+    _$warrantyAtom.context.enforceReadPolicy(_$warrantyAtom);
+    _$warrantyAtom.reportObserved();
+    return super.warranty;
   }
 
   @override
-  set warrenty(String value) {
-    _$warrentyAtom.context.conditionallyRunInAction(() {
-      super.warrenty = value;
-      _$warrentyAtom.reportChanged();
-    }, _$warrentyAtom, name: '${_$warrentyAtom.name}_set');
+  set warranty(String value) {
+    _$warrantyAtom.context.conditionallyRunInAction(() {
+      super.warranty = value;
+      _$warrantyAtom.reportChanged();
+    }, _$warrantyAtom, name: '${_$warrantyAtom.name}_set');
   }
 
   final _$quantityAtom = Atom(name: '_Product.quantity');

@@ -55,7 +55,7 @@ abstract class _Product with Store {
   String sub_category;
 
   @observable
-  String warrenty;
+  String warranty;
 
   @observable
   int quantity;

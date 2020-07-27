@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
+import 'package:grocery/presentation/custom/image_preview.dart';
 import 'package:grocery/utils/styles.dart';
 
 class CustomDialogWidget extends StatefulWidget {
@@ -20,13 +22,15 @@ class CustomDialogWidget extends StatefulWidget {
 class _CustomDialogWidgetState extends State<CustomDialogWidget> {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
         padding: EdgeInsets.symmetric(
             vertical: ScreenUtil.instance.setHeight(10),
             horizontal: ScreenUtil.instance.setWidth(10)),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               widget.product.productImage != null &&
                       widget.product.productImage.isNotEmpty
@@ -34,27 +38,44 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                       height: ScreenUtil.instance.setHeight(280),
                       child: ListView.builder(
                           shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
                           itemCount: widget.product.productImage.length,
                           itemBuilder: (BuildContext context, index) {
-                            return Container(
-                              height: ScreenUtil.instance.setHeight(250),
-                              padding: EdgeInsets.only(
-                                  bottom: ScreenUtil.instance.setHeight(20)),
-                              child: CachedNetworkImage(
-                                imageUrl: widget.product.productImage[0],
-                                fit: BoxFit.fitHeight,
-                                placeholder: (context, s) {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Styles.PRIMARY_COLOR),
-                                    ),
-                                  );
-                                },
-                                errorWidget: (context, s, o) {
-                                  return Center(
-                                      child: Icon(Icons.error_outline));
-                                },
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            ImagePreview(
+                                              imgUrl: widget
+                                                  .product.productImage[index],
+                                            )));
+                              },
+                              child: Container(
+                                width: ScreenUtil.instance
+                                    .setWidth(ScreenUtil.instance.width),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ScreenUtil.instance.setWidth(15)),
+                                child: CachedNetworkImage(
+                                  imageUrl: widget.product.productImage[index],
+                                  fit: BoxFit.contain,
+                                  placeholder: (context, s) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Styles.PRIMARY_COLOR),
+                                      ),
+                                    );
+                                  },
+                                  errorWidget: (context, s, o) {
+                                    return Center(
+                                        child: Icon(Icons.error_outline));
+                                  },
+                                ),
                               ),
                             );
                           }),
@@ -62,8 +83,22 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                   : SizedBox(),
               Text(widget.product.product,
                   style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 20)),
-              Text(widget.product.description ?? ''),
-              Text(widget.product.category ?? ''),
+              SizedBox(
+                height: ScreenUtil.instance.setHeight(10),
+              ),
+              Text("Description : \n" + widget.product.description ?? ''),
+              SizedBox(
+                height: ScreenUtil.instance.setHeight(10),
+              ),
+              Text("Brand : " + widget.product.brand ?? ''),
+              SizedBox(
+                height: ScreenUtil.instance.setHeight(10),
+              ),
+              Text("Warranty : " + widget.product.warranty ?? ''),
+              SizedBox(
+                height: ScreenUtil.instance.setHeight(10),
+              ),
+              Text("Material : " + widget.product.material ?? ''),
               SizedBox(
                 height: ScreenUtil.instance.setHeight(20),
               ),
@@ -144,17 +179,20 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                 height: ScreenUtil.instance.setHeight(20),
               ),
               widget.buttonText != null
-                  ? RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        widget.onAdd(widget.initialCount);
-                      },
-                      child: Text(
-                        widget.buttonText,
-                        style:
-                            TextStyle(color: Styles.WHITE_COLOR, fontSize: 15),
+                  ? Container(
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          widget.onAdd(widget.initialCount);
+                        },
+                        child: Text(
+                          widget.buttonText,
+                          style: TextStyle(
+                              color: Styles.WHITE_COLOR, fontSize: 15),
+                        ),
+                        color: Styles.PRIMARY_COLOR,
                       ),
-                      color: Styles.PRIMARY_COLOR,
                     )
                   : SizedBox(),
             ],
