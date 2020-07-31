@@ -57,4 +57,16 @@ mixin _$OrderStore on _OrderStore, Store {
   Future getComboOrders() {
     return _$getComboOrdersAsyncAction.run(() => super.getComboOrders());
   }
+
+  final _$_OrderStoreActionController = ActionController(name: '_OrderStore');
+
+  @override
+  dynamic clearStore() {
+    final _$actionInfo = _$_OrderStoreActionController.startAction();
+    try {
+      return super.clearStore();
+    } finally {
+      _$_OrderStoreActionController.endAction(_$actionInfo);
+    }
+  }
 }

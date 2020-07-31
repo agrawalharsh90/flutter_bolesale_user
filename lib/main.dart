@@ -11,6 +11,7 @@ import 'package:grocery/presentation/category_pages/mobile_page.dart';
 import 'package:grocery/presentation/category_pages/sports_page.dart';
 import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
+import 'package:grocery/presentation/request_page.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/home_page.dart';
@@ -29,6 +30,7 @@ import 'package:grocery/store/categories_store/sports_store.dart';
 import 'package:grocery/store/categories_store/stationary_store.dart';
 import 'package:grocery/store/offer_store.dart';
 import 'package:grocery/store/order_store.dart';
+import 'package:grocery/store/request_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +58,7 @@ class BoleSale extends StatelessWidget {
         Provider<AddressStore>.value(value: AddressStore()),
         Provider<OrderStore>.value(value: OrderStore()),
         Provider<OfferStore>.value(value: OfferStore()),
+        Provider<RequestStore>.value(value: RequestStore()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -86,6 +89,8 @@ class BoleSale extends StatelessWidget {
           WebviewScaffold.routeNamed: (BuildContext context) =>
               WebviewScaffold(),
           ContactUs.routeNamed: (BuildContext context) => ContactUs(),
+          RequestPage.routeNamed: (BuildContext context) =>
+              Scaffold(body: RequestPage()),
         },
       ),
     );

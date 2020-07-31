@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Timer(Duration(seconds: 1), checkUser);
+      checkUser();
     });
   }
 

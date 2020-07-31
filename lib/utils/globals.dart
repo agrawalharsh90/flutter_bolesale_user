@@ -13,6 +13,7 @@ import 'package:grocery/services/location_service.dart';
 import 'package:grocery/services/offer_service.dart';
 import 'package:grocery/services/order_service.dart';
 import 'package:grocery/services/prefrence_service.dart';
+import 'package:grocery/services/request_service.dart';
 import 'package:grocery/services/user_service.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,6 +25,7 @@ GetProductService getProductService = GetProductService.getInstance();
 OrderService orderService = OrderService.getInstance();
 LocationService locationService = LocationService.getInstance();
 OfferService offerService = OfferService.getInstance();
+RequestService requestService = RequestService.getInstance();
 FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
 bool validateEmail(String email) {

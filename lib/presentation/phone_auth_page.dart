@@ -56,7 +56,15 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: ScreenUtil.instance.setHeight(50),
+            height: ScreenUtil.instance.setHeight(20),
+          ),
+          Text(
+            "Bolesale: India's B2B Marketplace",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: ScreenUtil.instance.setHeight(20),
           ),
           CustomButton(
             isLoading: userStore.isLoading,

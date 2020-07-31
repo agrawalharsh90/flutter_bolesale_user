@@ -9,6 +9,7 @@ import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/my_account.dart';
+import 'package:grocery/presentation/request_page.dart';
 import 'package:grocery/utils/styles.dart';
 
 abstract class StringValue {
@@ -79,29 +80,11 @@ abstract class StringValue {
       'image': Styles.PENDING_REPORT_ICON,
       'route': HistoryPage.routeNamed
     },
-//    {
-//      'title': 'Invite',
-//      'image': Styles.MO_INVITE,
-//      'route': MyAccount.routeNamed
-//    },
-//    {
-//      'title': 'Terms',
-//      'image': Styles.MO_POLICY,
-//      'route': WebviewScaffold.routeNamed,
-//      'url': 'https://hyathi.com',
-//    },
-//    {
-//      'title': 'Privacy Policy',
-//      'image': Styles.MO_POLICY,
-//      'route': WebviewScaffold.routeNamed,
-//      'url': 'https://hyathi.com',
-//    },
-//    {
-//      'title': 'About Us',
-//      'image': Styles.MO_FAQS,
-//      'route': WebviewScaffold.routeNamed,
-//      'url': 'https://hyathi.com',
-//    },
+    {
+      'title': 'Request',
+      'image': Styles.MO_FAQS,
+      'route': RequestPage.routeNamed
+    },
     {
       'title': 'Contact us',
       'image': Styles.MO_CONTACT_US,

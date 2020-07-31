@@ -16,19 +16,16 @@ abstract class _Product with Store {
   String sellerId;
 
   @observable
-  String productID;
-
-  @observable
   String brand;
 
   @observable
   String category;
 
   @observable
-  String dispatch;
+  String description;
 
   @observable
-  String description;
+  String dispatch;
 
   @observable
   String material;
@@ -49,7 +46,13 @@ abstract class _Product with Store {
   String product;
 
   @observable
+  String productID;
+
+  @observable
   String stock;
+
+  @observable
+  String size;
 
   @observable
   String sub_category;

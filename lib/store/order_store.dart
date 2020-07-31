@@ -85,4 +85,10 @@ abstract class _OrderStore with Store {
       }
     }
   }
+
+  @action
+  clearStore() {
+    isLoading = false;
+    combo = ObservableMap<String, Order>();
+  }
 }

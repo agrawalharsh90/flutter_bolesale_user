@@ -9,18 +9,19 @@ part of 'product.dart';
 Product _$ProductFromJson(Map<String, dynamic> json) {
   return Product()
     ..sellerId = json['Id'] as String
-    ..productID = json['productID'] as String
     ..brand = json['brand'] as String
     ..category = json['category'] as String
-    ..dispatch = json['dispatch'] as String
     ..description = json['description'] as String
+    ..dispatch = json['dispatch'] as String
     ..material = json['material'] as String
     ..moq = json['moq'] as String
     ..mrp = json['mrp'] as String
     ..origin = json['origin'] as String
     ..price = json['price'] as String
     ..product = json['product'] as String
+    ..productID = json['productID'] as String
     ..stock = json['stock'] as String
+    ..size = json['size'] as String
     ..sub_category = json['sub_category'] as String
     ..warranty = json['warranty'] as String
     ..quantity = json['quantity'] as int
@@ -30,18 +31,19 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'Id': instance.sellerId,
-      'productID': instance.productID,
       'brand': instance.brand,
       'category': instance.category,
-      'dispatch': instance.dispatch,
       'description': instance.description,
+      'dispatch': instance.dispatch,
       'material': instance.material,
       'moq': instance.moq,
       'mrp': instance.mrp,
       'origin': instance.origin,
       'price': instance.price,
       'product': instance.product,
+      'productID': instance.productID,
       'stock': instance.stock,
+      'size': instance.size,
       'sub_category': instance.sub_category,
       'warranty': instance.warranty,
       'quantity': instance.quantity,
@@ -70,23 +72,6 @@ mixin _$Product on _Product, Store {
       super.sellerId = value;
       _$sellerIdAtom.reportChanged();
     }, _$sellerIdAtom, name: '${_$sellerIdAtom.name}_set');
-  }
-
-  final _$productIDAtom = Atom(name: '_Product.productID');
-
-  @override
-  String get productID {
-    _$productIDAtom.context.enforceReadPolicy(_$productIDAtom);
-    _$productIDAtom.reportObserved();
-    return super.productID;
-  }
-
-  @override
-  set productID(String value) {
-    _$productIDAtom.context.conditionallyRunInAction(() {
-      super.productID = value;
-      _$productIDAtom.reportChanged();
-    }, _$productIDAtom, name: '${_$productIDAtom.name}_set');
   }
 
   final _$brandAtom = Atom(name: '_Product.brand');
@@ -123,23 +108,6 @@ mixin _$Product on _Product, Store {
     }, _$categoryAtom, name: '${_$categoryAtom.name}_set');
   }
 
-  final _$dispatchAtom = Atom(name: '_Product.dispatch');
-
-  @override
-  String get dispatch {
-    _$dispatchAtom.context.enforceReadPolicy(_$dispatchAtom);
-    _$dispatchAtom.reportObserved();
-    return super.dispatch;
-  }
-
-  @override
-  set dispatch(String value) {
-    _$dispatchAtom.context.conditionallyRunInAction(() {
-      super.dispatch = value;
-      _$dispatchAtom.reportChanged();
-    }, _$dispatchAtom, name: '${_$dispatchAtom.name}_set');
-  }
-
   final _$descriptionAtom = Atom(name: '_Product.description');
 
   @override
@@ -155,6 +123,23 @@ mixin _$Product on _Product, Store {
       super.description = value;
       _$descriptionAtom.reportChanged();
     }, _$descriptionAtom, name: '${_$descriptionAtom.name}_set');
+  }
+
+  final _$dispatchAtom = Atom(name: '_Product.dispatch');
+
+  @override
+  String get dispatch {
+    _$dispatchAtom.context.enforceReadPolicy(_$dispatchAtom);
+    _$dispatchAtom.reportObserved();
+    return super.dispatch;
+  }
+
+  @override
+  set dispatch(String value) {
+    _$dispatchAtom.context.conditionallyRunInAction(() {
+      super.dispatch = value;
+      _$dispatchAtom.reportChanged();
+    }, _$dispatchAtom, name: '${_$dispatchAtom.name}_set');
   }
 
   final _$materialAtom = Atom(name: '_Product.material');
@@ -259,6 +244,23 @@ mixin _$Product on _Product, Store {
     }, _$productAtom, name: '${_$productAtom.name}_set');
   }
 
+  final _$productIDAtom = Atom(name: '_Product.productID');
+
+  @override
+  String get productID {
+    _$productIDAtom.context.enforceReadPolicy(_$productIDAtom);
+    _$productIDAtom.reportObserved();
+    return super.productID;
+  }
+
+  @override
+  set productID(String value) {
+    _$productIDAtom.context.conditionallyRunInAction(() {
+      super.productID = value;
+      _$productIDAtom.reportChanged();
+    }, _$productIDAtom, name: '${_$productIDAtom.name}_set');
+  }
+
   final _$stockAtom = Atom(name: '_Product.stock');
 
   @override
@@ -274,6 +276,23 @@ mixin _$Product on _Product, Store {
       super.stock = value;
       _$stockAtom.reportChanged();
     }, _$stockAtom, name: '${_$stockAtom.name}_set');
+  }
+
+  final _$sizeAtom = Atom(name: '_Product.size');
+
+  @override
+  String get size {
+    _$sizeAtom.context.enforceReadPolicy(_$sizeAtom);
+    _$sizeAtom.reportObserved();
+    return super.size;
+  }
+
+  @override
+  set size(String value) {
+    _$sizeAtom.context.conditionallyRunInAction(() {
+      super.size = value;
+      _$sizeAtom.reportChanged();
+    }, _$sizeAtom, name: '${_$sizeAtom.name}_set');
   }
 
   final _$sub_categoryAtom = Atom(name: '_Product.sub_category');

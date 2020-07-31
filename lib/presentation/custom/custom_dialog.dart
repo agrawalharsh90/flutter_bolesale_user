@@ -86,28 +86,24 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
               SizedBox(
                 height: ScreenUtil.instance.setHeight(10),
               ),
-              Text("Description : \n" + widget.product.description ?? ''),
-              SizedBox(
-                height: ScreenUtil.instance.setHeight(10),
-              ),
-              Text("Brand : " + widget.product.brand ?? ''),
-              SizedBox(
-                height: ScreenUtil.instance.setHeight(10),
-              ),
-              Text("Warranty : " + widget.product.warranty ?? ''),
-              SizedBox(
-                height: ScreenUtil.instance.setHeight(10),
-              ),
-              Text("Material : " + widget.product.material ?? ''),
-              SizedBox(
-                height: ScreenUtil.instance.setHeight(20),
-              ),
+              getDetailsRow("Description", widget.product.description),
+              getDetailsRow("MRP", widget.product.mrp),
+              getDetailsRow("Size", widget.product.size),
+              getDetailsRow("Brand", widget.product.brand),
+              getDetailsRow("Warranty", widget.product.warranty),
+              getDetailsRow("Material", widget.product.material),
+              getDetailsRow("MOQ", widget.product.moq),
+              getDetailsRow("Origin", widget.product.origin),
               Text(
                 "Price : Rs." + widget.product.price,
                 style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 18),
               ),
               SizedBox(
                 height: ScreenUtil.instance.setHeight(20),
+              ),
+              Text(
+                "Quantity : ",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -199,6 +195,33 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
           ),
         ),
       ),
+    );
+  }
+
+  getDetailsRow(String title, String value) {
+    return Column(
+      children: <Widget>[
+        Divider(),
+        Row(
+          children: <Widget>[
+            Container(
+              width: ScreenUtil.instance.setWidth(150),
+              child: Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Divider(),
+            Container(
+              width: ScreenUtil.instance.setWidth(150),
+              child: Text(
+                value ?? '',
+              ),
+            )
+          ],
+        ),
+        Divider(),
+      ],
     );
   }
 }
