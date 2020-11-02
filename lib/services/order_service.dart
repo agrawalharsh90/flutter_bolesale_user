@@ -12,13 +12,13 @@ class OrderService {
   static final OrderService _instance = OrderService._();
   Firestore _firestore = Firestore.instance;
 
-  Future<Map<String, dynamic>> postOrders(Map<String, dynamic> body,
-      {String fileId}) async {
-    String id = fileId ?? DateTime.now().millisecondsSinceEpoch.toString();
+  Future<Map<String, dynamic>> postOrders(Map<String, dynamic> body) async {
+    String id = DateTime.now().millisecondsSinceEpoch.toString();
     DocumentReference documentReference =
         await _firestore.collection('orders').document(id);
     User user = await preferenceService.getAuthUser();
-    body.addAll({'id': id, 'uid': user.uid});
+    body.addAll(
+        {'id': id, 'uid': user.uid, 'createdAt': DateTime.now().toString()});
     DocumentSnapshot data = await documentReference.get();
     if (data.exists) {
       await documentReference.updateData(body);

@@ -22,6 +22,9 @@ abstract class _Order with Store {
   String address;
 
   @observable
+  String createdAt;
+
+  @observable
   double totalAmount;
 
   @observable

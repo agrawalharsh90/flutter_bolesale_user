@@ -21,6 +21,7 @@ class FootwearPage extends StatefulWidget {
 class _FootwearPageState extends State<FootwearPage> {
   bool isSearching = false;
   ScrollController _scrollController = ScrollController();
+  String selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +71,12 @@ class _FootwearPageState extends State<FootwearPage> {
         controller: _scrollController,
         itemCount: footwearStore.productMap.length,
         itemBuilder: (BuildContext context, index) {
+          if (footwearStore.productMap[
+                      footwearStore.productMap.keys.toList()[index]] ==
+                  null ||
+              footwearStore
+                  .productMap[footwearStore.productMap.keys.toList()[index]]
+                  .isEmpty) return SizedBox();
           return getListWidget(
               footwearStore.productMap.keys.toList()[index],
               90,
@@ -82,74 +89,105 @@ class _FootwearPageState extends State<FootwearPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        getTitleTex(title),
-        productList.isEmpty
-            ? Center(
-                child: getTitleTex("No Items", fontSize: 14),
+        InkWell(
+          onTap: () {
+            setState(() {
+              selectedCategory = selectedCategory != title ? title : null;
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              getTitleTex(title, width: 200),
+              Icon(
+                Icons.keyboard_arrow_down,
+                size: 25,
               )
-            : Container(
-                child: GridView.builder(
-                    controller: _scrollController,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    shrinkWrap: true,
-                    itemCount: productList.length,
-                    itemBuilder: (BuildContext context, index) {
-                      if (index == 0)
-                        return Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: ScreenUtil.instance.setWidth(20),
-                            ),
-                            ImageCard(
-                              onTap: () => customProductDialog(
-                                  context: context,
-                                  product: productList[index],
-                                  onAdd: (value) {
-                                    print("on Add" + value.toString());
-                                    Product product = productList[index];
-                                    product.quantity = value;
-                                    Provider.of<CartStore>(context)
-                                        .updateCartMap({
-                                      "Footwear": {product.sellerId: product}
-                                    });
-                                  }),
-                              imgUrl: productList[index].productImage[0],
-                              width: width,
-                              height: width,
-                              imagePadding: 0,
-                              verticalMargin: 0,
-                              textColor: Styles.BLACK_COLOR,
-                              shownForwardArrow: false,
-                              text: productList[index].product,
-                              boxFit: BoxFit.contain,
-                            )
-                          ],
-                        );
-                      return ImageCard(
-                        onTap: () => customProductDialog(
-                            context: context,
-                            product: productList[index],
-                            onAdd: (value) {
-                              print("on Add " + value.toString());
-                              Product product = productList[index];
-                              product.quantity = value;
-                              Provider.of<CartStore>(context).updateCartMap({
-                                "Footwear": {product.sellerId: product}
-                              });
-                            }),
-                        imgUrl: productList[index].productImage[0],
-                        width: width,
-                        height: width,
-                        imagePadding: 0,
-                        verticalMargin: 0,
-                        textColor: Styles.BLACK_COLOR,
-                        shownForwardArrow: false,
-                        text: productList[index].product,
-                        boxFit: BoxFit.contain,
-                      );
-                    }),
-              ),
+            ],
+          ),
+        ),
+        selectedCategory != title
+            ? SizedBox()
+            : productList.isEmpty
+                ? Center(
+                    child: getTitleTex("No Items", fontSize: 14),
+                  )
+                : Container(
+                    child: GridView.builder(
+                        controller: _scrollController,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
+                        shrinkWrap: true,
+                        itemCount: productList.length,
+                        itemBuilder: (BuildContext context, index) {
+                          if (index == 0)
+                            return Row(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: ScreenUtil.instance.setWidth(20),
+                                ),
+                                ImageCard(
+                                  onTap: () => customProductDialog(
+                                      context: context,
+                                      product: productList[index],
+                                      onAdd: (value) {
+                                        print("on Add" + value.toString());
+                                        Product product = productList[index];
+                                        product.quantity = value;
+                                        Provider.of<CartStore>(context)
+                                            .updateCartMap({
+                                          "Footwear": {
+                                            product.sellerId: product
+                                          }
+                                        });
+                                      }),
+                                  imgUrl:
+                                      productList[index].productImage != null &&
+                                              productList[index]
+                                                  .productImage
+                                                  .isNotEmpty
+                                          ? productList[index].productImage[0]
+                                          : Styles.APP_LOGO,
+                                  width: width,
+                                  height: width,
+                                  imagePadding: 0,
+                                  verticalMargin: 0,
+                                  textColor: Styles.BLACK_COLOR,
+                                  shownForwardArrow: false,
+                                  text: productList[index].product,
+                                  boxFit: BoxFit.contain,
+                                )
+                              ],
+                            );
+                          return ImageCard(
+                            onTap: () => customProductDialog(
+                                context: context,
+                                product: productList[index],
+                                onAdd: (value) {
+                                  print("on Add " + value.toString());
+                                  Product product = productList[index];
+                                  product.quantity = value;
+                                  Provider.of<CartStore>(context)
+                                      .updateCartMap({
+                                    "Footwear": {product.sellerId: product}
+                                  });
+                                }),
+                            imgUrl: productList[index].productImage != null &&
+                                    productList[index].productImage.isNotEmpty
+                                ? productList[index].productImage[0]
+                                : Styles.APP_LOGO,
+                            width: width,
+                            height: width,
+                            imagePadding: 0,
+                            verticalMargin: 0,
+                            textColor: Styles.BLACK_COLOR,
+                            shownForwardArrow: false,
+                            text: productList[index].product,
+                            boxFit: BoxFit.contain,
+                          );
+                        }),
+                  ),
+        Divider(),
       ],
     );
   }

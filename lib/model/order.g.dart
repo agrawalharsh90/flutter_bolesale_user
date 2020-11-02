@@ -11,6 +11,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as String
     ..uid = json['uid'] as String
     ..address = json['address'] as String
+    ..createdAt = json['createdAt'] as String
     ..totalAmount = (json['totalAmount'] as num)?.toDouble()
     ..paid = json['paid'] as bool
     ..ordersMap = (json['ordersMap'] as Map<String, dynamic>)?.map(
@@ -23,6 +24,7 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'id': instance.id,
       'uid': instance.uid,
       'address': instance.address,
+      'createdAt': instance.createdAt,
       'totalAmount': instance.totalAmount,
       'paid': instance.paid,
       'ordersMap': instance.ordersMap,
@@ -84,6 +86,23 @@ mixin _$Order on _Order, Store {
       super.address = value;
       _$addressAtom.reportChanged();
     }, _$addressAtom, name: '${_$addressAtom.name}_set');
+  }
+
+  final _$createdAtAtom = Atom(name: '_Order.createdAt');
+
+  @override
+  String get createdAt {
+    _$createdAtAtom.context.enforceReadPolicy(_$createdAtAtom);
+    _$createdAtAtom.reportObserved();
+    return super.createdAt;
+  }
+
+  @override
+  set createdAt(String value) {
+    _$createdAtAtom.context.conditionallyRunInAction(() {
+      super.createdAt = value;
+      _$createdAtAtom.reportChanged();
+    }, _$createdAtAtom, name: '${_$createdAtAtom.name}_set');
   }
 
   final _$totalAmountAtom = Atom(name: '_Order.totalAmount');

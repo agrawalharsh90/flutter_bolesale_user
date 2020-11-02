@@ -28,6 +28,7 @@ abstract class _OrderStore with Store {
       orders.remove('paid');
       orders.remove('uid');
       orders.remove('totalAmount');
+      orders.remove('createdAt');
       orders.forEach((k, v) {
         Map<String, dynamic> vc = jsonDecode(jsonEncode(v));
         vc.forEach((key, value) {
@@ -64,6 +65,7 @@ abstract class _OrderStore with Store {
           orders.remove('paid');
           orders.remove('uid');
           orders.remove('totalAmount');
+          orders.remove('createdAt');
           orders.forEach((k, v) {
             Map<String, dynamic> vc = jsonDecode(jsonEncode(v));
             vc.forEach((key, value) {

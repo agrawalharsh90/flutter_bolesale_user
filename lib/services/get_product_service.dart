@@ -24,6 +24,8 @@ class GetProductService {
         print(documentSnapshot.documentID);
         print(documentSnapshot.data);
         data.forEach((value) {
+          print("*******");
+          print(value);
           items.add(Product.fromJson(jsonDecode(jsonEncode(value))));
         });
       }

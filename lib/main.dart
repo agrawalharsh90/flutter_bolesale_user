@@ -44,6 +44,7 @@ class BoleSale extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
+
       providers: [
         Provider<UserStore>.value(value: UserStore()),
         Provider<ClothesStore>.value(value: ClothesStore()),

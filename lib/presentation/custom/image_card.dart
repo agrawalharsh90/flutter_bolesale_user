@@ -115,9 +115,9 @@ class ImageCard extends StatelessWidget {
               color: imageColor,
               placeholder: (context, s) {
                 return Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
+                  child: Image.asset(
+                    Styles.APP_LOGO,
+                    fit: boxFit,
                   ),
                 );
               },

@@ -95,12 +95,14 @@ showErrorSnackBar(var e, BuildContext context, {String message}) {
 getTitleTex(text,
     {double fontSize = 22,
     TextAlign textAlign = TextAlign.left,
-    Color textColor = Styles.GREY_COLOR}) {
+    Color textColor = Styles.GREY_COLOR,
+    double width}) {
   return Container(
     padding: EdgeInsets.symmetric(
       horizontal: ScreenUtil.instance.setWidth(20),
       vertical: ScreenUtil.instance.setHeight(5),
     ),
+    width: ScreenUtil.instance.setWidth(width ?? ScreenUtil.instance.width),
     child: Text(
       text,
       style: TextStyle(fontSize: fontSize, color: textColor),
