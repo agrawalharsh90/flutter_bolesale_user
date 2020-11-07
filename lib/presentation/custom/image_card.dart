@@ -1,18 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
 class ImageCard extends StatelessWidget {
   String imgUrl;
   double width;
-  double height;
   Color cardColor;
   Color color;
   BoxFit boxFit;
   String text;
-  bool shownForwardArrow;
   Function onTap;
   double fontSize;
   Color textColor;
@@ -21,15 +19,12 @@ class ImageCard extends StatelessWidget {
   double imagePadding;
   double verticalMargin;
   double horizontalMargin;
-  MainAxisAlignment mainAxisAlignment;
-  Color imageColor;
   int maxLines;
 
   ImageCard({
     this.imgUrl,
     this.text,
     this.onTap,
-    this.shownForwardArrow = true,
     this.width,
     this.cardColor = Styles.WHITE_COLOR,
     this.color = Styles.WHITE_COLOR,
@@ -37,13 +32,9 @@ class ImageCard extends StatelessWidget {
     this.fontSize = 12,
     this.textAlign = TextAlign.start,
     this.textColor = Styles.PRIMARY_COLOR,
-    this.arrowSize = 20,
     this.imagePadding = 10,
-    this.height,
     this.verticalMargin = 10,
     this.horizontalMargin = 10,
-    this.mainAxisAlignment = MainAxisAlignment.spaceAround,
-    this.imageColor,
     this.maxLines = 2,
   });
 
@@ -64,73 +55,37 @@ class ImageCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(imagePadding),
               width: ScreenUtil.instance.setWidth(width),
-              height: ScreenUtil.instance.setWidth(height ?? width),
+              height: ScreenUtil.instance.setWidth(width),
               decoration: BoxDecoration(
                 color: cardColor,
                 borderRadius:
                     BorderRadius.circular(ScreenUtil.instance.setWidth(7)),
                 boxShadow: kElevationToShadow[8],
               ),
-              child: imgUrl != null ? imageWidget() : SizedBox(),
+              child: imgUrl != null
+                  ? imageWidget(
+                      imgUrl: imgUrl,
+                      boxFit: boxFit,
+                    )
+                  : SizedBox(),
             ),
             SizedBox(
               height: ScreenUtil.instance.setHeight(5),
             ),
-            Row(
-              mainAxisAlignment: mainAxisAlignment,
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  width: ScreenUtil.instance.setWidth(width * 0.8),
-                  child: Text(
-                    text ?? '',
-                    style: TextStyle(fontSize: fontSize, color: textColor),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: maxLines,
-                    textAlign: textAlign,
-                  ),
-                ),
-                shownForwardArrow
-                    ? Icon(
-                        Icons.arrow_forward,
-                        size: ScreenUtil.instance.setWidth(width * 0.2),
-                        color: textColor,
-                      )
-                    : SizedBox()
-              ],
+            Container(
+              alignment: Alignment.center,
+              width: ScreenUtil.instance.setWidth(width),
+              child: Text(
+                text ?? '',
+                style: TextStyle(fontSize: fontSize, color: textColor),
+                overflow: TextOverflow.ellipsis,
+                maxLines: maxLines,
+                textAlign: textAlign,
+              ),
             )
           ],
         ),
       ),
-    );
-  }
-
-  imageWidget() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(ScreenUtil.instance.setWidth(7)),
-      child: imgUrl.contains('http')
-          ? CachedNetworkImage(
-              imageUrl: imgUrl,
-              fit: boxFit,
-              color: imageColor,
-              placeholder: (context, s) {
-                return Center(
-                  child: Image.asset(
-                    Styles.APP_LOGO,
-                    fit: boxFit,
-                  ),
-                );
-              },
-              errorWidget: (context, s, o) {
-                return Center(
-                  child: Icon(Icons.error_outline),
-                );
-              },
-            )
-          : Image.asset(
-              imgUrl,
-              fit: boxFit,
-            ),
     );
   }
 }

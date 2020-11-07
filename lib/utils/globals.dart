@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/model/grocery_error.dart';
 import 'package:grocery/model/product.dart';
-import 'package:grocery/presentation/custom/custom_dialog.dart';
+import 'package:grocery/presentation/display_product_widget.dart';
 import 'package:grocery/services/firebase_services.dart';
 import 'package:grocery/services/get_product_service.dart';
 import 'package:grocery/services/location_service.dart';
@@ -129,16 +130,15 @@ urlLauncher(String data, context) async {
   }
 }
 
-customProductDialog({Product product, BuildContext context, Function onAdd}) {
+navigateToDisplayProductWidget(
+    {Product product, BuildContext context, Function onAdd}) {
   Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (BuildContext context) => CustomDialogWidget(
-                product: product,
-                onAdd: onAdd,
-                initialCount: int.parse(product.moq),
-                buttonText: 'Add To Cart',
-              )));
+          builder: (BuildContext context) => DisplayProductWidget(
+              product: product,
+              onAdd: onAdd,
+              initialCount: int.parse(product.moq))));
 }
 
 showToast(String text) {
@@ -169,4 +169,30 @@ errorDialog(String msg, context) {
           ),
         );
       });
+}
+
+imageWidget({String imgUrl, BoxFit boxFit = BoxFit.contain, Color imageColor}) {
+  return imgUrl.contains('http')
+      ? CachedNetworkImage(
+          imageUrl: imgUrl,
+          fit: boxFit,
+          color: imageColor,
+          placeholder: (context, s) {
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
+              ),
+            );
+          },
+          errorWidget: (context, s, o) {
+            return Center(
+              child: Icon(Icons.error_outline),
+            );
+          },
+        )
+      : Image.asset(
+          imgUrl,
+          fit: boxFit,
+          color: imageColor,
+        );
 }

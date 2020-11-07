@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/order.dart';
 import 'package:grocery/model/product.dart';
+import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
 class ProductListView extends StatelessWidget {
@@ -63,7 +63,9 @@ class ProductListView extends StatelessWidget {
               : Container(
                   width: ScreenUtil.instance.setWidth(80),
                   height: ScreenUtil.instance.setWidth(80),
-                  child: imageUrl != null ? imageWidget(imageUrl) : SizedBox(),
+                  child: imageUrl != null
+                      ? imageWidget(imgUrl: imageUrl)
+                      : SizedBox(),
                 ),
           Container(
             width: ScreenUtil.instance.setWidth(140),
@@ -101,32 +103,6 @@ class ProductListView extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-
-  imageWidget(imageUrl) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(ScreenUtil.instance.setWidth(7)),
-      child: imageUrl.contains('http')
-          ? CachedNetworkImage(
-              imageUrl: imageUrl,
-              placeholder: (context, s) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
-                  ),
-                );
-              },
-              errorWidget: (context, s, o) {
-                return Center(
-                  child: Icon(Icons.error_outline),
-                );
-              },
-            )
-          : Image.asset(
-              imageUrl,
-            ),
     );
   }
 }

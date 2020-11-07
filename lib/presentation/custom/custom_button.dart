@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String imageUrl;
   final String text;
-  final bool isForwardArrow;
   final Function onTap;
   final double width;
   final Color textColor;
@@ -17,7 +17,6 @@ class CustomButton extends StatelessWidget {
   final double verticalMargin;
   final double horizontalMargin;
   final MainAxisAlignment alignment;
-  final bool isImageCircle;
   final double elevation;
 
   CustomButton({
@@ -28,12 +27,10 @@ class CustomButton extends StatelessWidget {
     this.isLoading = false,
     this.textColor = Styles.WHITE_COLOR,
     this.buttonColor = Styles.PRIMARY_COLOR,
-    this.isForwardArrow = true,
     this.alignment = MainAxisAlignment.center,
     this.fontSize = 15,
     this.verticalMargin = 10,
     this.horizontalMargin = 0,
-    this.isImageCircle = false,
     this.borderRadius = 0,
     this.elevation = 0,
   });
@@ -78,27 +75,10 @@ class CustomButton extends StatelessWidget {
                     imageUrl == null
                         ? SizedBox()
                         : Container(
-                            height: ScreenUtil.instance.setHeight(38),
-                            width: ScreenUtil.instance.setHeight(38),
-                            decoration: BoxDecoration(
-                              shape: isImageCircle
-                                  ? BoxShape.circle
-                                  : BoxShape.rectangle,
-                            ),
-                            child: isImageCircle
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                      ScreenUtil.instance.setHeight(38),
-                                    ),
-                                    child: imageWidget(),
-                                  )
-                                : imageWidget(),
+                            height: ScreenUtil.instance.setHeight(30),
+                            width: ScreenUtil.instance.setHeight(30),
+                            child: imageWidget(imgUrl: imageUrl),
                           ),
-                    SizedBox(
-                      width: imageUrl == null
-                          ? 0
-                          : ScreenUtil.instance.setWidth(10),
-                    ),
                     Row(
                       children: <Widget>[
                         Padding(
@@ -110,18 +90,6 @@ class CustomButton extends StatelessWidget {
                                 TextStyle(color: textColor, fontSize: fontSize),
                           ),
                         ),
-                        SizedBox(
-                          width: text == null
-                              ? 0
-                              : ScreenUtil.instance.setWidth(5),
-                        ),
-                        isForwardArrow
-                            ? Image.asset(
-                                Styles.FORWARD_ARROW,
-                                height: ScreenUtil.instance.setHeight(20),
-                                color: textColor,
-                              )
-                            : SizedBox(),
                       ],
                     )
                   ],
@@ -129,32 +97,5 @@ class CustomButton extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  imageWidget() {
-    return imageUrl.contains('http')
-        ? CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: isImageCircle ? BoxFit.fill : BoxFit.contain,
-            color: Styles.PRIMARY_COLOR,
-            placeholder: (context, s) {
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
-                ),
-              );
-            },
-            errorWidget: (context, s, o) {
-              return Center(
-                child: Icon(Icons.error_outline),
-              );
-            },
-          )
-        : Image.asset(
-            imageUrl,
-            color: Styles.PRIMARY_COLOR,
-            fit: isImageCircle ? BoxFit.fill : BoxFit.contain,
-          );
   }
 }

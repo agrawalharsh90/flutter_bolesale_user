@@ -26,7 +26,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Essential',
+      appBarTitle: 'Essentials',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
@@ -135,7 +135,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
         itemCount: essentialStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: essentialStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
@@ -150,12 +150,10 @@ class _EssentialsPageState extends State<EssentialsPage> {
             imgUrl: essentialStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text:
                 essentialStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,

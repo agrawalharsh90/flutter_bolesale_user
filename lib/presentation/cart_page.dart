@@ -14,6 +14,7 @@ import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/order_store.dart';
 import 'package:grocery/utils/globals.dart';
+import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -59,6 +60,15 @@ class CartPage extends StatelessWidget {
                         items: cartStore.totalItems,
                         total: cartStore.totalAmount,
                       ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Styles.RED_COLOR),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: getTitleTex(
+                          'The Shipping Charges and Confirmation of the Order will be provided via WhatsApp',
+                          textColor: Styles.BLACK_COLOR,
+                          textAlign: TextAlign.center),
                     ),
                     cartStore.totalAmount > 0
                         ? StoreObserver<OrderStore>(

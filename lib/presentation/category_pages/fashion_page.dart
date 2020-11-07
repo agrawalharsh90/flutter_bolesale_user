@@ -26,7 +26,7 @@ class _FashionPageState extends State<FashionPage> {
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Fashion',
+      appBarTitle: 'Fashion Accessories, Bags & Fabrics',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
@@ -134,7 +134,7 @@ class _FashionPageState extends State<FashionPage> {
         itemCount: fashionStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: fashionStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
@@ -149,12 +149,10 @@ class _FashionPageState extends State<FashionPage> {
             imgUrl: fashionStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text: fashionStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );

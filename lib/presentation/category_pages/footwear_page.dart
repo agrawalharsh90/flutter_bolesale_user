@@ -134,7 +134,7 @@ class _FootwearPageState extends State<FootwearPage> {
         itemCount: footwearStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: footwearStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
@@ -149,12 +149,10 @@ class _FootwearPageState extends State<FootwearPage> {
             imgUrl: footwearStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text: footwearStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );

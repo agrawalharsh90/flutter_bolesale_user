@@ -26,7 +26,7 @@ class _KitchenwarePageState extends State<KitchenwarePage> {
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Kitchenware',
+      appBarTitle: 'Home Decor & Kitchenware',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
@@ -135,7 +135,7 @@ class _KitchenwarePageState extends State<KitchenwarePage> {
         itemCount: kitchenwareStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product:
                     kitchenwareStore.filterProductMap.values.toList()[index],
@@ -151,12 +151,10 @@ class _KitchenwarePageState extends State<KitchenwarePage> {
             imgUrl: kitchenwareStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text: kitchenwareStore.filterProductMap.values
                 .toList()[index]
                 .product,

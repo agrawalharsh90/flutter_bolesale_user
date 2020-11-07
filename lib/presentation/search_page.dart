@@ -144,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
         itemCount: store.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: store.filterProductMap.values.toList()[index],
                 onAdd: (value) {
@@ -162,7 +162,6 @@ class _SearchPageState extends State<SearchPage> {
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text: store.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );

@@ -42,15 +42,13 @@ class CustomScaffold extends StatelessWidget {
         backgroundColor: backgroundColor,
         appBar: appBarTitle != null
             ? AppBar(
-                backgroundColor: Styles.WHITE_COLOR,
-                elevation: 0,
                 leading: showbackArrow
                     ? IconButton(
                         padding: EdgeInsets.only(
                             left: ScreenUtil.instance.setWidth(20)),
                         icon: Icon(
                           Icons.arrow_back,
-                          color: Styles.BLACK_COLOR,
+                          color: Styles.WHITE_COLOR,
                           size: ScreenUtil.instance.setHeight(32),
                         ),
                         onPressed:
@@ -59,8 +57,7 @@ class CustomScaffold extends StatelessWidget {
                     : SizedBox(),
                 title: Text(
                   appBarTitle,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Styles.BLACK_COLOR),
+                  style: TextStyle(color: Styles.WHITE_COLOR),
                   textAlign: TextAlign.left,
                 ),
               )

@@ -14,28 +14,8 @@ abstract class Styles {
 
   // Assets
   static const String APP_LOGO = 'assets/app_logo.png';
-  static const String FORWARD_ARROW = 'assets/forward_arrow.png';
-  static const String PHONE_AUTH_BG = 'assets/phone_auth_bg.png';
   static const String FAB_CART_ICON = 'assets/fab_cart_icon.png';
   static const String BG = 'assets/bg.png';
-
-  // Bottom Navigation Icons
-  static const String BNI_HOME_ICON =
-      'assets/bottom_navigation_bar_icons/home_icon.png';
-  static const String BNI_SEARCH_ICON =
-      'assets/bottom_navigation_bar_icons/search_icon.png';
-  static const String BNI_CART_ICON =
-      'assets/bottom_navigation_bar_icons/shopping_cart_icon.png';
-  static const String BNI_MORE_ICON =
-      'assets/bottom_navigation_bar_icons/more_icon.png';
-  static const String BNI_HOME_SELECTED_ICON =
-      'assets/bottom_navigation_bar_icons/home_selected_icon.png';
-  static const String BNI_SEARCH_SELECTED_ICON =
-      'assets/bottom_navigation_bar_icons/search_selected_icon.png';
-  static const String BNI_CART_SELECTED_ICON =
-      'assets/bottom_navigation_bar_icons/shopping_cart_selected_icon.png';
-  static const String BNI_MORE_SELECTED_ICON =
-      'assets/bottom_navigation_bar_icons/more_selected_icon.png';
 
   // Home Page Category Icons
   static const String HOME_ESSENTIALS_ICON =

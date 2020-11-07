@@ -26,7 +26,7 @@ class _SportsPageState extends State<SportsPage> {
   @override
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
-      appBarTitle: 'Sports',
+      appBarTitle: 'Toys & Sports Goods',
       onSearch: (String value) {
         print(value);
         if (value == null || value.isEmpty) {
@@ -134,7 +134,7 @@ class _SportsPageState extends State<SportsPage> {
         itemCount: sportsStore.filterProductMap.length,
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
-            onTap: () => customProductDialog(
+            onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: sportsStore.filterProductMap.values.toList()[index],
                 onAdd: (value) {
@@ -149,12 +149,10 @@ class _SportsPageState extends State<SportsPage> {
             imgUrl: sportsStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],
-            height: 90,
             width: 90,
             imagePadding: 0,
             verticalMargin: 0,
             textColor: Styles.BLACK_COLOR,
-            shownForwardArrow: false,
             text: sportsStore.filterProductMap.values.toList()[index].product,
             boxFit: BoxFit.contain,
           );

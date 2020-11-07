@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
 class CountRow extends StatefulWidget {
@@ -43,7 +43,9 @@ class _CountRowState extends State<CountRow> {
               : Container(
                   width: ScreenUtil.instance.setWidth(80),
                   height: ScreenUtil.instance.setWidth(80),
-                  child: widget.imageUrl != null ? imageWidget() : SizedBox(),
+                  child: widget.imageUrl != null
+                      ? imageWidget(imgUrl: widget.imageUrl)
+                      : SizedBox(),
                 ),
           Container(
             width: ScreenUtil.instance.setWidth(140),
@@ -140,32 +142,6 @@ class _CountRowState extends State<CountRow> {
           ),
         ),
       ],
-    );
-  }
-
-  imageWidget() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(ScreenUtil.instance.setWidth(7)),
-      child: widget.imageUrl.contains('http')
-          ? CachedNetworkImage(
-              imageUrl: widget.imageUrl,
-              placeholder: (context, s) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
-                  ),
-                );
-              },
-              errorWidget: (context, s, o) {
-                return Center(
-                  child: Icon(Icons.error_outline),
-                );
-              },
-            )
-          : Image.asset(
-              widget.imageUrl,
-            ),
     );
   }
 }

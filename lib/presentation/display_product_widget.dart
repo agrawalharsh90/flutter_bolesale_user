@@ -6,20 +6,22 @@ import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/image_preview.dart';
 import 'package:grocery/utils/styles.dart';
 
-class CustomDialogWidget extends StatefulWidget {
+class DisplayProductWidget extends StatefulWidget {
   Product product;
   Function onAdd;
-  String buttonText;
   int initialCount;
 
-  CustomDialogWidget(
-      {this.product, this.initialCount = 1, this.onAdd, this.buttonText});
+  DisplayProductWidget({
+    this.product,
+    this.initialCount = 1,
+    this.onAdd,
+  });
 
   @override
-  _CustomDialogWidgetState createState() => _CustomDialogWidgetState();
+  _DisplayProductWidgetState createState() => _DisplayProductWidgetState();
 }
 
-class _CustomDialogWidgetState extends State<CustomDialogWidget> {
+class _DisplayProductWidgetState extends State<DisplayProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,15 +83,13 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                           }),
                     )
                   : SizedBox(),
+              Divider(),
               Text(widget.product.product,
-                  style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 20)),
+                  style: TextStyle(color: Styles.BLACK_COLOR, fontSize: 20)),
               SizedBox(
                 height: ScreenUtil.instance.setHeight(10),
               ),
-              Text(
-                "Price : Rs." + widget.product.price,
-                style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 18),
-              ),
+              getDetailsRow("Price", "Rs." + widget.product.price),
               SizedBox(
                 height: ScreenUtil.instance.setHeight(20),
               ),
@@ -166,23 +166,20 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
               SizedBox(
                 height: ScreenUtil.instance.setHeight(20),
               ),
-              widget.buttonText != null
-                  ? Container(
-                      alignment: Alignment.center,
-                      child: RaisedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          widget.onAdd(widget.initialCount);
-                        },
-                        child: Text(
-                          widget.buttonText,
-                          style: TextStyle(
-                              color: Styles.WHITE_COLOR, fontSize: 15),
-                        ),
-                        color: Styles.PRIMARY_COLOR,
-                      ),
-                    )
-                  : SizedBox(),
+              Container(
+                alignment: Alignment.center,
+                child: RaisedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    widget.onAdd(widget.initialCount);
+                  },
+                  child: Text(
+                    'Add To Cart',
+                    style: TextStyle(color: Styles.WHITE_COLOR, fontSize: 15),
+                  ),
+                  color: Styles.PRIMARY_COLOR,
+                ),
+              ),
               SizedBox(
                 height: ScreenUtil.instance.setHeight(10),
               ),

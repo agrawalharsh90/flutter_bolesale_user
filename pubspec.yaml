@@ -72,7 +72,6 @@ flutter:
   assets:
     - assets/
     - assets/category_icons/
-    - assets/bottom_navigation_bar_icons/
     - assets/more_options/
 
   # assets:

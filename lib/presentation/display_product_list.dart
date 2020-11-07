@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
-import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
@@ -63,31 +63,62 @@ class _DisplayProductListState extends State<DisplayProductList> {
                   shrinkWrap: true,
                   itemCount: length,
                   itemBuilder: (BuildContext context, index) {
-                    return ImageCard(
-                      onTap: () => customProductDialog(
-                          context: context,
-                          product: widget.productList[index],
-                          onAdd: (value) {
-                            print("on Add " + value.toString());
-                            Product product = widget.productList[index];
-                            product.quantity = value;
-                            Provider.of<CartStore>(context).updateCartMap({
-                              "Clothes": {product.sellerId: product}
-                            });
-                          }),
-                      imgUrl: widget.productList[index].productImage != null &&
-                              widget.productList[index].productImage.isNotEmpty
-                          ? widget.productList[index].productImage[0]
-                          : Styles.APP_LOGO,
-                      imagePadding: 0,
-                      width: 100,
-                      verticalMargin: 10,
-                      cardColor: Styles.WHITE_COLOR,
-                      color: Styles.TRANSPARENT_COLOR,
-                      textColor: Styles.BLACK_COLOR,
-                      shownForwardArrow: false,
-                      text: widget.productList[index].product,
-                      boxFit: BoxFit.contain,
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () => navigateToDisplayProductWidget(
+                              context: context,
+                              product: widget.productList[index],
+                              onAdd: (value) {
+                                print("on Add " + value.toString());
+                                Product product = widget.productList[index];
+                                product.quantity = value;
+                                Provider.of<CartStore>(context).updateCartMap({
+                                  "Clothes": {product.sellerId: product}
+                                });
+                              }),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                width: ScreenUtil.instance.setWidth(100),
+                                height: ScreenUtil.instance.setWidth(100),
+                                child: imageWidget(
+                                  imgUrl:
+                                      widget.productList[index].productImage !=
+                                                  null &&
+                                              widget.productList[index]
+                                                  .productImage.isNotEmpty
+                                          ? widget.productList[index]
+                                              .productImage[0]
+                                          : Styles.APP_LOGO,
+                                ),
+                              ),
+                              Container(
+                                width: ScreenUtil.instance.setWidth(300),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.productList[index].product,
+                                        style: TextStyle(
+                                            color: Styles.BLACK_COLOR,
+                                            fontSize: 20)),
+                                    Text(
+                                        'Rs.' + widget.productList[index].price,
+                                        style:
+                                            TextStyle(color: Styles.RED_COLOR)),
+                                    Text(
+                                        'MOQ: ' + widget.productList[index].moq,
+                                        style: TextStyle(
+                                            color: Styles.BLACK_COLOR)),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Divider(),
+                      ],
                     );
                   }),
             ),
