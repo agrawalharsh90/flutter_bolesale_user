@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/custom_fab.dart';
 import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
+import 'package:grocery/presentation/display_product_list.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/sports_store.dart';
 import 'package:grocery/utils/globals.dart';
@@ -91,100 +91,25 @@ class _SportsPageState extends State<SportsPage> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            setState(() {
-              selectedCategory = selectedCategory != title ? title : null;
-            });
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DisplayProductList(
+                          title: title,
+                          productList: productList,
+                        )));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               getTitleTex(title, width: 200),
               Icon(
-                Icons.keyboard_arrow_down,
+                Icons.chevron_right,
                 size: 25,
               )
             ],
           ),
         ),
-        selectedCategory != title
-            ? SizedBox()
-            : productList.isEmpty
-                ? Center(
-                    child: getTitleTex("No Items", fontSize: 14),
-                  )
-                : Container(
-                    child: GridView.builder(
-                        controller: _scrollController,
-                        shrinkWrap: true,
-                        itemCount: productList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                        itemBuilder: (BuildContext context, index) {
-                          if (index == 0)
-                            return Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  width: ScreenUtil.instance.setWidth(20),
-                                ),
-                                ImageCard(
-                                  onTap: () => customProductDialog(
-                                      context: context,
-                                      product: productList[index],
-                                      onAdd: (value) {
-                                        print("on Add" + value.toString());
-                                        Product product = productList[index];
-                                        product.quantity = value;
-                                        Provider.of<CartStore>(context)
-                                            .updateCartMap({
-                                          "Sports": {product.sellerId: product}
-                                        });
-                                      }),
-                                  imgUrl:
-                                      productList[index].productImage != null &&
-                                              productList[index]
-                                                  .productImage
-                                                  .isNotEmpty
-                                          ? productList[index].productImage[0]
-                                          : Styles.APP_LOGO,
-                                  width: width,
-                                  height: width,
-                                  imagePadding: 0,
-                                  verticalMargin: 0,
-                                  textColor: Styles.BLACK_COLOR,
-                                  shownForwardArrow: false,
-                                  text: productList[index].product,
-                                  boxFit: BoxFit.contain,
-                                )
-                              ],
-                            );
-                          return ImageCard(
-                            onTap: () => customProductDialog(
-                                context: context,
-                                product: productList[index],
-                                onAdd: (value) {
-                                  print("on Add " + value.toString());
-                                  Product product = productList[index];
-                                  product.quantity = value;
-                                  Provider.of<CartStore>(context)
-                                      .updateCartMap({
-                                    "Sports": {product.sellerId: product}
-                                  });
-                                }),
-                            imgUrl: productList[index].productImage != null &&
-                                    productList[index].productImage.isNotEmpty
-                                ? productList[index].productImage[0]
-                                : Styles.APP_LOGO,
-                            width: width,
-                            height: width,
-                            imagePadding: 0,
-                            verticalMargin: 0,
-                            textColor: Styles.BLACK_COLOR,
-                            shownForwardArrow: false,
-                            text: productList[index].product,
-                            boxFit: BoxFit.contain,
-                          );
-                        }),
-                  ),
         Divider(),
       ],
     );

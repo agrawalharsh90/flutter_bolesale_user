@@ -19,7 +19,7 @@ class HistoryPage extends StatelessWidget {
       appBarTitle: 'History',
       body: StoreObserver<OrderStore>(
         builder: (OrderStore orderStore, BuildContext context) {
-          if (orderStore.isLoading)
+          if (orderStore.isFetching)
             return Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Styles.PRIMARY_COLOR),
@@ -27,10 +27,10 @@ class HistoryPage extends StatelessWidget {
             );
           if (orderStore.combo.isEmpty)
             return Center(
-              child: getTitleTex("No Order Yet"),
+              child: getTitleTex("No Order Yet",textAlign: TextAlign.center),
             );
           return ListView.builder(
-        shrinkWrap: true,
+              shrinkWrap: true,
               itemCount: orderStore.combo.length,
               itemBuilder: (BuildContext context, index) {
                 List<Order> rnvL = orderStore.combo.values.toList();

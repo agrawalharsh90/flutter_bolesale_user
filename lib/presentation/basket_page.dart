@@ -37,7 +37,7 @@ class _BasketPageState extends State<BasketPage> {
             );
           if (cartStore.cartMap.isEmpty)
             return Center(
-              child: getTitleTex('No Items Added'),
+              child: getTitleTex('No Items Added',textAlign: TextAlign.center),
             );
           return Column(
             children: <Widget>[

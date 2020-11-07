@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
-import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/cart_page.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/search_bar.dart';
-import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/presentation/more_page.dart';
 import 'package:grocery/presentation/my_account.dart';
 import 'package:grocery/presentation/search_page.dart';
-import 'package:grocery/store/address_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/string_value.dart';
 import 'package:grocery/utils/styles.dart';
@@ -48,54 +45,49 @@ class _HomePageState extends State<HomePage> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: Styles.WHITE_COLOR,
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (page) {
-            setState(() {
-              currentPage = page;
-            });
-          },
-          currentIndex: currentPage,
-          items: [
-            BottomNavigationBarItem(
-                icon: getBottomNavigationWidget(
-                  Styles.BNI_HOME_ICON,
-                  Styles.BNI_HOME_SELECTED_ICON,
-                  'Home',
-                  currentPage == 0,
-                ),
-                title: SizedBox()),
-            BottomNavigationBarItem(
-                icon: getBottomNavigationWidget(
-                  Styles.BNI_SEARCH_ICON,
-                  Styles.BNI_SEARCH_SELECTED_ICON,
-                  'Search',
-                  currentPage == 1,
-                ),
-                title: SizedBox()),
-            BottomNavigationBarItem(
-                icon: getBottomNavigationWidget(
-                  Styles.BNI_CART_ICON,
-                  Styles.BNI_CART_SELECTED_ICON,
-                  'Cart',
-                  currentPage == 2,
-                ),
-                title: SizedBox()),
-            BottomNavigationBarItem(
-                icon: getBottomNavigationWidget(
-                  Styles.BNI_MORE_ICON,
-                  Styles.BNI_MORE_SELECTED_ICON,
-                  'More',
-                  currentPage == 3,
-                ),
-                title: SizedBox()),
+        drawer: MorePage(),
+        appBar: AppBar(
+          actions: [
+            InkWell(
+              onTap: _navigateToMyAccountPage,
+              child: Image.asset(
+                Styles.MO_CONTACT_US,
+                fit: BoxFit.contain,
+                width: ScreenUtil.instance.setWidth(30),
+                height: ScreenUtil.instance.setWidth(30),
+                color: Styles.WHITE_COLOR,
+              ),
+            ),
+            SizedBox(
+              width: ScreenUtil.instance.setWidth(20),
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  currentPage = currentPage == 0 ? 2 : 0;
+                });
+              },
+              child: Image.asset(
+                currentPage == 0
+                    ? Styles.BNI_CART_SELECTED_ICON
+                    : Styles.BNI_HOME_SELECTED_ICON,
+                fit: BoxFit.contain,
+                width: ScreenUtil.instance.setWidth(30),
+                height: ScreenUtil.instance.setWidth(30),
+                color: Styles.WHITE_COLOR,
+              ),
+            ),
+            SizedBox(
+              width: ScreenUtil.instance.setWidth(20),
+            ),
           ],
         ),
-        body: currentPage == 0
-            ? homeWidget()
+        backgroundColor: Styles.WHITE_COLOR,
+        body: currentPage == 2
+            ? CartPage()
             : currentPage == 1
                 ? SearchPage()
-                : currentPage == 2 ? CartPage() : MorePage(),
+                : homeWidget(),
       ),
     );
   }
@@ -107,26 +99,20 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            profileRow(),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, AddressEditPage.routeNamed);
+                setState(() {
+                  currentPage = 1;
+                });
               },
               child: IgnorePointer(
-                child: StoreObserver<AddressStore>(
-                  builder: (AddressStore addressStore, BuildContext context) {
-                    return SearchBar(
-                      hintText: addressStore.address == null
-                          ? "Select Delivery Location"
-                          : addressStore.address.addressString,
-                      icon: Icons.location_on,
-                      onSearch: (value) {
-                        print(value);
-                      },
-                    );
-                  },
-                ),
-              ),
+                  child: SearchBar(
+                hintText: "Search For A product",
+                icon: Icons.search,
+                onSearch: (value) {
+                  print(value);
+                },
+              )),
             ),
             getTitleTex("Categories"),
             GridView.builder(
@@ -158,51 +144,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  profileRow() {
-    return Container(
-      margin: EdgeInsets.only(
-          left: ScreenUtil.instance.setWidth(20),
-          right: ScreenUtil.instance.setWidth(20),
-          top: ScreenUtil.instance.setHeight(40)),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              InkWell(
-                onTap: _navigateToMyAccountPage,
-                child: Container(
-                  height: ScreenUtil.instance.setWidth(40),
-                  width: ScreenUtil.instance.setWidth(40),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset(
-                    Styles.MO_CONTACT_US,
-                    fit: BoxFit.contain,
-                    color: Styles.PRIMARY_COLOR,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Home',
-                style: TextStyle(
-                    color: Styles.BLACK_COLOR,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

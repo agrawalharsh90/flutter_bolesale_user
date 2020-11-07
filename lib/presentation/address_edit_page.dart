@@ -55,16 +55,6 @@ class _AddressEditPageState extends State<AddressEditPage> {
             ),
             CustomTextField(
               titleColor: Styles.PRIMARY_COLOR,
-              fieldHeader: "Region",
-              initialValue: address.region,
-              onChanged: (value) {
-                setState(() {
-                  address.region = value;
-                });
-              },
-            ),
-            CustomTextField(
-              titleColor: Styles.PRIMARY_COLOR,
               fieldHeader: "City",
               initialValue: address.city,
               onChanged: (value) {
@@ -101,16 +91,6 @@ class _AddressEditPageState extends State<AddressEditPage> {
               onChanged: (value) {
                 setState(() {
                   address.postalCode = value;
-                });
-              },
-            ),
-            CustomTextField(
-              titleColor: Styles.PRIMARY_COLOR,
-              fieldHeader: "Country",
-              initialValue: address.country,
-              onChanged: (value) {
-                setState(() {
-                  address.country = value;
                 });
               },
             ),

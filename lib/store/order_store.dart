@@ -14,6 +14,9 @@ abstract class _OrderStore with Store {
   bool isLoading = false;
 
   @observable
+  bool isFetching = false;
+
+  @observable
   Map<String, Order> combo = ObservableMap<String, Order>();
 
   @action
@@ -52,7 +55,7 @@ abstract class _OrderStore with Store {
   @action
   getComboOrders() async {
     if (combo.isEmpty) {
-      isLoading = true;
+      isFetching = true;
       try {
         Map<String, dynamic> response = await orderService.getOrderDataMap();
         print("reponse in order store");
@@ -78,11 +81,11 @@ abstract class _OrderStore with Store {
           });
           combo.addAll({order.id: order});
         });
-        isLoading = false;
+        isFetching = false;
       } catch (e) {
         print("error in order store");
         print(e);
-        isLoading = false;
+        isFetching = false;
         throw e;
       }
     }
@@ -91,6 +94,7 @@ abstract class _OrderStore with Store {
   @action
   clearStore() {
     isLoading = false;
+    isFetching = false;
     combo = ObservableMap<String, Order>();
   }
 }

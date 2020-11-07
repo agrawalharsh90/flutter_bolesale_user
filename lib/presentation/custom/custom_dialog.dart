@@ -86,14 +86,6 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
               SizedBox(
                 height: ScreenUtil.instance.setHeight(10),
               ),
-              getDetailsRow("Description", widget.product.description),
-              getDetailsRow("MRP", widget.product.mrp),
-              getDetailsRow("Size", widget.product.size),
-              getDetailsRow("Brand", widget.product.brand),
-              getDetailsRow("Warranty", widget.product.warranty),
-              getDetailsRow("Material", widget.product.material),
-              getDetailsRow("MOQ", widget.product.moq),
-              getDetailsRow("Origin", widget.product.origin),
               Text(
                 "Price : Rs." + widget.product.price,
                 style: TextStyle(color: Styles.PRIMARY_COLOR, fontSize: 18),
@@ -191,6 +183,18 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> {
                       ),
                     )
                   : SizedBox(),
+              SizedBox(
+                height: ScreenUtil.instance.setHeight(10),
+              ),
+              getDetailsRow("MOQ", widget.product.moq),
+              getDetailsRow("Material", widget.product.material),
+              getDetailsRow("Size", widget.product.size),
+              getDetailsRow("MRP", widget.product.mrp),
+              getDetailsRow("Dispatch in Days", widget.product.dispatch),
+              getDetailsRow("Brand", widget.product.brand),
+              getDetailsRow("Warranty", widget.product.warranty),
+              getDetailsRow("Origin", widget.product.origin),
+              getDetailsRow("Description", widget.product.description),
             ],
           ),
         ),
