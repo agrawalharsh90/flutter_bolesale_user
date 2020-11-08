@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/utils/globals.dart';
-import 'package:grocery/utils/styles.dart';
 
 class ContactUs extends StatelessWidget {
   static const String routeNamed = 'ContactUs';
@@ -16,16 +15,15 @@ class ContactUs extends StatelessWidget {
           SizedBox(
             height: ScreenUtil.instance.setWidth(40),
           ),
-          getTitleTex(
-              ' Bolesale Tech Pvt. Ltd.\n\nCrossings Republik, Ghaziabad, UP, India',
-              textAlign: TextAlign.center,
-              textColor: Styles.BLACK_COLOR),
-          SizedBox(
-            height: ScreenUtil.instance.setWidth(40),
-          ),
+//          getTitleTex(
+//              ' Bolesale Tech Pvt. Ltd.\n\nCrossings Republik, Ghaziabad, UP, India',
+//              textAlign: TextAlign.center,
+//              textColor: Styles.BLACK_COLOR),
+//          SizedBox(
+//            height: ScreenUtil.instance.setWidth(40),
+//          ),
           _personalDetailRow(Icons.mail, 'support@bolesale.com', context),
           _personalDetailRow(Icons.call, '+918979058855', context),
-         
         ],
       ),
     );

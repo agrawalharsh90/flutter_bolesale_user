@@ -24,6 +24,7 @@ class _CreateRequestState extends State<CreateRequest> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      appBarTitle: 'New Request',
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(

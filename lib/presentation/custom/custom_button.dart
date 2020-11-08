@@ -77,7 +77,7 @@ class CustomButton extends StatelessWidget {
                         : Container(
                             height: ScreenUtil.instance.setHeight(30),
                             width: ScreenUtil.instance.setHeight(30),
-                            child: imageWidget(imgUrl: imageUrl),
+                            child: imageWidget(imgUrl: imageUrl,imageColor: Styles.PRIMARY_COLOR),
                           ),
                     Row(
                       children: <Widget>[

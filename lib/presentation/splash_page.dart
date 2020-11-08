@@ -45,9 +45,10 @@ class _SplashPageState extends State<SplashPage> {
         padding:
             EdgeInsets.symmetric(horizontal: ScreenUtil.instance.setWidth(30)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
-              height: ScreenUtil.instance.setHeight(280),
+              height: ScreenUtil.instance.setHeight(200),
               child: Center(
                 child: Image.asset(
                   Styles.APP_LOGO,
@@ -56,16 +57,19 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: ScreenUtil.instance.setHeight(20),
-            ),
-            Text(
-              "Bolesale: India's B2B Marketplace",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: ScreenUtil.instance.setHeight(20),
+            Column(
+              children: [
+                Text(
+                  "Welcome to Bolesale",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "India's B2B Marketplace\n\n\n\n\n\nWe connect Manufacturers, Wholesalers and Traders with Retailers and Resellers all over India.",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
             Center(
               child: CircularProgressIndicator(

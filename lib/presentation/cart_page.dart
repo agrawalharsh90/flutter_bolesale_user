@@ -21,8 +21,6 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBarTitle: 'Cart',
-      showbackArrow: false,
       body: Column(
         children: <Widget>[
           InkWell(

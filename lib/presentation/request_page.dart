@@ -16,6 +16,7 @@ class RequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      appBarTitle: 'Requests',
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -46,7 +47,7 @@ class RequestPage extends StatelessWidget {
       );
     if (requestStore.requests.isEmpty)
       return Center(
-        child: getTitleTex('No Request added'),
+        child: getTitleTex('No Request added', textAlign: TextAlign.center),
       );
     return ListView.builder(
         shrinkWrap: true,

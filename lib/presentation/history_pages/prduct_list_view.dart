@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/order.dart';
 import 'package:grocery/model/product.dart';
+import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
@@ -12,7 +13,8 @@ class ProductListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
+      appBarTitle: 'Order :' + orderModel.id,
       body: Container(
         margin: EdgeInsets.symmetric(
           vertical: ScreenUtil.instance.setHeight(20),

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/cart_page.dart';
-import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/search_bar.dart';
 import 'package:grocery/presentation/drawer_page.dart';
@@ -53,17 +52,6 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.left,
           ),
           actions: [
-//            InkWell(
-//              onTap: _navigateToMyAccountPage,
-//              child: Icon(
-//                Icons.person,
-//                size: ScreenUtil.instance.setWidth(30),
-//                color: Styles.WHITE_COLOR,
-//              ),
-//            ),
-//            SizedBox(
-//              width: ScreenUtil.instance.setWidth(20),
-//            ),
             InkWell(
               onTap: () {
                 setState(() {
@@ -92,11 +80,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   homeWidget() {
-    return CustomScaffold(
-      body: SingleChildScrollView(
+    return Container(
+      child: SingleChildScrollView(
         controller: scrollController,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             InkWell(
               onTap: () {

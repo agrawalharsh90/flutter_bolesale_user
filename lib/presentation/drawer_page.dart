@@ -36,6 +36,7 @@ class DrawerPage extends StatelessWidget {
                 },
                 child: StoreObserver<UserStore>(
                   builder: (UserStore userStore, BuildContext context) {
+                    if (userStore.loggedInUser == null) return SizedBox();
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -136,7 +137,7 @@ class DrawerPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Divider(),
-              getTitleTex('version:\n1.0.0', textAlign: TextAlign.center),
+              getTitleTex('version:\nV1.0.1', textAlign: TextAlign.center),
             ],
           )
         ],

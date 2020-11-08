@@ -34,15 +34,15 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
             resizeToAvoidBottomInset: true,
             resizeToAvoidBottomPadding: true,
             context: context,
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  logoContainer(),
-                  userStore.isLoggedIn
+            body: Column(
+              children: <Widget>[
+                logoContainer(),
+                Expanded(
+                  child: userStore.isLoggedIn
                       ? detailsWidget(userStore)
                       : loginWidget(userStore),
-                ],
-              ),
+                ),
+              ],
             ));
       },
     );
@@ -54,21 +54,25 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       margin:
           EdgeInsets.symmetric(horizontal: ScreenUtil.instance.setWidth(30)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          SizedBox(
-            height: ScreenUtil.instance.setHeight(20),
-          ),
-          Text(
-            "Bolesale: India's B2B Marketplace",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: ScreenUtil.instance.setHeight(20),
+          Column(
+            children: [
+              Text(
+                "Welcome to Bolesale",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "India's B2B Marketplace\n\n\n\n\n\nWe connect Manufacturers, Wholesalers and Traders with Retailers and Resellers all over India.",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
           CustomButton(
             isLoading: userStore.isLoading,
-            text: "Continue with google",
+            text: "Continue with Google",
             onTap: () async {
               try {
                 User user = await userStore.loginWithGoogle();
@@ -81,7 +85,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                 showSnackbar(e, context);
               }
             },
-          )
+          ),
         ],
       ),
     );
@@ -96,104 +100,103 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       if (userStore.loggedInUser.createdAt !=
           userStore.loggedInUser.lastLoggedIn) referEditable = false;
     }
-    return Column(
-      key: Key('DETAILS'),
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: ScreenUtil.instance.setWidth(30)),
-          child: Form(
-            key: _detailsFormKey,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: ScreenUtil.instance.setHeight(30),
-                ),
-                CustomTextField(
-                  fieldHeader: 'Name',
-                  textInputType: TextInputType.text,
-                  initialValue: name,
-                  onChanged: (value) {
-                    setState(() {
-                      name = value;
-                    });
-                  },
-                  validators: (value) {
-                    if (requiredString(value)) return null;
-                    return "Required Field";
-                  },
-                ),
-                CustomTextField(
-                  fieldHeader: 'Email',
-                  textInputType: TextInputType.emailAddress,
-                  initialValue: email,
-                  isEditable: false,
-                ),
-                CustomTextField(
-                  fieldHeader: 'Phone Number',
-                  textInputType: TextInputType.phone,
-                  initialValue: phone,
-                  onChanged: (value) {
-                    setState(() {
-                      phone = value;
-                    });
-                  },
-                  validators: (value) {
-                    if (requiredString(value)) return null;
-                    return "Required Field";
-                  },
-                ),
-                CustomTextField(
-                  fieldHeader: 'Referal Seller Id',
-                  textInputType: TextInputType.emailAddress,
-                  initialValue: referralSellerId,
-                  onChanged: (value) {
-                    setState(() {
-                      referralSellerId = value;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: ScreenUtil.instance.setHeight(80),
-                ),
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        key: Key('DETAILS'),
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: ScreenUtil.instance.setWidth(30)),
+            child: Form(
+              key: _detailsFormKey,
+              child: Column(
+                children: <Widget>[
+                  CustomTextField(
+                    fieldHeader: 'Name',
+                    textInputType: TextInputType.text,
+                    initialValue: name,
+                    onChanged: (value) {
+                      setState(() {
+                        name = value;
+                      });
+                    },
+                    validators: (value) {
+                      if (requiredString(value)) return null;
+                      return "Required Field";
+                    },
+                  ),
+                  CustomTextField(
+                    fieldHeader: 'Email',
+                    textInputType: TextInputType.emailAddress,
+                    initialValue: email,
+                    isEditable: false,
+                  ),
+                  CustomTextField(
+                    fieldHeader: 'Phone Number',
+                    textInputType: TextInputType.phone,
+                    initialValue: phone,
+                    onChanged: (value) {
+                      setState(() {
+                        phone = value;
+                      });
+                    },
+                    validators: (value) {
+                      if (requiredString(value)) return null;
+                      return "Required Field";
+                    },
+                  ),
+                  CustomTextField(
+                    fieldHeader: 'Referral Seller Id',
+                    textInputType: TextInputType.emailAddress,
+                    initialValue: referralSellerId,
+                    onChanged: (value) {
+                      setState(() {
+                        referralSellerId = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: ScreenUtil.instance.setHeight(50),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: ScreenUtil.instance.setWidth(30)),
-          child: CustomButton(
-            isLoading: userStore.isLoading,
-            text: 'Submit',
-            fontSize: 20,
-            borderRadius: 5,
-            onTap: () async {
-              _detailsFormKey.currentState.save();
-              if (_detailsFormKey.currentState.validate()) {
-                User user = Provider.of<UserStore>(context).loggedInUser;
-                user.phoneNumber = phone;
-                user.name = name;
-                user.referralSellerId = referralSellerId;
-                try {
-                  await userStore.updatedUser(user: user);
-                  _navigateToSplashPage();
-                } catch (e) {
-                  print("error in update user");
-                  print(e);
-                  showSnackbar(e, context);
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: ScreenUtil.instance.setWidth(30)),
+            child: CustomButton(
+              isLoading: userStore.isLoading,
+              text: 'Submit',
+              fontSize: 20,
+              borderRadius: 5,
+              onTap: () async {
+                _detailsFormKey.currentState.save();
+                if (_detailsFormKey.currentState.validate()) {
+                  User user = Provider.of<UserStore>(context).loggedInUser;
+                  user.phoneNumber = phone;
+                  user.name = name;
+                  user.referralSellerId = referralSellerId;
+                  try {
+                    await userStore.updatedUser(user: user);
+                    _navigateToSplashPage();
+                  } catch (e) {
+                    print("error in update user");
+                    print(e);
+                    showSnackbar(e, context);
+                  }
                 }
-              }
-            },
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget logoContainer() {
     return Container(
-      height: ScreenUtil.instance.setHeight(280),
+      height: ScreenUtil.instance.setHeight(250),
       child: Center(
         child: Image.asset(
           Styles.APP_LOGO,

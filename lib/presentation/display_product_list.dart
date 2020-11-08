@@ -65,6 +65,10 @@ class _DisplayProductListState extends State<DisplayProductList> {
                   itemBuilder: (BuildContext context, index) {
                     return Column(
                       children: [
+                        SizedBox(
+                          height: ScreenUtil.instance
+                              .setHeight(index == 0 ? 10 : 0),
+                        ),
                         InkWell(
                           onTap: () => navigateToDisplayProductWidget(
                               context: context,
