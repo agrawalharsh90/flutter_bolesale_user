@@ -29,21 +29,21 @@ class PreferenceService {
     (await _getInstance()).setString(PreferenceService.UID, null);
   }
 
-  Future<void> setAuthUser(User user) async {
+  Future<void> setAuthUser(LoggedInUser user) async {
     (await _getInstance()).setString(
-        PreferenceService.LOGGED_IN_USER, json.encode(User.toJson(user)));
+        PreferenceService.LOGGED_IN_USER, json.encode(LoggedInUser.toJson(user)));
   }
 
   Future<void> removeAuthUser() async {
     (await _getInstance()).setString(PreferenceService.LOGGED_IN_USER, null);
   }
 
-  Future<User> getAuthUser() async {
+  Future<LoggedInUser> getAuthUser() async {
     final String user =
         (await _getInstance()).getString(PreferenceService.LOGGED_IN_USER);
     if (user == null) {
       return null;
     }
-    return User.fromJson(json.decode(user));
+    return LoggedInUser.fromJson(json.decode(user));
   }
 }

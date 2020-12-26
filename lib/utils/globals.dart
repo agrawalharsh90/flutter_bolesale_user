@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grocery/model/grocery_error.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/display_product_widget.dart';
+import 'package:grocery/services/dynamic_link_service.dart';
 import 'package:grocery/services/firebase_services.dart';
 import 'package:grocery/services/get_product_service.dart';
 import 'package:grocery/services/location_service.dart';
@@ -28,6 +31,8 @@ LocationService locationService = LocationService.getInstance();
 OfferService offerService = OfferService.getInstance();
 RequestService requestService = RequestService.getInstance();
 FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+DynamicLinkService dynamicLinkService = DynamicLinkService.getInstance();
+GetIt locator = GetIt.instance;
 
 bool validateEmail(String email) {
   if (!requiredString(email)) {
@@ -131,14 +136,12 @@ urlLauncher(String data, context) async {
 }
 
 navigateToDisplayProductWidget(
-    {Product product, BuildContext context, Function onAdd}) {
+    {Product product, BuildContext context}) {
   Navigator.push(
       context,
       MaterialPageRoute(
           builder: (BuildContext context) => DisplayProductWidget(
-              product: product,
-              onAdd: onAdd,
-              initialCount: int.parse(product.moq))));
+              product: product, initialCount: int.parse(product.moq))));
 }
 
 showToast(String text) {
@@ -195,4 +198,16 @@ imageWidget({String imgUrl, BoxFit boxFit = BoxFit.contain, Color imageColor}) {
           fit: boxFit,
           color: imageColor,
         );
+}
+
+hideKeyboard(
+    {BuildContext context,
+    bool hideTextInput = true,
+    bool requestFocusNode = true}) {
+  if (hideTextInput) {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+  }
+  if (context != null && requestFocusNode) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
 }

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/utils/styles.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   String hintText;
   IconData icon;
   Function onSearch;
-  Function onTap;
   double borderRadius;
   double topPadding;
   double verticalMargin;
@@ -17,7 +16,6 @@ class SearchBar extends StatelessWidget {
     this.hintText,
     this.icon,
     this.onSearch,
-    this.onTap,
     this.borderRadius = 5,
     this.topPadding = 0,
     this.verticalMargin = 20,
@@ -26,30 +24,58 @@ class SearchBar extends StatelessWidget {
   });
 
   @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  String text;
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-              ScreenUtil.instance.setWidth(borderRadius))),
+              ScreenUtil.instance.setWidth(widget.borderRadius))),
       margin: EdgeInsets.symmetric(
-          vertical: ScreenUtil.instance.setHeight(verticalMargin),
-          horizontal: ScreenUtil.instance.setWidth(horizontalMargin)),
+          vertical: ScreenUtil.instance.setHeight(widget.verticalMargin),
+          horizontal: ScreenUtil.instance.setWidth(widget.horizontalMargin)),
       child: Container(
         padding: EdgeInsets.only(
-            top: ScreenUtil.instance.setHeight(topPadding),
+            top: ScreenUtil.instance.setHeight(widget.topPadding),
             left: ScreenUtil.instance.setWidth(20)),
         child: TextFormField(
-          initialValue: initialValue,
-          onChanged: (value) {
-            onSearch(value);
+          initialValue: widget.initialValue,
+          onSaved: (value) {
+            setState(() {
+              text = value;
+            });
+            if (value.isNotEmpty) widget.onSearch(value);
           },
-          onTap: onTap,
+          onFieldSubmitted: (value) {
+            setState(() {
+              text = value;
+            });
+            if (value.isNotEmpty) widget.onSearch(value);
+          },
+          onEditingComplete: () {
+            if (text.isNotEmpty) widget.onSearch(text);
+          },
+          onChanged: (value) {
+            setState(() {
+              text = value;
+            });
+          },
           decoration: InputDecoration(
-            hintText: hintText,
-            icon: Icon(
-              icon ?? Icons.search,
-              color: Styles.PRIMARY_COLOR,
+            hintText: widget.hintText,
+            suffixIcon: IconButton(
+              icon: Icon(
+                widget.icon ?? Icons.search,
+                color: Styles.PRIMARY_COLOR,
+              ),
+              onPressed: () {
+                if (text.isNotEmpty) widget.onSearch(text);
+              },
             ),
             border: InputBorder.none,
           ),

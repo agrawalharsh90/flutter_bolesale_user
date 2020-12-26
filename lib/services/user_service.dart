@@ -9,28 +9,32 @@ class UserService {
   static final UserService _instance = UserService._();
   Firestore _firestore = Firestore.instance;
 
-  Future<User> getUser() async {
+  Future<LoggedInUser> getUser() async {
     String uid = await preferenceService.getUID();
     print(uid);
     DocumentSnapshot documentSnapshot =
         await _firestore.collection('user_details').document(uid).get();
     print(documentSnapshot.data);
-    User user = User.fromJson(documentSnapshot.data);
+    LoggedInUser user = LoggedInUser.fromJson(documentSnapshot.data);
     return user;
   }
 
-  Future<User> setUser({User user}) async {
+  Future<LoggedInUser> setUser({LoggedInUser user}) async {
     DocumentReference documentReference =
         _firestore.collection('user_details').document(user.uid);
-    var data = User.toJson(user);
+    var data = LoggedInUser.toJson(user);
     try {
       DocumentSnapshot documentSnapshot = await documentReference.get();
       if (documentSnapshot.exists) {
         print("User exist");
-        User data = User.fromJson(documentSnapshot.data);
+        LoggedInUser data = LoggedInUser.fromJson(documentSnapshot.data);
         data.lastLoggedIn = user.lastLoggedIn;
         data.deviceToken = user.deviceToken;
-        await documentReference.updateData(User.toJson(data));
+        data.name = data.name ?? user.name;
+        data.email = data.email ?? user.email;
+        data.imgUrl = data.imgUrl ?? user.imgUrl;
+        data.phoneNumber = data.phoneNumber ?? user.phoneNumber;
+        await documentReference.updateData(LoggedInUser.toJson(data));
         user = data;
       } else {
         await documentReference.setData(data);
@@ -42,10 +46,10 @@ class UserService {
     }
   }
 
-  Future<void> updateUser({User user}) async {
+  Future<void> updateUser({LoggedInUser user}) async {
     DocumentReference documentReference =
         _firestore.collection('user_details').document(user.uid);
-    var data = User.toJson(user);
+    var data = LoggedInUser.toJson(user);
     try {
       DocumentSnapshot documentSnapshot = await documentReference.get();
       if (documentSnapshot.exists) {

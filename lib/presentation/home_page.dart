@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController scrollController = ScrollController();
-  User loggedInUser;
+  LoggedInUser loggedInUser;
   int currentPage;
 
   @override

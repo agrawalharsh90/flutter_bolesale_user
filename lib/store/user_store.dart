@@ -18,28 +18,19 @@ abstract class _UserStore with Store {
   bool isLoggedIn = false;
 
   @observable
-  User loggedInUser;
+  LoggedInUser loggedInUser;
 
   @action
   loginWithGoogle() async {
     isLoading = true;
     try {
-      FirebaseUser firebaseUser =
+      LoggedInUser loggedInUser =
           await GoogleService.getInstance().signInWithGoogle();
       String token = await firebaseMessaging.getToken();
-      Map<String, dynamic> value = {
-        'uid': firebaseUser.uid,
-        'photoUrl': firebaseUser.photoUrl,
-        'email': firebaseUser.email,
-        'phoneNumber': firebaseUser.phoneNumber,
-        'displayName': firebaseUser.displayName,
-        'createdAt': DateTime.now().toString(),
-        'lastLoggedIn': DateTime.now().toString(),
-        'deviceToken': token,
-      };
-      User user = User.fromJson(value);
-      user = await createUser(user);
-      return user;
+      loggedInUser.deviceToken = token;
+      print(LoggedInUser.toJson(loggedInUser));
+      loggedInUser = await createUser(loggedInUser);
+      print(LoggedInUser.toJson(loggedInUser));
     } catch (e) {
       isLoading = false;
       throw e;
@@ -47,7 +38,7 @@ abstract class _UserStore with Store {
   }
 
   @action
-  updatedUser({User user, File imageFile}) async {
+  updatedUser({LoggedInUser user, File imageFile}) async {
     isLoading = true;
     if (imageFile != null) {
       String url = await firebaseService.uploadFile(
@@ -55,21 +46,19 @@ abstract class _UserStore with Store {
       user.imgUrl = url;
     }
     await userService.updateUser(user: user);
-    await preferenceService.setAuthUser(user);
-    loggedInUser = user;
-    isLoading = false;
+    await setLoggedIn(user);
   }
 
   @action
-  createUser(User user) async {
+  createUser(LoggedInUser user) async {
     isLoading = true;
     user = await userService.setUser(user: user);
-    setLoggedIn(user);
+    await setLoggedIn(user);
     return user;
   }
 
   @action
-  setLoggedIn(User user) async {
+  setLoggedIn(LoggedInUser user) async {
     print("set login user");
     await preferenceService.setAuthUser(user);
     await preferenceService.setUID(user.uid);

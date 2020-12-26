@@ -3,7 +3,7 @@ import 'package:grocery/model/user.dart';
 
 class ScreenArguments {
   final String helpingHandTitle;
-  final User user;
+  final LoggedInUser user;
   final List<Product> productList;
   final int currentPage;
   final String url;

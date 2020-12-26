@@ -4,13 +4,13 @@ import 'package:mobx/mobx.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User extends _User with _$User {
-  static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+class LoggedInUser extends _LoggedInUser with _$LoggedInUser {
+  static LoggedInUser fromJson(Map<String, dynamic> json) => _$LoggedInUserFromJson(json);
 
-  static Map<String, dynamic> toJson(User user) => _$UserToJson(user);
+  static Map<String, dynamic> toJson(LoggedInUser loggedInUser) => _$LoggedInUserToJson(loggedInUser);
 }
 
-abstract class _User with Store {
+abstract class _LoggedInUser with Store {
   @observable
   String uid;
 

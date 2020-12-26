@@ -123,7 +123,7 @@ class _ClothesPageState extends State<ClothesPage> {
       );
     if (clothesStore.filterProductMap.isEmpty)
       return Center(
-        child: getTitleTex('No items found'),
+        child: getTitleTex('No items found', textAlign: TextAlign.center),
       );
     return GridView.builder(
         controller: _scrollController,
@@ -136,15 +136,7 @@ class _ClothesPageState extends State<ClothesPage> {
             onTap: () => navigateToDisplayProductWidget(
                 context: context,
                 product: clothesStore.filterProductMap.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      clothesStore.filterProductMap.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    "Clothes": {product.sellerId: product}
-                  });
-                }),
+                ),
             imgUrl: clothesStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],

@@ -37,9 +37,9 @@ abstract class _OrderStore with Store {
         vc.forEach((key, value) {
           Product product = Product.fromJson(jsonDecode(jsonEncode(value)));
           if (order.ordersMap == null)
-            order.ordersMap = {product.sellerId: product};
+            order.ordersMap = {product.productID: product};
           else
-            order.ordersMap.addAll({product.sellerId: product});
+            order.ordersMap.addAll({product.productID: product});
         });
       });
       combo.addAll({order.id: order});
@@ -74,9 +74,9 @@ abstract class _OrderStore with Store {
             vc.forEach((key, value) {
               Product product = Product.fromJson(jsonDecode(jsonEncode(value)));
               if (order.ordersMap == null)
-                order.ordersMap = {product.sellerId: product};
+                order.ordersMap = {product.productID: product};
               else
-                order.ordersMap.addAll({product.sellerId: product});
+                order.ordersMap.addAll({product.productID: product});
             });
           });
           combo.addAll({order.id: order});

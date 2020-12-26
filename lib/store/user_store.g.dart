@@ -46,14 +46,14 @@ mixin _$UserStore on _UserStore, Store {
   final _$loggedInUserAtom = Atom(name: '_UserStore.loggedInUser');
 
   @override
-  User get loggedInUser {
+  LoggedInUser get loggedInUser {
     _$loggedInUserAtom.context.enforceReadPolicy(_$loggedInUserAtom);
     _$loggedInUserAtom.reportObserved();
     return super.loggedInUser;
   }
 
   @override
-  set loggedInUser(User value) {
+  set loggedInUser(LoggedInUser value) {
     _$loggedInUserAtom.context.conditionallyRunInAction(() {
       super.loggedInUser = value;
       _$loggedInUserAtom.reportChanged();
@@ -70,7 +70,7 @@ mixin _$UserStore on _UserStore, Store {
   final _$updatedUserAsyncAction = AsyncAction('updatedUser');
 
   @override
-  Future updatedUser({User user, File imageFile}) {
+  Future updatedUser({LoggedInUser user, File imageFile}) {
     return _$updatedUserAsyncAction
         .run(() => super.updatedUser(user: user, imageFile: imageFile));
   }
@@ -78,14 +78,14 @@ mixin _$UserStore on _UserStore, Store {
   final _$createUserAsyncAction = AsyncAction('createUser');
 
   @override
-  Future createUser(User user) {
+  Future createUser(LoggedInUser user) {
     return _$createUserAsyncAction.run(() => super.createUser(user));
   }
 
   final _$setLoggedInAsyncAction = AsyncAction('setLoggedIn');
 
   @override
-  Future setLoggedIn(User user) {
+  Future setLoggedIn(LoggedInUser user) {
     return _$setLoggedInAsyncAction.run(() => super.setLoggedIn(user));
   }
 

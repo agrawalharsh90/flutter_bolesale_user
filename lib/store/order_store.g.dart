@@ -26,6 +26,23 @@ mixin _$OrderStore on _OrderStore, Store {
     }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
   }
 
+  final _$isFetchingAtom = Atom(name: '_OrderStore.isFetching');
+
+  @override
+  bool get isFetching {
+    _$isFetchingAtom.context.enforceReadPolicy(_$isFetchingAtom);
+    _$isFetchingAtom.reportObserved();
+    return super.isFetching;
+  }
+
+  @override
+  set isFetching(bool value) {
+    _$isFetchingAtom.context.conditionallyRunInAction(() {
+      super.isFetching = value;
+      _$isFetchingAtom.reportChanged();
+    }, _$isFetchingAtom, name: '${_$isFetchingAtom.name}_set');
+  }
+
   final _$comboAtom = Atom(name: '_OrderStore.combo');
 
   @override

@@ -5,7 +5,6 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/presentation/display_product_list.dart';
-import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/sports_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
@@ -21,7 +20,6 @@ class SportsPage extends StatefulWidget {
 class _SportsPageState extends State<SportsPage> {
   ScrollController _scrollController = ScrollController();
   bool isSearching = false;
-  String selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +122,7 @@ class _SportsPageState extends State<SportsPage> {
       );
     if (sportsStore.filterProductMap.isEmpty)
       return Center(
-        child: getTitleTex('No items found'),
+        child: getTitleTex('No items found', textAlign: TextAlign.center),
       );
     return GridView.builder(
         controller: _scrollController,
@@ -135,17 +133,9 @@ class _SportsPageState extends State<SportsPage> {
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => navigateToDisplayProductWidget(
-                context: context,
-                product: sportsStore.filterProductMap.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      sportsStore.filterProductMap.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    "Sports": {product.sellerId: product}
-                  });
-                }),
+              context: context,
+              product: sportsStore.filterProductMap.values.toList()[index],
+            ),
             imgUrl: sportsStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],

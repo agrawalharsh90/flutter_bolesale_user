@@ -11,13 +11,15 @@ import 'package:grocery/presentation/category_pages/mobile_page.dart';
 import 'package:grocery/presentation/category_pages/sports_page.dart';
 import 'package:grocery/presentation/category_pages/stationary_page.dart';
 import 'package:grocery/presentation/contact_us.dart';
-import 'package:grocery/presentation/request_page.dart';
 import 'package:grocery/presentation/custom/webview_scaffold.dart';
 import 'package:grocery/presentation/history_pages/history_page.dart';
 import 'package:grocery/presentation/home_page.dart';
+import 'package:grocery/presentation/login_page.dart';
 import 'package:grocery/presentation/my_account.dart';
-import 'package:grocery/presentation/phone_auth_page.dart';
+import 'package:grocery/presentation/request_page.dart';
 import 'package:grocery/presentation/splash_page.dart';
+import 'package:grocery/presentation/user_details_edit.dart';
+import 'package:grocery/services/dynamic_link_service.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/clothes_store.dart';
@@ -32,11 +34,17 @@ import 'package:grocery/store/offer_store.dart';
 import 'package:grocery/store/order_store.dart';
 import 'package:grocery/store/request_store.dart';
 import 'package:grocery/store/user_store.dart';
+import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(BoleSale());
+  WidgetsFlutterBinding.ensureInitialized();
+  locator.registerLazySingleton(() => dynamicLinkService);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(BoleSale());
+  });
 }
 
 class BoleSale extends StatelessWidget {
@@ -44,7 +52,6 @@ class BoleSale extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
-
       providers: [
         Provider<UserStore>.value(value: UserStore()),
         Provider<ClothesStore>.value(value: ClothesStore()),
@@ -67,6 +74,7 @@ class BoleSale extends StatelessWidget {
             backgroundColor: Styles.WHITE_COLOR,
             primaryColor: Styles.PRIMARY_COLOR),
         initialRoute: SplashPage.routeNamed,
+        navigatorKey: locator<DynamicLinkService>().navigatorKey,
         routes: {
           SplashPage.routeNamed: (BuildContext context) => SplashPage(),
           HomePage.routeNamed: (BuildContext context) => HomePage(),
@@ -81,8 +89,8 @@ class BoleSale extends StatelessWidget {
           MobilePage.routeNamed: (BuildContext context) => MobilePage(),
           SportsPage.routeNamed: (BuildContext context) => SportsPage(),
           StationaryPage.routeNamed: (BuildContext context) => StationaryPage(),
-          PhoneAuthPage.routeNamed: (BuildContext context) =>
-              Scaffold(body: PhoneAuthPage()),
+          LoginPage.routeNamed: (BuildContext context) =>
+              Scaffold(body: LoginPage()),
           AddressEditPage.routeNamed: (BuildContext context) => Scaffold(
                 body: AddressEditPage(),
               ),
@@ -92,6 +100,8 @@ class BoleSale extends StatelessWidget {
           ContactUs.routeNamed: (BuildContext context) => ContactUs(),
           RequestPage.routeNamed: (BuildContext context) =>
               Scaffold(body: RequestPage()),
+          UserDetailsEdit.routeNamed: (BuildContext context) =>
+              Scaffold(body: UserDetailsEdit()),
         },
       ),
     );

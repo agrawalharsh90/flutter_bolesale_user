@@ -5,7 +5,6 @@ import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
 import 'package:grocery/presentation/display_product_list.dart';
-import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/essentials_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
@@ -21,7 +20,6 @@ class EssentialsPage extends StatefulWidget {
 class _EssentialsPageState extends State<EssentialsPage> {
   bool isSearching = false;
   ScrollController _scrollController = ScrollController();
-  String selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +123,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
       );
     if (essentialStore.filterProductMap.isEmpty)
       return Center(
-        child: getTitleTex('No items found'),
+        child: getTitleTex('No items found', textAlign: TextAlign.center),
       );
     return GridView.builder(
         controller: _scrollController,
@@ -136,17 +134,9 @@ class _EssentialsPageState extends State<EssentialsPage> {
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => navigateToDisplayProductWidget(
-                context: context,
-                product: essentialStore.filterProductMap.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      essentialStore.filterProductMap.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    "Essentials": {product.sellerId: product}
-                  });
-                }),
+              context: context,
+              product: essentialStore.filterProductMap.values.toList()[index],
+            ),
             imgUrl: essentialStore.filterProductMap.values
                 .toList()[index]
                 .productImage[0],

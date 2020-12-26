@@ -6,8 +6,8 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return User()
+LoggedInUser _$LoggedInUserFromJson(Map<String, dynamic> json) {
+  return LoggedInUser()
     ..uid = json['uid'] as String
     ..name = json['name'] as String
     ..phoneNumber = json['phoneNumber'] as String
@@ -19,7 +19,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..deviceToken = json['deviceToken'] as String;
 }
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$LoggedInUserToJson(LoggedInUser instance) =>
+    <String, dynamic>{
       'uid': instance.uid,
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
@@ -37,8 +38,8 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$User on _User, Store {
-  final _$uidAtom = Atom(name: '_User.uid');
+mixin _$LoggedInUser on _LoggedInUser, Store {
+  final _$uidAtom = Atom(name: '_LoggedInUser.uid');
 
   @override
   String get uid {
@@ -55,7 +56,7 @@ mixin _$User on _User, Store {
     }, _$uidAtom, name: '${_$uidAtom.name}_set');
   }
 
-  final _$nameAtom = Atom(name: '_User.name');
+  final _$nameAtom = Atom(name: '_LoggedInUser.name');
 
   @override
   String get name {
@@ -72,7 +73,7 @@ mixin _$User on _User, Store {
     }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
-  final _$phoneNumberAtom = Atom(name: '_User.phoneNumber');
+  final _$phoneNumberAtom = Atom(name: '_LoggedInUser.phoneNumber');
 
   @override
   String get phoneNumber {
@@ -89,7 +90,7 @@ mixin _$User on _User, Store {
     }, _$phoneNumberAtom, name: '${_$phoneNumberAtom.name}_set');
   }
 
-  final _$referralSellerIdAtom = Atom(name: '_User.referralSellerId');
+  final _$referralSellerIdAtom = Atom(name: '_LoggedInUser.referralSellerId');
 
   @override
   String get referralSellerId {
@@ -106,7 +107,7 @@ mixin _$User on _User, Store {
     }, _$referralSellerIdAtom, name: '${_$referralSellerIdAtom.name}_set');
   }
 
-  final _$imgUrlAtom = Atom(name: '_User.imgUrl');
+  final _$imgUrlAtom = Atom(name: '_LoggedInUser.imgUrl');
 
   @override
   String get imgUrl {
@@ -123,7 +124,7 @@ mixin _$User on _User, Store {
     }, _$imgUrlAtom, name: '${_$imgUrlAtom.name}_set');
   }
 
-  final _$emailAtom = Atom(name: '_User.email');
+  final _$emailAtom = Atom(name: '_LoggedInUser.email');
 
   @override
   String get email {
@@ -140,7 +141,7 @@ mixin _$User on _User, Store {
     }, _$emailAtom, name: '${_$emailAtom.name}_set');
   }
 
-  final _$createdAtAtom = Atom(name: '_User.createdAt');
+  final _$createdAtAtom = Atom(name: '_LoggedInUser.createdAt');
 
   @override
   String get createdAt {
@@ -157,7 +158,7 @@ mixin _$User on _User, Store {
     }, _$createdAtAtom, name: '${_$createdAtAtom.name}_set');
   }
 
-  final _$lastLoggedInAtom = Atom(name: '_User.lastLoggedIn');
+  final _$lastLoggedInAtom = Atom(name: '_LoggedInUser.lastLoggedIn');
 
   @override
   String get lastLoggedIn {
@@ -174,7 +175,7 @@ mixin _$User on _User, Store {
     }, _$lastLoggedInAtom, name: '${_$lastLoggedInAtom.name}_set');
   }
 
-  final _$deviceTokenAtom = Atom(name: '_User.deviceToken');
+  final _$deviceTokenAtom = Atom(name: '_LoggedInUser.deviceToken');
 
   @override
   String get deviceToken {

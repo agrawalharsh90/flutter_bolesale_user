@@ -7,7 +7,8 @@ import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/presentation/home_page.dart';
-import 'package:grocery/presentation/phone_auth_page.dart';
+import 'package:grocery/presentation/login_page.dart';
+import 'package:grocery/presentation/user_details_edit.dart';
 import 'package:grocery/store/address_store.dart';
 import 'package:grocery/store/user_store.dart';
 import 'package:grocery/utils/globals.dart';
@@ -83,17 +84,27 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   checkUser() async {
-    User loggedInUser = await preferenceService.getAuthUser();
+    LoggedInUser loggedInUser = await preferenceService.getAuthUser();
     if (loggedInUser != null) {
       print("logged in user");
-      print(User.toJson(loggedInUser));
+      print(LoggedInUser.toJson(loggedInUser));
       await Provider.of<UserStore>(context).setLoggedIn(loggedInUser);
+      if (loggedInUser.name == null ||
+          loggedInUser.name.isEmpty ||
+          loggedInUser.phoneNumber == null ||
+          loggedInUser.phoneNumber.isEmpty) {
+        _navigateToEditUserPage(context);
+        return;
+      }
       bool locationPermission = await _locationPermission();
       if (locationPermission)
         await Provider.of<AddressStore>(context).getAddress();
+      Map<String, String> url = await dynamicLinkService.handleDynamicLinks();
+      print("#####");
+      print(url);
       _navigateToHomePage(context);
     } else {
-      _navigateToPhoneAuthPage(context);
+      _navigateToLoginPage(context);
     }
   }
 
@@ -116,8 +127,12 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  _navigateToPhoneAuthPage(context) {
-    Navigator.pushReplacementNamed(context, PhoneAuthPage.routeNamed);
+  _navigateToLoginPage(context) {
+    Navigator.pushReplacementNamed(context, LoginPage.routeNamed);
+  }
+
+  _navigateToEditUserPage(context) {
+    Navigator.pushReplacementNamed(context, UserDetailsEdit.routeNamed);
   }
 
   _navigateToHomePage(context) {

@@ -17,14 +17,14 @@ class RequestService {
     String id = DateTime.now().millisecondsSinceEpoch.toString();
     DocumentReference documentReference =
         await _firestore.collection('requests').document(id);
-    User user = await preferenceService.getAuthUser();
+    LoggedInUser user = await preferenceService.getAuthUser();
     body.addAll({'id': id, 'uid': user.uid});
     await documentReference.setData(body);
     return body;
   }
 
   Future<Map<String, dynamic>> getAllRequets() async {
-    User user = await preferenceService.getAuthUser();
+    LoggedInUser user = await preferenceService.getAuthUser();
 
     QuerySnapshot querySnapshot = await _firestore
         .collection('requests')

@@ -107,12 +107,12 @@ class _BasketPageState extends State<BasketPage> {
                     Product product = productList[index];
                     product.quantity = v;
                     Provider.of<CartStore>(context).updateCartMap({
-                      title: {product.sellerId: product}
+                      title: {product.productID: product}
                     });
                   },
                   onDelete: () {
                     Provider.of<CartStore>(context)
-                        .deleteProductCart(title, productList[index].sellerId);
+                        .deleteProductCart(title, productList[index].productID);
                   },
                 ),
               );

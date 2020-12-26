@@ -16,9 +16,12 @@ class OrderService {
     String id = DateTime.now().millisecondsSinceEpoch.toString();
     DocumentReference documentReference =
         await _firestore.collection('orders').document(id);
-    User user = await preferenceService.getAuthUser();
-    body.addAll(
-        {'id': id, 'uid': user.uid, 'createdAt': DateTime.now().toString()});
+    LoggedInUser user = await preferenceService.getAuthUser();
+    body.addAll({
+      'id': id,
+      'uid': user.uid,
+      'createdAt': DateTime.now().toString(),
+    });
     DocumentSnapshot data = await documentReference.get();
     if (data.exists) {
       await documentReference.updateData(body);
@@ -50,7 +53,7 @@ class OrderService {
     return dataMap;
   }
 
-  Future sentEmail(User user, String id) async {
+  Future sentEmail(LoggedInUser user, String id) async {
     try {
       print("Send Mail");
       String url = 'https://mail-infinite.herokuapp.com/details';

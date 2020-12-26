@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/custom_search_scaffold.dart';
 import 'package:grocery/presentation/custom/image_card.dart';
 import 'package:grocery/presentation/custom/store_observer.dart';
-import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/store/categories_store/clothes_store.dart';
 import 'package:grocery/store/categories_store/essentials_store.dart';
 import 'package:grocery/store/categories_store/fashion_store.dart';
@@ -30,7 +28,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return CustomSearchScaffold(
       hintText: 'Find An Item',
-      searchText: '',
       onSearch: (value) {
         print(value);
         if (value == null || value.isEmpty) {
@@ -133,7 +130,8 @@ class _SearchPageState extends State<SearchPage> {
       );
     if (store.filterProductMap.isEmpty)
       return Center(
-        child: getTitleTex('No items found', fontSize: 12),
+        child: getTitleTex('No items found',
+            fontSize: 12, textAlign: TextAlign.center),
       );
     return GridView.builder(
         scrollDirection: Axis.vertical,
@@ -145,17 +143,9 @@ class _SearchPageState extends State<SearchPage> {
         itemBuilder: (BuildContext context, index) {
           return ImageCard(
             onTap: () => navigateToDisplayProductWidget(
-                context: context,
-                product: store.filterProductMap.values.toList()[index],
-                onAdd: (value) {
-                  print("on Add" + value.toString());
-                  Product product =
-                      store.filterProductMap.values.toList()[index];
-                  product.quantity = value;
-                  Provider.of<CartStore>(context).updateCartMap({
-                    key: {product.sellerId: product}
-                  });
-                }),
+              context: context,
+              product: store.filterProductMap.values.toList()[index],
+            ),
             imgUrl:
                 store.filterProductMap.values.toList()[index].productImage[0],
             width: 90,

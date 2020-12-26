@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
-import 'package:grocery/store/cart_store.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
-import 'package:provider/provider.dart';
 
 class DisplayProductList extends StatefulWidget {
   String title;
@@ -28,14 +26,15 @@ class _DisplayProductListState extends State<DisplayProductList> {
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.position.pixels) {
         if (widget.productList.length > length) {
-          if (widget.productList.length > (length + 10))
+          if (widget.productList.length > (length + 10)) {
             setState(() {
               length = length + 10;
             });
-        } else {
-          setState(() {
-            length = widget.productList.length;
-          });
+          } else {
+            setState(() {
+              length = widget.productList.length;
+            });
+          }
         }
       }
     });
@@ -71,16 +70,9 @@ class _DisplayProductListState extends State<DisplayProductList> {
                         ),
                         InkWell(
                           onTap: () => navigateToDisplayProductWidget(
-                              context: context,
-                              product: widget.productList[index],
-                              onAdd: (value) {
-                                print("on Add " + value.toString());
-                                Product product = widget.productList[index];
-                                product.quantity = value;
-                                Provider.of<CartStore>(context).updateCartMap({
-                                  "Clothes": {product.sellerId: product}
-                                });
-                              }),
+                            context: context,
+                            product: widget.productList[index],
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
