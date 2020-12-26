@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/custom/custom_scaffold.dart';
+import 'package:grocery/presentation/display_product_widget.dart';
 import 'package:grocery/presentation/home_page.dart';
 import 'package:grocery/presentation/login_page.dart';
 import 'package:grocery/presentation/user_details_edit.dart';
@@ -102,6 +103,19 @@ class _SplashPageState extends State<SplashPage> {
       Map<String, String> url = await dynamicLinkService.handleDynamicLinks();
       print("#####");
       print(url);
+      if (url != null && url.isNotEmpty) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DisplayProductWidget(
+              productId: url['productId'],
+              catId: url['categoryId'],
+              subCatId: url['subCategoryId'],
+            ),
+          ),
+        );
+        return;
+      }
       _navigateToHomePage(context);
     } else {
       _navigateToLoginPage(context);

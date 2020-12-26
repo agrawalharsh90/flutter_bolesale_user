@@ -1,6 +1,5 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/model/screen_argument.dart';
 import 'package:grocery/model/user.dart';
 import 'package:grocery/presentation/display_product_widget.dart';
 import 'package:grocery/utils/globals.dart';
@@ -16,8 +15,20 @@ class DynamicLinkService {
   final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>();
 
-  navigateTo(String routeName, ScreenArguments arguments) {
-    return navigatorKey.currentState.push(MaterialPageRoute(builder: (BuildContext context)=>DisplayProductWidget()));
+  navigateTo({
+    String productId,
+    String catId,
+    String subCatId,
+  }) {
+    return navigatorKey.currentState.push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => DisplayProductWidget(
+          productId: productId,
+          catId: catId,
+          subCatId: subCatId,
+        ),
+      ),
+    );
   }
 
   Future<Map<String, String>> handleDynamicLinks() async {
@@ -33,14 +44,10 @@ class DynamicLinkService {
       print(url);
       LoggedInUser user = await preferenceService.getAuthUser();
       if (user != null) {
-//          navigateTo(
-//              DisplayProductWidget,
-//              ScreenArguments(
-//                cheerId: url['instaCelebrationId'],
-//                themeId: url['instaThemeId'],
-//                title: url['title'],
-//                isBack: false,
-//              ));
+        navigateTo(
+            productId: url['productId'],
+            catId: url['categoryId'],
+            subCatId: url['subCategoryId']);
       }
       return url;
     }, onError: (OnLinkErrorException e) async {

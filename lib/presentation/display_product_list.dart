@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/model/product.dart';
-import 'package:grocery/presentation/custom/custom_scaffold.dart';
 import 'package:grocery/utils/globals.dart';
 import 'package:grocery/utils/styles.dart';
 
@@ -18,6 +17,11 @@ class DisplayProductList extends StatefulWidget {
 class _DisplayProductListState extends State<DisplayProductList> {
   ScrollController _scrollController = ScrollController();
   int length;
+  int sortBy = 0;
+
+  // 0 none
+  // 1 name
+  // 2 price
 
   @override
   void initState() {
@@ -49,8 +53,43 @@ class _DisplayProductListState extends State<DisplayProductList> {
         length = 10;
       }
     }
-    return CustomScaffold(
-      appBarTitle: widget.title,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          padding: EdgeInsets.only(left: ScreenUtil.instance.setWidth(20)),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Styles.WHITE_COLOR,
+            size: ScreenUtil.instance.setHeight(32),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Styles.WHITE_COLOR),
+          textAlign: TextAlign.left,
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.sort),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        title: Text("Sort By"),
+                        children: [
+                          sortRadioButton('name', 1, context),
+                          sortRadioButton('price: low to high', 2, context),
+                          sortRadioButton('price: high to low', 3, context),
+                        ],
+                      );
+                    });
+              })
+        ],
+      ),
       body: widget.productList.isEmpty
           ? Center(
               child: getTitleTex("No Items",
@@ -62,6 +101,16 @@ class _DisplayProductListState extends State<DisplayProductList> {
                   shrinkWrap: true,
                   itemCount: length,
                   itemBuilder: (BuildContext context, index) {
+                    if (sortBy == 3) {
+                      widget.productList.sort((a, b) =>
+                          int.parse(b.price).compareTo(int.parse(a.price)));
+                    } else if (sortBy == 2) {
+                      widget.productList.sort((a, b) =>
+                          int.parse(a.price).compareTo(int.parse(b.price)));
+                    } else if (sortBy == 1) {
+                      widget.productList
+                          .sort((a, b) => a.product.compareTo(b.product));
+                    }
                     return Column(
                       children: [
                         SizedBox(
@@ -118,6 +167,30 @@ class _DisplayProductListState extends State<DisplayProductList> {
                     );
                   }),
             ),
+    );
+  }
+
+  sortRadioButton(String text, int value, context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          sortBy = value;
+        });
+        Navigator.pop(context);
+      },
+      child: Row(
+        children: [
+          IgnorePointer(
+            child: Radio(
+              value: value,
+              groupValue: sortBy,
+              onChanged: (value) {},
+              activeColor: Styles.PRIMARY_COLOR,
+            ),
+          ),
+          Container(child: Text(text)),
+        ],
+      ),
     );
   }
 }
