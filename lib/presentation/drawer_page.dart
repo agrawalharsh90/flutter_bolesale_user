@@ -137,7 +137,7 @@ class DrawerPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Divider(),
-              getTitleTex('version:\nV1.0.1', textAlign: TextAlign.center),
+              getTitleTex('version:\nV1.0.2', textAlign: TextAlign.center),
             ],
           )
         ],

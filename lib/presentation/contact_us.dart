@@ -9,6 +9,7 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      context: context,
       appBarTitle: 'Contact Us',
       body: Column(
         children: <Widget>[

@@ -1,3 +1,4 @@
+import 'package:grocery/presentation/about/about_page.dart';
 import 'package:grocery/presentation/category_pages/clothes_page.dart';
 import 'package:grocery/presentation/category_pages/essentials_page.dart';
 import 'package:grocery/presentation/category_pages/fashion_page.dart';
@@ -89,6 +90,11 @@ abstract class StringValue {
       'title': 'Contact us',
       'image': Styles.MO_CONTACT_US,
       'route': ContactUs.routeNamed
+    },
+    {
+      'title': 'About',
+      'image': Styles.MO_POLICY,
+      'route': AboutPage.routeNamed
     },
     {
       'title': 'Log Out',

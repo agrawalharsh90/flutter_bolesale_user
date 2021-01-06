@@ -8,6 +8,8 @@ class ScreenArguments {
   final int currentPage;
   final String url;
   final String key;
+  final String title;
+  final String details;
 
   ScreenArguments({
     this.helpingHandTitle,
@@ -16,5 +18,7 @@ class ScreenArguments {
     this.currentPage = 0,
     this.url,
     this.key,
+    this.title,
+    this.details,
   });
 }

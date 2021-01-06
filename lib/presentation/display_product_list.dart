@@ -103,10 +103,10 @@ class _DisplayProductListState extends State<DisplayProductList> {
                   itemBuilder: (BuildContext context, index) {
                     if (sortBy == 3) {
                       widget.productList.sort((a, b) =>
-                          int.parse(b.price).compareTo(int.parse(a.price)));
+                          double.parse(b.price).compareTo(double.parse(a.price)));
                     } else if (sortBy == 2) {
                       widget.productList.sort((a, b) =>
-                          int.parse(a.price).compareTo(int.parse(b.price)));
+                          double.parse(a.price).compareTo(double.parse(b.price)));
                     } else if (sortBy == 1) {
                       widget.productList
                           .sort((a, b) => a.product.compareTo(b.product));

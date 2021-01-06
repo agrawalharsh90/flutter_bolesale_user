@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery/presentation/about/about_page.dart';
+import 'package:grocery/presentation/about/details_page.dart';
+import 'package:grocery/presentation/about/pdf_page.dart';
 import 'package:grocery/presentation/address_edit_page.dart';
 import 'package:grocery/presentation/basket_page.dart';
 import 'package:grocery/presentation/category_pages/clothes_page.dart';
@@ -98,6 +101,9 @@ class BoleSale extends StatelessWidget {
           WebviewScaffold.routeNamed: (BuildContext context) =>
               WebviewScaffold(),
           ContactUs.routeNamed: (BuildContext context) => ContactUs(),
+          AboutPage.routeNamed: (BuildContext context) => AboutPage(),
+          DetailsPage.routeNamed: (BuildContext context) => DetailsPage(),
+          PdfPage.routeNamed: (BuildContext context) => PdfPage(),
           RequestPage.routeNamed: (BuildContext context) =>
               Scaffold(body: RequestPage()),
           UserDetailsEdit.routeNamed: (BuildContext context) =>
